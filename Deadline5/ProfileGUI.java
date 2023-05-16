@@ -6,7 +6,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 public class ProfileGUI extends javax.swing.JFrame {
-
+    private int userId;
     /**
      * Creates new form ProfileGUI
      */
@@ -70,12 +70,20 @@ public class ProfileGUI extends javax.swing.JFrame {
                                 .addComponent(jLabel1)
                                 .addGap(19, 19, 19))
         );
+        List<String> rateList = displayUserRate(userId);
 
         jList1.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
+            String[] strings = rateList.toArray(new String[0]);
+
+            public int getSize() {
+                return strings.length;
+            }
+
+            public String getElementAt(int i) {
+                return strings[i];
+            }
         });
+
         jScrollPane1.setViewportView(jList1);
 
         jButton1.setBackground(new java.awt.Color(51, 204, 255));
@@ -155,14 +163,62 @@ public class ProfileGUI extends javax.swing.JFrame {
                 } else {
                     System.out.println("User not found.");
                 }
+            } catch (SQLException e) {
+                e.printStackTrace();
             }
 
-
-        }catch (SQLException e) {
+        } catch (SQLException e) {
             // Handle the exception appropriately
             e.printStackTrace();
         }
     }
+
+
+    public List<String> displayUserRate(int userId) {
+
+        String url = "jdbc:mysql://localhost:3306/nearcourtdatabase"; // Replace with your database URL
+        String username = "root"; // Replace with your database username
+        String password = ""; // Replace with your database password
+
+        List<String> rateList = null;
+        try (Connection connection = DriverManager.getConnection(url, username, password)) {
+            String query2 = "SELECT rate FROM rates WHERE user_id = ?";
+            try (PreparedStatement statement = connection.prepareStatement(query2)) {
+                statement.setInt(1, userId);
+                ResultSet resultSet = statement.executeQuery();
+
+                rateList = new ArrayList<>();
+
+                while (resultSet.next()) {
+                    String rateValue = resultSet.getString("rate");
+                    rateList.add(rateValue);
+                }
+
+                resultSet.close();
+
+                List<String> finalRateList = rateList;
+                jList1.setModel(new javax.swing.AbstractListModel<String>() {
+                    String[] strings = finalRateList.toArray(new String[0]);
+
+                    public int getSize() {
+                        return strings.length;
+                    }
+
+                    public String getElementAt(int i) {
+                        return strings[i];
+                    }
+                });
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return rateList;
+    }
+
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -195,6 +251,7 @@ public class ProfileGUI extends javax.swing.JFrame {
                 ProfileGUI profileGUI = new ProfileGUI();
                 int userId = 1; // Replace with the desired user ID
                 profileGUI.displayUserDetails(userId);
+                List<String> rateList = profileGUI.displayUserRate(userId); // Added this line
                 profileGUI.setVisible(true);
             }
         });
