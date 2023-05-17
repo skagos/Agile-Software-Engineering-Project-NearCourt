@@ -144,7 +144,7 @@ public class ProfileGUI extends javax.swing.JFrame {
         try (Connection connection = DriverManager.getConnection(url, username, password)) {
             String query = "SELECT username,email FROM users WHERE user_id = ?";
             try (PreparedStatement statement = connection.prepareStatement(query)) {
-                statement.setInt(1, userId);
+                statement.setInt(3, userId);
                 ResultSet resultSet = statement.executeQuery();
 
                 if (resultSet.next()) {
@@ -182,7 +182,7 @@ public class ProfileGUI extends javax.swing.JFrame {
 
         List<String> rateList = null;
         try (Connection connection = DriverManager.getConnection(url, username, password)) {
-            String query2 = "SELECT rate FROM rates WHERE user_id = ?";
+            String query2 = "SELECT rate,stars FROM rates WHERE user_id = ?";
             try (PreparedStatement statement = connection.prepareStatement(query2)) {
                 statement.setInt(1, userId);
                 ResultSet resultSet = statement.executeQuery();
@@ -191,7 +191,9 @@ public class ProfileGUI extends javax.swing.JFrame {
 
                 while (resultSet.next()) {
                     String rateValue = resultSet.getString("rate");
-                    rateList.add(rateValue);
+                    int starsValue = resultSet.getInt("stars");
+                    rateList.add(rateValue + "   " + starsValue + "/5");
+
                 }
 
                 resultSet.close();
@@ -249,7 +251,7 @@ public class ProfileGUI extends javax.swing.JFrame {
             public void run() {
 
                 ProfileGUI profileGUI = new ProfileGUI();
-                int userId = 1; // Replace with the desired user ID
+                int userId = 3; // Replace with the desired user ID
                 profileGUI.displayUserDetails(userId);
                 List<String> rateList = profileGUI.displayUserRate(userId); // Added this line
                 profileGUI.setVisible(true);
