@@ -1,3 +1,5 @@
+
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -17,6 +19,16 @@ public class ProfileGUI extends javax.swing.JFrame {
         initComponents();
         this.userData = userData;
         displayUserData();
+        jButton1.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                openEditProfilePage();
+            }
+        });
+    }
+    private void openEditProfilePage() {
+        EditP editP= new EditP(userData);
+        editP.setVisible(true);
+        this.dispose(); // Close the current frame
     }
 
 
