@@ -206,6 +206,7 @@ public class FindGroupGUI extends javax.swing.JFrame {
         }
     }
 
+    //na balw ta
     private void joinButActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
         int row = groupsTable.getSelectedRow();
@@ -234,6 +235,17 @@ public class FindGroupGUI extends javax.swing.JFrame {
 
     }
 
+    private void profileButActionPerformed(java.awt.event.ActionEvent evt) {
+        // TODO add your handling code here:
+        openProfilePage();
+    }
+
+    private void openProfilePage() {
+        ProfileGUI profileGUI = new ProfileGUI(userData);
+        profileGUI.setVisible(true);
+        List<String> rateList = profileGUI.displayUserRate(userData);
+        this.dispose(); // Close the current frame
+    }
     /**
      * @param args the command line arguments
      */
