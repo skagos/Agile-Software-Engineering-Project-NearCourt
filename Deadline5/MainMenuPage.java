@@ -25,9 +25,9 @@ public class MainMenuPage extends javax.swing.JFrame {
         jLabel2.setText("Welcome, " + username + "!");
     }
 
-    static MainMenuPage createMainMenuPage() {
+    /*static MainMenuPage createMainMenuPage() {
         return new MainMenuPage();
-    }
+    }*/
 
     /**
      * This method is called from within the constructor to initialize the form.
