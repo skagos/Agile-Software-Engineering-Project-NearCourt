@@ -211,7 +211,7 @@ public class FindGroupGUI extends javax.swing.JFrame {
         // TODO add your handling code here:
         int row = groupsTable.getSelectedRow();
         int colum = groupsTable.getSelectedColumn();
-        int user_id = (int) userData[1];
+        int user_id = (int) userData[0];
         String url = "jdbc:mysql://localhost:3306/near";
         String username = "root";
         String password = "";
@@ -237,15 +237,17 @@ public class FindGroupGUI extends javax.swing.JFrame {
 
     private void profileButActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
-        openProfilePage();
+
+        this.dispose();
+        this.setVisible(false);
     }
 
-    private void openProfilePage() {
+    /*private void openProfilePage() {
         ProfileGUI profileGUI = new ProfileGUI(userData);
         profileGUI.setVisible(true);
         List<String> rateList = profileGUI.displayUserRate(userData);
         this.dispose(); // Close the current frame
-    }
+    }*/
     /**
      * @param args the command line arguments
      */
