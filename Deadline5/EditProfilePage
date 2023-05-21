@@ -42,12 +42,22 @@ public class EditProfilePage extends javax.swing.JFrame {
         jButton1.setText("Change");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                updateUserData();
-                //updateUsername();
+
+                if (jTextField3.getText().isEmpty() && jTextField4.getText().isEmpty()) {
+                    updateUsername();
+                }
+
+                else if (jTextField5.getText().isEmpty()) {
+                    updatePassword();
+                }
+                else {
+                    System.out.println("pipa");
+                }
+
             }
         });
 
-        jTextField1.setText("CurP");
+        jTextField1.setText("");
         jTextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField1ActionPerformed(evt);
@@ -81,7 +91,7 @@ public class EditProfilePage extends javax.swing.JFrame {
                                 .addContainerGap())
         );
 
-        jTextField3.setText("NP");
+        jTextField3.setText("");
         jTextField3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField3ActionPerformed(evt);
@@ -92,16 +102,16 @@ public class EditProfilePage extends javax.swing.JFrame {
 
         jLabel5.setText("Confirm New Password:");
 
-        jTextField4.setText("ConNP");
+        jTextField4.setText("");
         jTextField4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField4ActionPerformed(evt);
             }
         });
 
-        jLabel6.setText("Confirm New Username:");
+        jLabel6.setText("New Username:");
 
-        jTextField5.setText("ConNU");
+        jTextField5.setText("");
         jTextField5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField5ActionPerformed(evt);
@@ -194,7 +204,7 @@ public class EditProfilePage extends javax.swing.JFrame {
         pack();
     }
 
-    private void updateUserData() {
+    private void updatePassword() {
         String currentPassword = jTextField1.getText();
         String newPassword = jTextField3.getText();
         String confirmNewPassword = jTextField4.getText();
@@ -277,7 +287,7 @@ public class EditProfilePage extends javax.swing.JFrame {
         }
     }
 
-    /*private void updateUsername() {
+    private void updateUsername() {
         String currentPassword = jTextField1.getText();
         String newUsername = jTextField5.getText();
 
@@ -296,15 +306,30 @@ public class EditProfilePage extends javax.swing.JFrame {
             Connection conn = DriverManager.getConnection(url, username, password);
 
             // Check if the current password is correct
-            String checkPasswordSql = "SELECT password FROM users WHERE user_id = ?";
-            PreparedStatement checkPasswordStmt = conn.prepareStatement(checkPasswordSql);
-            checkPasswordStmt.setInt(1, (int) userData[0]);
-            checkPasswordStmt.setString(2, currentPassword);
-            ResultSet passwordResult = checkPasswordStmt.executeQuery();
+            String currentPasswordSql2 = "SELECT password FROM users WHERE user_id = ?";
+            PreparedStatement currentPasswordSql2Stmt = conn.prepareStatement(currentPasswordSql2);
+            currentPasswordSql2Stmt.setInt(1, (int) userData[0]);
+            //checkPasswordStmt.setString(2, currentPassword);
 
-            if (passwordResult.next()) {
-                // Current password is correct, update the username
-                String updateUsernameSql = "UPDATE users SET username = ? WHERE user_id = ?";
+            ResultSet currentPassword2Result = currentPasswordSql2Stmt.executeQuery();
+
+            if (currentPassword2Result.next()) {
+                String storedPassword = currentPassword2Result.getString("password");
+
+                if (!storedPassword.equals(currentPassword)) {
+                    // Current password does not match the one stored in the database
+                    JOptionPane.showMessageDialog(EditProfilePage.this, "Current password is incorrect.", "Change Personal Info Failed", JOptionPane.ERROR_MESSAGE);
+                    System.out.println("Current password is incorrect!");
+                    return;
+                }
+                }else {
+                    // No user record found, handle the error or display a message accordingly
+                    JOptionPane.showMessageDialog(EditProfilePage.this, "Failed to retrieve user record.", "Change Personal Info Failed", JOptionPane.ERROR_MESSAGE);
+                    System.out.println("Failed to retrieve user record!");
+                    return;
+                }
+
+                String updateUsernameSql = "UPDATE users SET name = ? WHERE user_id = ?";
                 PreparedStatement updateUsernameStmt = conn.prepareStatement(updateUsernameSql);
                 updateUsernameStmt.setString(1, newUsername);
                 updateUsernameStmt.setInt(2, (int) userData[0]);
@@ -320,22 +345,14 @@ public class EditProfilePage extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(EditProfilePage.this, "Failed to update username.", "Change Personal Info Failed", JOptionPane.ERROR_MESSAGE);
                     System.out.println("Failed to update username.");
                 }
-
-                updateUsernameStmt.close();
-            } else {
-                // Current password is incorrect
-                JOptionPane.showMessageDialog(EditProfilePage.this, "Incorrect current password.", "Change Personal Info Failed", JOptionPane.ERROR_MESSAGE);
-                System.out.println("Incorrect current password.");
-            }
-
-            // Close the database connection and statement
-            checkPasswordStmt.close();
+            updateUsernameStmt.close();
             conn.close();
+
         } catch (SQLException e) {
             // Handle any database errors
             e.printStackTrace();
         }
-    }*/
+    }
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {
 
