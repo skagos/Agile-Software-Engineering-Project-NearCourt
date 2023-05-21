@@ -14,9 +14,7 @@ import java.util.List;
  */
 public class MainMenuPage extends javax.swing.JFrame {
     private Object[] userData;
-    /**
-     * Creates new form Profile
-     */
+    
     public MainMenuPage(Object[] userData) {
         initComponents();
         this.userData = userData;
@@ -39,9 +37,9 @@ public class MainMenuPage extends javax.swing.JFrame {
         ProfileGUI profileGUI = new ProfileGUI(userData);
         profileGUI.setVisible(true);
         List<String> rateList = profileGUI.displayUserRate(userData);
-        this.dispose(); // Close the current frame
+        this.dispose();
     }
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">
+
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
@@ -138,12 +136,12 @@ public class MainMenuPage extends javax.swing.JFrame {
     }// </editor-fold>
 
 
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
+   /* public static void main(String args[]) {
+        Set the Nimbus look and feel
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
-         */
+
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -167,8 +165,8 @@ public class MainMenuPage extends javax.swing.JFrame {
             public void run() {
                 new MainMenuPage().setVisible(true);
             }
-        });*/
-    }
+        });
+    }*/
 
     // Variables declaration - do not modify
     private javax.swing.JButton jButton2;
