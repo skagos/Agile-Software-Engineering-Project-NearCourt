@@ -226,6 +226,11 @@ public class FindGroupGUI extends javax.swing.JFrame {
             stm.setInt(1, user_id);
             stm.setInt(2, court_id);
             stm.executeUpdate();
+            int group_id = (int) groupsTable.getValueAt(row, 0);
+            int players = (int) groupsTable.getValueAt(row, 4);
+            players = players + 1;
+            stm = con.prepareStatement("UPDATE TABLE groups SET players = ? WHERE group_id = ?;");
+            stm.executeUpdate();
         }catch(Exception e){
             System.out.println(e);}
 
