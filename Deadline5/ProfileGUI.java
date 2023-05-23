@@ -199,6 +199,7 @@ public class ProfileGUI extends javax.swing.JFrame {
         }
         return rateList;
     }
+    
 
 
     private javax.swing.JButton jButton1;
