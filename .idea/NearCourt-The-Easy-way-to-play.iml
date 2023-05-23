@@ -4,7 +4,7 @@
     <exclude-output />
     <content url="file://$MODULE_DIR$" />
     <content url="jar://$USER_HOME$/Downloads/mysql-connector-java-8.0.26.jar!/" />
-    <orderEntry type="jdk" jdkName="17" jdkType="JavaSDK" />
+    <orderEntry type="jdk" jdkName="20" jdkType="JavaSDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module-library" exported="">
       <library>

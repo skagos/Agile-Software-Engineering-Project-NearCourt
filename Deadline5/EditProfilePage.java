@@ -39,22 +39,9 @@ public class EditProfilePage extends javax.swing.JFrame {
         jButton1.setText("Change");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-
-                if (jTextField3.getText().isEmpty() && jTextField4.getText().isEmpty()) {
-                    updateUsername();
-                }
-
-                else if (jTextField5.getText().isEmpty()) {
-                    updatePassword();
-                }
-                else {
-                    updateUsername();
-                    updatePassword();
-                }
-
+                updateUserData();
             }
         });
-
         jTextField1.setText("");
         jTextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -201,29 +188,55 @@ public class EditProfilePage extends javax.swing.JFrame {
 
         pack();
     }
-
-    private void updatePassword() {
+    private void updateUserData() {
         String currentPassword = jTextField1.getText();
+        String newUsername = jTextField5.getText();
         String newPassword = jTextField3.getText();
         String confirmNewPassword = jTextField4.getText();
+        String oldUsername = (String) userData[2];
+        String oldPassword = (String) userData[3];
 
-        if (newPassword.isEmpty() || confirmNewPassword.isEmpty()) {
-            // Either "New Password" or "Confirm New Password" is empty
-            JOptionPane.showMessageDialog(EditProfilePage.this, "Please enter values for both New Password and Confirm New Password fields.","Change Personal Info Failed",JOptionPane.ERROR_MESSAGE);
+        if (currentPassword.isEmpty()) {
+            // Either "Current Password" or "New Username" is empty
+            JOptionPane.showMessageDialog(EditProfilePage.this, "Please enter value for both Current Password ", "Change Personal Info Failed", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
-        if (!newPassword.equals(confirmNewPassword)) {
-            // Passwords don't match, display an error message or handle it accordingly
-            JOptionPane.showMessageDialog(EditProfilePage.this, "Passwords don't match!", "Change Personal Info Failed",JOptionPane.ERROR_MESSAGE);
-            System.out.println("Passwords don't match!");
+
+        if (!validatePassword(currentPassword)) {
+            // Current password is incorrect
+            JOptionPane.showMessageDialog(EditProfilePage.this, "Current password is incorrect.", "Change Personal Info Failed", JOptionPane.ERROR_MESSAGE);
+            System.out.println("Current password is incorrect!");
             return;
         }
-
-        if (newPassword.length() < 8 || !newPassword.matches(".*\\d.*") || !newPassword.matches(".*[a-zA-Z].*")) {
+        if ((newPassword.length() < 8 || !newPassword.matches(".*\\d.*") || !newPassword.matches(".*[a-zA-Z].*")) && !newPassword.isEmpty()) {
             // Password does not meet the criteria
             JOptionPane.showMessageDialog(EditProfilePage.this, "The password must be at least 8 characters long and contain both numbers and letters.", "Change Personal Info Failed", JOptionPane.ERROR_MESSAGE);
             System.out.println("Invalid password format!");
+            return;
+        }
+
+        if (newUsername.isEmpty()) {
+
+            newUsername = (String) userData[2];
+        }else{
+            newUsername = jTextField5.getText();
+            userData[2] = jTextField5.getText();
+        }
+
+        if (newPassword.isEmpty()) {
+            newPassword = (String) userData[3];
+            confirmNewPassword = (String) userData[3];
+
+        }
+        else{
+            newPassword = jTextField3.getText();
+            userData[3] = jTextField3.getText();
+        }
+
+        if (!newPassword.equals(confirmNewPassword)) {
+            JOptionPane.showMessageDialog(EditProfilePage.this, "Passwords don't match!", "Change Personal Info Failed",JOptionPane.ERROR_MESSAGE);
+            System.out.println("Passwords don't match!");
             return;
         }
 
@@ -235,97 +248,14 @@ public class EditProfilePage extends javax.swing.JFrame {
             String password = "";
             Connection conn = DriverManager.getConnection(url, username, password);
 
-            String currentPasswordSql = "SELECT password FROM users WHERE user_id = ?";
-            PreparedStatement currentPasswordStatement = conn.prepareStatement(currentPasswordSql);
-            currentPasswordStatement.setInt(1, (int) userData[0]);
 
-            ResultSet currentPasswordResult = currentPasswordStatement.executeQuery();
-            if (currentPasswordResult.next()) {
-                String storedPassword = currentPasswordResult.getString("password");
 
-                if (!storedPassword.equals(currentPassword)) {
-                    // Current password does not match the one stored in the database
-                    JOptionPane.showMessageDialog(EditProfilePage.this, "Current password is incorrect.", "Change Personal Info Failed", JOptionPane.ERROR_MESSAGE);
-                    System.out.println("Current password is incorrect!");
-                    return;
-                }
-            } else {
-                // No user record found, handle the error or display a message accordingly
-                JOptionPane.showMessageDialog(EditProfilePage.this, "Failed to retrieve user record.", "Change Personal Info Failed", JOptionPane.ERROR_MESSAGE);
-                System.out.println("Failed to retrieve user record!");
-                return;
-            }
-
-            // Prepare the SQL statement
             String sql = "UPDATE users SET password = ? WHERE user_id = ?";
             PreparedStatement statement = conn.prepareStatement(sql);
-
-            // Set the parameters for the SQL statement
             statement.setString(1, newPassword);
             statement.setInt(2, (int) userData[0]);
 
-            // Execute the update
-            int rowsUpdated = statement.executeUpdate();
-
-            if (rowsUpdated > 0) {
-                // The user record was updated successfully
-                JOptionPane.showMessageDialog(EditProfilePage.this, "Success password change!");
-            } else {
-                // No rows were updated, handle the error or display a message accordingly
-                JOptionPane.showMessageDialog(EditProfilePage.this, "Failed to update user record!","Change Personal Info Failed",JOptionPane.ERROR_MESSAGE);
-                System.out.println("Failed to update user record!");
-            }
-
-            // Close the database connection and statement
-            statement.close();
-            conn.close();
-        } catch (SQLException e) {
-            // Handle any database errors
-            e.printStackTrace();
-        }
-    }
-
-   /* private void updateUsername() {
-        String currentPassword = jTextField1.getText();
-        String newUsername = jTextField5.getText();
-
-        if (currentPassword.isEmpty() || newUsername.isEmpty()) {
-            // Either "Current Password" or "New Username" is empty
-            JOptionPane.showMessageDialog(EditProfilePage.this, "Please enter values for both Current Password and New Username fields.", "Change Personal Info Failed", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-
-        // Database connection and update logic
-        try {
-            // Establish the database connection
-            String url = "jdbc:mysql://localhost:3306/nearcourtdatabase";
-            String username = "root";
-            String password = "";
-            Connection conn = DriverManager.getConnection(url, username, password);
-
-            // Check if the current password is correct
-            String currentPasswordSql2 = "SELECT password FROM users WHERE user_id = ?";
-            PreparedStatement currentPasswordSql2Stmt = conn.prepareStatement(currentPasswordSql2);
-            currentPasswordSql2Stmt.setInt(1, (int) userData[0]);
-            //checkPasswordStmt.setString(2, currentPassword);
-
-            ResultSet currentPassword2Result = currentPasswordSql2Stmt.executeQuery();
-
-            if (currentPassword2Result.next()) {
-                String storedPassword = currentPassword2Result.getString("password");
-
-                if (!storedPassword.equals(currentPassword)) {
-                    // Current password does not match the one stored in the database
-                    JOptionPane.showMessageDialog(EditProfilePage.this, "Current password is incorrect.", "Change Personal Info Failed", JOptionPane.ERROR_MESSAGE);
-                    System.out.println("Current password is incorrect!");
-                    return;
-                }
-            }else {
-                // No user record found, handle the error or display a message accordingly
-                JOptionPane.showMessageDialog(EditProfilePage.this, "Failed to retrieve user record.", "Change Personal Info Failed", JOptionPane.ERROR_MESSAGE);
-                System.out.println("Failed to retrieve user record!");
-                return;
-            }
+            statement.executeUpdate();
 
             String updateUsernameSql = "UPDATE users SET name = ? WHERE user_id = ?";
             PreparedStatement updateUsernameStmt = conn.prepareStatement(updateUsernameSql);
@@ -333,16 +263,24 @@ public class EditProfilePage extends javax.swing.JFrame {
             updateUsernameStmt.setInt(2, (int) userData[0]);
 
             // Execute the update
-            int rowsUpdated = updateUsernameStmt.executeUpdate();
+            updateUsernameStmt.executeUpdate();
 
-            if (rowsUpdated > 0) {
-                // The username was updated successfully
-                JOptionPane.showMessageDialog(EditProfilePage.this, "Success! Username has been updated.");
-            } else {
-                // No rows were updated, handle the error or display a message accordingly
-                JOptionPane.showMessageDialog(EditProfilePage.this, "Failed to update username.", "Change Personal Info Failed", JOptionPane.ERROR_MESSAGE);
-                System.out.println("Failed to update username.");
+            if(newPassword.equals(oldPassword) && !newUsername.equals(oldUsername) ){
+                JOptionPane.showMessageDialog(EditProfilePage.this, "Success! Username has been updated");
             }
+            else if (newUsername.equals(oldUsername) && !newPassword.equals(oldPassword)) {
+                JOptionPane.showMessageDialog(EditProfilePage.this, "Success! Password has been updated");
+            }
+            else if (!newPassword.equals(oldPassword) && !newUsername.equals(oldUsername) ) {
+                JOptionPane.showMessageDialog(EditProfilePage.this, "Success! Password and Username has been updated");
+            }
+            else{
+                JOptionPane.showMessageDialog(EditProfilePage.this, "Failed", "Change Personal Info Failed, please insert data", JOptionPane.ERROR_MESSAGE);
+            }
+
+            statement.close();
+            conn.close();
+
             updateUsernameStmt.close();
             conn.close();
 
@@ -350,7 +288,9 @@ public class EditProfilePage extends javax.swing.JFrame {
             // Handle any database errors
             e.printStackTrace();
         }
-    }*/
+    }
+
+
 
     private void updateUsername() {
         String currentPassword = jTextField1.getText();
@@ -414,7 +354,6 @@ public class EditProfilePage extends javax.swing.JFrame {
             e.printStackTrace();
         }
     }
-
     private boolean validatePassword(String currentPassword) {
         try {
             // Establish the database connection
@@ -449,6 +388,8 @@ public class EditProfilePage extends javax.swing.JFrame {
 
         return false;
     }
+
+
 
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {
