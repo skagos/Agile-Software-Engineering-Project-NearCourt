@@ -48,9 +48,6 @@ public class loginForm extends JFrame {
                     MainMenuPage mainMenuPage = new MainMenuPage(userData);
                     mainMenuPage.setVisible(true);
 
-                    /*ProfileGUI profileGUI = new ProfileGUI(userData);
-                    List<String> rateList = profileGUI.displayUserRate(userData); // Added this line
-                    profileGUI.setVisible(true);*/
 
                     dispose(); // Close the login form
                 } else {
@@ -59,7 +56,7 @@ public class loginForm extends JFrame {
             }
 
             private Object[] authenticateUser(String username, String password) {
-                final String DB_URL = "jdbc:mysql://localhost:3306/nearcourtdatabase";
+                final String DB_URL = "jdbc:mysql://localhost:3306/nearcourt";
                 final String USERNAME = "root";
                 final String PASSWORD = "";
 

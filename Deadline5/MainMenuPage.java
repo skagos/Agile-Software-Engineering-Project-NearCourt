@@ -38,11 +38,11 @@ public class MainMenuPage extends javax.swing.JFrame {
         this.dispose();
     }
 
-    private void openFindGroupPage() {
+   /* private void openFindGroupPage() {
         FindGroupGUI findGroupGUI = new FindGroupGUI(userData);
         findGroupGUI.setVisible(true);
         this.dispose();
-    }
+    }*/
 
     private void initComponents() {
 
