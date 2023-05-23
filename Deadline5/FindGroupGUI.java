@@ -16,11 +16,12 @@ import java.sql.PreparedStatement;
  * @author Στελιος Πανσεληνας
  */
 public class FindGroupGUI extends javax.swing.JFrame {
-    private Object[] userData;
+    private static Object[] userData;
     /**
      * Creates new form FindGroup
      */
-    public FindGroupGUI() {
+    public FindGroupGUI(userData) {
+
         initComponents();
     }
 
