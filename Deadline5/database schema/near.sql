@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Εξυπηρετητής: 127.0.0.1:3306
--- Χρόνος δημιουργίας: 23 Μάη 2023 στις 14:46:09
+-- Χρόνος δημιουργίας: 23 Μάη 2023 στις 17:24:50
 -- Έκδοση διακομιστή: 8.0.31
 -- Έκδοση PHP: 8.0.26
 
@@ -80,10 +80,11 @@ DROP TABLE IF EXISTS `groups`;
 CREATE TABLE IF NOT EXISTS `groups` (
   `id` int NOT NULL AUTO_INCREMENT,
   `sport` varchar(255) NOT NULL,
-  `date` datetime NOT NULL,
+  `date` date NOT NULL,
   `court_id` int NOT NULL,
   `players` int NOT NULL,
   `owner_id` int NOT NULL,
+  `time` time NOT NULL,
   PRIMARY KEY (`id`),
   KEY `group_owner` (`court_id`),
   KEY `group_center` (`owner_id`)
@@ -93,10 +94,10 @@ CREATE TABLE IF NOT EXISTS `groups` (
 -- Άδειασμα δεδομένων του πίνακα `groups`
 --
 
-INSERT INTO `groups` (`id`, `sport`, `date`, `court_id`, `players`, `owner_id`) VALUES
-(1, 'Football', '2023-05-17 18:09:25', 1, 2, 1),
-(2, 'Basket', '2023-05-17 18:09:25', 3, 3, 1),
-(5, 'Tennis', '2023-05-17 18:21:36', 1, 2, 1);
+INSERT INTO `groups` (`id`, `sport`, `date`, `court_id`, `players`, `owner_id`, `time`) VALUES
+(1, 'Football', '2023-05-17', 1, 2, 1, '00:00:00'),
+(2, 'Basket', '2023-05-17', 3, 3, 1, '00:00:00'),
+(5, 'Tennis', '2023-05-17', 1, 2, 1, '00:00:00');
 
 -- --------------------------------------------------------
 
