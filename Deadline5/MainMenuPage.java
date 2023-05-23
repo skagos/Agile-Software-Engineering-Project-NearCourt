@@ -1,20 +1,12 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
-
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 
-/**
- *
- * @author Κυριάκος
- */
+
 public class MainMenuPage extends javax.swing.JFrame {
     private Object[] userData;
-    
+
     public MainMenuPage(Object[] userData) {
         initComponents();
         this.userData = userData;
@@ -27,6 +19,12 @@ public class MainMenuPage extends javax.swing.JFrame {
                 openProfilePage();
             }
         });
+
+        jButton4.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                openFindGroupPage();
+            }
+        });
     }
 
     /*static MainMenuPage createMainMenuPage() {
@@ -37,6 +35,12 @@ public class MainMenuPage extends javax.swing.JFrame {
         ProfileGUI profileGUI = new ProfileGUI(userData);
         profileGUI.setVisible(true);
         List<String> rateList = profileGUI.displayUserRate(userData);
+        this.dispose();
+    }
+
+    private void openFindGroupPage() {
+        FindGroupGUI findGroupGUI = new FindGroupGUI(userData);
+        findGroupGUI.setVisible(true);
         this.dispose();
     }
 
@@ -61,7 +65,7 @@ public class MainMenuPage extends javax.swing.JFrame {
         jButton2.setText("jButton2");
 
         jButton4.setBackground(new java.awt.Color(0, 153, 0));
-        jButton4.setText("jButton4");
+        jButton4.setText("Find Group");
 
         jButton5.setBackground(new java.awt.Color(51, 153, 0));
         jButton5.setText("jButton5");

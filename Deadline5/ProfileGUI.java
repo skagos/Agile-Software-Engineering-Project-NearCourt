@@ -16,14 +16,14 @@ public class ProfileGUI extends javax.swing.JFrame {
     public ProfileGUI(Object[] userData) {
         initComponents();
         this.userData = userData;
-        displayUserData();
+        getUserData();
         jButton1.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                openEditProfilePage();
+                EditProfile();
             }
         });
     }
-    private void openEditProfilePage() {
+    private void EditProfile() {
         EditProfilePage editProfilePage= new EditProfilePage(userData);
         editProfilePage.setVisible(true);
         this.dispose(); // Close the current frame
@@ -131,7 +131,7 @@ public class ProfileGUI extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>
-    private void displayUserData() {
+    private void getUserData() {
         nameLabel = new javax.swing.JLabel();
         nameLabel.setText("Username:" + userData[2] + "   ");
         emailLabel = new javax.swing.JLabel();
@@ -155,7 +155,7 @@ public class ProfileGUI extends javax.swing.JFrame {
 
     public List<String> displayUserRate(Object[] userData) {
 
-        String url = "jdbc:mysql://localhost:3306/nearcourtdatabase"; // Replace with your database URL
+        String url = "jdbc:mysql://localhost:3306/nearcourt"; // Replace with your database URL
         String username = "root"; // Replace with your database username
         String password = ""; // Replace with your database password
 
