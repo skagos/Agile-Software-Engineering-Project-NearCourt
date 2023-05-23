@@ -1,5 +1,3 @@
-
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -26,8 +24,8 @@ public class ProfileGUI extends javax.swing.JFrame {
         });
     }
     private void openEditProfilePage() {
-        EditP editP= new EditP(userData);
-        editP.setVisible(true);
+        EditProfilePage editProfilePage= new EditProfilePage(userData);
+        editProfilePage.setVisible(true);
         this.dispose(); // Close the current frame
     }
 
@@ -203,7 +201,6 @@ public class ProfileGUI extends javax.swing.JFrame {
     }
 
 
-    // Variables declaration - do not modify
     private javax.swing.JButton jButton1;
     private javax.swing.JInternalFrame jInternalFrame1;
     private javax.swing.JLabel jLabel1;
@@ -215,4 +212,3 @@ public class ProfileGUI extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration
 }
-
