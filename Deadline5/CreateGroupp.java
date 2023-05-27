@@ -1,8 +1,4 @@
 import javax.swing.*;
-import java.sql.*;
-import java.awt.event.*;
-import java.awt.*;
-import java.util.*;
 import java.util.Date;
 import java.lang.String;
 import java.sql.Time;
@@ -10,13 +6,19 @@ import java.sql.Time;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
-import java.sql.SQLException;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
+
+import java.sql.ResultSet;
+import java.sql.Statement;
+import javax.swing.table.DefaultTableModel;
+import java.sql.ResultSetMetaData;
+
+
+
+
 
 
 
@@ -31,19 +33,70 @@ public class CreateGroupp extends javax.swing.JFrame {
      * Creates new form CreateGroupp
      */
     private Object[] userData;
-    private String  p = "private";
+
+    int x=0;
 
     public CreateGroupp(Object[] userData) {
         initComponents();
         this.userData = userData;
         int user_id = (int) userData[0];
-        System.out.println("Welcome malaka me user id: " + user_id );
+       // System.out.println("Welcome user me user id: " + user_id );
 
 
     }
     private void CreateGroup(){
 
-        try {
+        String datr =((JTextField)date.getDateEditor().getUiComponent()).getText();
+
+        if (datr.isEmpty()){try {
+
+            // Class.forName("conn.mysql.jdbc.Driver");
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/nearcourtdatabase", "root", "");
+            PreparedStatement ps= con.prepareStatement("INSERT INTO groupp(type,sport,date,number_of_players,time,player_id) values(?,?,?,?,?,?)");
+
+            ps.setString(1,"public");
+            x=1;
+            // Retrieve the time input from the text field
+            String timeString = jTextField2.getText();
+
+            // Parse the time input into a Time object
+            SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
+            Date time;
+            try {
+                time = timeFormat.parse(timeString);
+            } catch (ParseException ex) {
+                ex.printStackTrace();
+                return;
+            }
+
+
+            ps.setTime(5, new Time(time.getTime()));
+
+
+            String selectdate =((JTextField)date1.getDateEditor().getUiComponent()).getText();
+            Date date1=new SimpleDateFormat("yyyy-MM-dd").parse(selectdate);
+            ps.setDate(3, new java.sql.Date(date1.getTime()));
+
+
+
+
+            String combo,combo2;
+
+            combo=jComboBox4.getSelectedItem().toString();
+            combo2=jComboBox3.getSelectedItem().toString();
+            ps.setString(2,combo);
+            ps.setString(4,combo2);
+            ps.setString(1,"public");
+            ps.setString(3,selectdate);
+            ps.setInt(6,(int) userData[0]);
+            ps.execute();
+            JOptionPane.showMessageDialog(this,"poutana mana exeis");
+            //JOptionPane.showMessageDialog(this,"You choose public court");
+        } catch (Exception e) {
+            System.out.println(e);
+        }//PrivateGroupCheck();
+
+        }else{  try {
 
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/nearcourtdatabase", "root", "");
             PreparedStatement ps= con.prepareStatement("INSERT INTO groupp(type,sport,date,number_of_players,time,player_id) values(?,?,?,?,?,?)");
@@ -51,7 +104,9 @@ public class CreateGroupp extends javax.swing.JFrame {
             // String selectdate =((JTextField)date.getDateEditor().getUiComponent()).getText();
 
 
-            String combo,combo2,combo3;
+            ps.setString(1,"private");
+            x=0;
+            String combo,combo2;
             combo=combo_sport.getSelectedItem().toString();
             combo2=jComboBox2.getSelectedItem().toString();
 
@@ -85,7 +140,7 @@ public class CreateGroupp extends javax.swing.JFrame {
             //   ps.setTime(5, new java.sql.Time(timee.getTime()));
             ps.setString(2,combo);
             ps.setString(4,combo2);
-            ps.setString(1,p);
+            // ps.setString(1,p);
             // ps.setString(3,selectdate);
             ps.setInt(6,(int) userData[0]);
 
@@ -94,45 +149,230 @@ public class CreateGroupp extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this,"poutana mana exeis");
         } catch (Exception e) {
             System.out.println(e);
-        }
+        };
+            }
 
-       // int selectedIndex = jTabbedPane1.getSelectedIndex();
-       // System.out.println("Selected Index: " + selectedIndex);
     }
 
-    private void allFieldsRequired(){
-        String sport = combo_sport.getSelectedItem().toString();
+    private void ValidateGroup(int type,String s,String n){
         String datee =((JTextField)date.getDateEditor().getUiComponent()).getText();
-        String time = jTextField1.getText();
-        String number_of_people = jComboBox2.getSelectedItem().toString();
 
-        if (sport.isEmpty() || datee.isEmpty() || time.isEmpty() ||number_of_people.isEmpty() ) {
+       String datees =((JTextField)date1.getDateEditor().getUiComponent()).getText();
+
+        String combor=combo_sport.getSelectedItem().toString();
+        String comod=jComboBox4.getSelectedItem().toString();
+        String comora=jComboBox2.getSelectedItem().toString();
+        String comorai=jComboBox3.getSelectedItem().toString();
+
+        if ((type == 1) && ( datee.isEmpty() || s==combor || n==comora) ){
+
             // A field is not filled
             JOptionPane.showMessageDialog(CreateGroupp.this, "All fields required!", "All fields required!", JOptionPane.ERROR_MESSAGE);
 
         }
+     else  if ((type == 2) && ( datees.isEmpty() || s==comod || n==comorai) ){
+           // A field is not filled
+           JOptionPane.showMessageDialog(CreateGroupp.this, "All fields required!", "All fields required!", JOptionPane.ERROR_MESSAGE);
+
+       }
+     else if((type == 1) && (!( datee.isEmpty() || s==combor || n==comora)) ) {
+
+            PrivateGroupCheck(1);
+            getPrivateCompatableCourts();
+        }
+        else if((type == 2) && (!( datees.isEmpty() || s==comod || n==comorai)) ) {
+
+            PrivateGroupCheck(2);
+            getPublicCompatableCourts();
+        }
+
+
 
     }
 
-    private void PrivateGroupCheck(){
-        jTabbedPane1.addChangeListener(new ChangeListener() {
-            @Override
-            public void stateChanged(ChangeEvent e) {
-                int selectedIndex = jTabbedPane1.getSelectedIndex();
-                System.out.println("Selected Index: " + selectedIndex);
+    private void PrivateGroupCheck(int type){
 
-                // Perform actions based on the selected index
-                if (selectedIndex == 0) {
-                    // The first tab is selected
-                    CreateGroup();
-                } else if (selectedIndex == 1) {
-                    // The second tab is selected
-                    CreateGroup();//PUBLIC
+        if(  type == 1 ){
+            JOptionPane.showMessageDialog(CreateGroupp.this, "You choose PRIVATE court");
+
+        }else{ JOptionPane.showMessageDialog(CreateGroupp.this, "You choose PUBLIC court");}
+    }
+
+
+    private void getPrivateCompatableCourts() {
+
+
+            try {
+                String combo, combo2;
+                combo = combo_sport.getSelectedItem().toString();
+                String selectdate = ((JTextField) date.getDateEditor().getUiComponent()).getText();
+                Date date1 = new SimpleDateFormat("yyyy-MM-dd").parse(selectdate);
+                combo2 = jComboBox2.getSelectedItem().toString();
+
+                Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/nearcourtdatabase", "root", "");
+                PreparedStatement ps = con.prepareStatement("SELECT time FROM timetable WHERE court_type = ? AND date = ? AND number_of_players >= ? AND Availability = 0");
+                ps.setString(1, combo);
+                ps.setDate(2, new java.sql.Date(date1.getTime()));
+                ps.setString(3, combo2);
+
+                ResultSet rs = ps.executeQuery();
+
+                DefaultTableModel tableModel = new DefaultTableModel();
+
+                // Add columns to the table model
+                ResultSetMetaData metaData = rs.getMetaData();
+                int columnCount = metaData.getColumnCount();
+                for (int i = 1; i <= columnCount; i++) {
+                    tableModel.addColumn(metaData.getColumnName(i));
                 }
+
+                // Add rows to the table model
+                while (rs.next()) {
+                    Object[] rowData = new Object[columnCount];
+                    for (int i = 1; i <= columnCount; i++) {
+                        rowData[i - 1] = rs.getObject(i);
+                    }
+                    tableModel.addRow(rowData);
+                }
+
+                JTable table = new JTable(tableModel);
+                JScrollPane scrollPane = new JScrollPane(table);
+
+                int result = JOptionPane.showConfirmDialog(this, scrollPane, "Select a row", JOptionPane.OK_CANCEL_OPTION);
+                if (result == JOptionPane.OK_OPTION) {
+                    int selectedRow = table.getSelectedRow();
+                    if (selectedRow != -1) {
+                        // Get the data from the selected row
+                        String column1Value = tableModel.getValueAt(selectedRow, 0).toString();
+                        // String column2Value = tableModel.getValueAt(selectedRow, 1).toString();
+                        // ... Get other column values as needed
+
+                        // Insert the selected data into the database
+                        PreparedStatement insertPs = con.prepareStatement("INSERT INTO groupp(type,sport,date,number_of_players,time,player_id) values(?,?,?,?,?,?)");
+                        insertPs.setString(5, column1Value);
+                        insertPs.setString(2, combo);
+                        insertPs.setDate(3, new java.sql.Date(date1.getTime()));
+                        insertPs.setString(4, combo2);
+                        insertPs.setInt(6, (int) userData[0]);
+                        insertPs.setString(1, "private");
+                        // insertPs.setString(2, column2Value);
+                        // ... Set other parameter values for the insert statement
+
+                        insertPs.executeUpdate();
+
+                        PreparedStatement lol = con.prepareStatement("UPDATE timetable SET availability = 1 WHERE time = ?");
+
+                        lol.setString(1, column1Value);
+                        lol.executeUpdate();
+
+
+                        JOptionPane.showMessageDialog(this, "Success Create!");
+                    } else {
+                        JOptionPane.showMessageDialog(this, "No row selected.", "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                }
+
+                con.close();
+
+
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-        });
+
 
     }
+
+    private void getPublicCompatableCourts(){
+
+
+        {
+
+
+            try {
+                String combo, combo2;
+                combo = jComboBox4.getSelectedItem().toString();
+                String selectdate = ((JTextField) date1.getDateEditor().getUiComponent()).getText();
+                Date date1 = new SimpleDateFormat("yyyy-MM-dd").parse(selectdate);
+                combo2 = jComboBox3.getSelectedItem().toString();
+
+                Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/nearcourtdatabase", "root", "");
+                PreparedStatement ps = con.prepareStatement("SELECT time FROM timetable WHERE court_type = ? AND date = ? AND number_of_players >= ? AND Availability = 0");
+                ps.setString(1, combo);
+                ps.setDate(2, new java.sql.Date(date1.getTime()));
+                ps.setString(3, combo2);
+
+                ResultSet rs = ps.executeQuery();
+
+                DefaultTableModel tableModel = new DefaultTableModel();
+
+                // Add columns to the table model
+                ResultSetMetaData metaData = rs.getMetaData();
+                int columnCount = metaData.getColumnCount();
+                for (int i = 1; i <= columnCount; i++) {
+                    tableModel.addColumn(metaData.getColumnName(i));
+                }
+
+                // Add rows to the table model
+                while (rs.next()) {
+                    Object[] rowData = new Object[columnCount];
+                    for (int i = 1; i <= columnCount; i++) {
+                        rowData[i - 1] = rs.getObject(i);
+                    }
+                    tableModel.addRow(rowData);
+                }
+
+                JTable table = new JTable(tableModel);
+                JScrollPane scrollPane = new JScrollPane(table);
+
+                int result = JOptionPane.showConfirmDialog(this, scrollPane, "Select a row", JOptionPane.OK_CANCEL_OPTION);
+                if (result == JOptionPane.OK_OPTION) {
+                    int selectedRow = table.getSelectedRow();
+                    if (selectedRow != -1) {
+                        // Get the data from the selected row
+                        String column1Value = tableModel.getValueAt(selectedRow, 0).toString();
+
+
+
+                        // Insert the selected data into the database
+                        PreparedStatement insertPs = con.prepareStatement("INSERT INTO groupp(type,sport,date,number_of_players,time,player_id) values(?,?,?,?,?,?)");
+                        insertPs.setString(5, column1Value);
+                        insertPs.setString(2,combo);
+                        insertPs.setDate(3, new java.sql.Date(date1.getTime()));
+                        insertPs.setString(4,combo2);
+                        insertPs.setInt(6,(int) userData[0]);
+                        insertPs.setString(1,"public");
+                        // insertPs.setString(2, column2Value);
+                        // ... Set other parameter values for the insert statement
+
+                        insertPs.executeUpdate();
+
+                        PreparedStatement lol = con.prepareStatement("UPDATE timetable SET availability = 1 WHERE time = ?");
+
+                        lol.setString(1, column1Value);
+                        lol.executeUpdate();
+
+
+                        JOptionPane.showMessageDialog(this, "Success Create!");
+                    } else {
+                        JOptionPane.showMessageDialog(this, "No row selected.", "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                }
+
+                con.close();
+
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+
+    }
+    private void updateGroupsData(){
+
+    }
+
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -435,7 +675,7 @@ public class CreateGroupp extends javax.swing.JFrame {
 
         jTabbedPane1.getAccessibleContext().setAccessibleName("Create Group");
         jTabbedPane1.getAccessibleContext().setAccessibleDescription("");
-        jTabbedPane1.addChangeListener(new ChangeListener() {
+     /*   jTabbedPane1.addChangeListener(new ChangeListener() {
             @Override
             public void stateChanged(ChangeEvent e) {
                 int selectedIndex = jTabbedPane1.getSelectedIndex();
@@ -450,7 +690,7 @@ public class CreateGroupp extends javax.swing.JFrame {
                     System.out.println("PUBLIC");
                 }
             }
-        });
+        });*/
 
         pack();
     }// </editor-fold>
@@ -468,60 +708,13 @@ public class CreateGroupp extends javax.swing.JFrame {
     }
 
     private void show_availableActionPerformed(java.awt.event.ActionEvent evt) {
-        allFieldsRequired();
-        CreateGroup();
-      /*  try {
 
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/nearcourtdatabase", "root", "");
-            PreparedStatement ps= con.prepareStatement("INSERT INTO groupp(type,sport,date,number_of_players,time) values(?,?,?,?,?)");
-
-           // String selectdate =((JTextField)date.getDateEditor().getUiComponent()).getText();
+        //CreateGroup();
+        ValidateGroup(1,"Sport","Number of players");
 
 
-            String combo,combo2,combo3;
-            combo=combo_sport.getSelectedItem().toString();
-            combo2=jComboBox2.getSelectedItem().toString();
-
-
-
-                        // Retrieve the time input from the text field
-                        String timeString = jTextField3.getText();
-
-                        // Parse the time input into a Time object
-                        SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
-                        Date time;
-                        try {
-                            time = timeFormat.parse(timeString);
-                        } catch (ParseException ex) {
-                            ex.printStackTrace();
-                            return;
-                        }
-
-
-                            ps.setTime(5, new Time(time.getTime()));
-
-
-            String selectdate =((JTextField)date.getDateEditor().getUiComponent()).getText();
-            Date date1=new SimpleDateFormat("yyyy-MM-dd").parse(selectdate);
-            ps.setDate(3, new java.sql.Date(date1.getTime()));
-
-
-
-
-
-            //   ps.setTime(5, new java.sql.Time(timee.getTime()));
-            ps.setString(2,combo);
-            ps.setString(4,combo2);
-            ps.setString(1,"private");
-           // ps.setString(3,selectdate);
-
-
-            ps.execute();
-            JOptionPane.showMessageDialog(this,"poutana mana exeis");
-        } catch (Exception e) {
-            System.out.println(e);
-        }*/
-
+        Payment Payment = new Payment(userData);
+        Payment.setVisible(true);
     }
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {
@@ -540,52 +733,10 @@ public class CreateGroupp extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
-
-        try {
-
-            // Class.forName("conn.mysql.jdbc.Driver");
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/nearcourtdatabase", "root", "");
-            PreparedStatement ps= con.prepareStatement("INSERT INTO groupp(type,sport,date,number_of_players,time,player_id) values(?,?,?,?,?,?)");
+        // CreateGroup();
+        ValidateGroup(2,"Sport","Number of players");
 
 
-            // Retrieve the time input from the text field
-            String timeString = jTextField2.getText();
-
-            // Parse the time input into a Time object
-            SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
-            Date time;
-            try {
-                time = timeFormat.parse(timeString);
-            } catch (ParseException ex) {
-                ex.printStackTrace();
-                return;
-            }
-
-
-            ps.setTime(5, new Time(time.getTime()));
-
-
-            String selectdate =((JTextField)date1.getDateEditor().getUiComponent()).getText();
-            Date date1=new SimpleDateFormat("yyyy-MM-dd").parse(selectdate);
-            ps.setDate(3, new java.sql.Date(date1.getTime()));
-
-
-
-
-            String combo,combo2;
-
-            combo=jComboBox4.getSelectedItem().toString();
-            combo2=jComboBox3.getSelectedItem().toString();
-            ps.setString(2,combo);
-            ps.setString(4,combo2);
-            ps.setString(1,"public");
-            ps.setString(3,selectdate);
-            ps.setInt(6,(int) userData[0]);
-            ps.execute();
-            JOptionPane.showMessageDialog(this,"poutana mana exeis");
-        } catch (Exception e) {
-            System.out.println(e);
-        }
     }
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {
@@ -604,32 +755,12 @@ public class CreateGroupp extends javax.swing.JFrame {
     }
 
 
+
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(CreateGroupp.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(CreateGroupp.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(CreateGroupp.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(CreateGroupp.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
