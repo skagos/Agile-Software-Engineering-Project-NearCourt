@@ -1,5 +1,3 @@
-package org.example;
-
 import javax.swing.*;
 import java.util.Date;
 import java.lang.String;
@@ -13,7 +11,7 @@ import javax.swing.table.DefaultTableModel;
 import java.sql.ResultSetMetaData;
 
 
-public class CreateGroupPage extends JFrame {
+public class CreateGroupPage extends javax.swing.JFrame {
 
     private Object[] userData;
     int x=0;
@@ -64,8 +62,8 @@ public class CreateGroupPage extends JFrame {
     private void UpdateGroupsData(String s,int i){
 
         try{
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/nearcourt", "root", "");
-            PreparedStatement insertPs = con.prepareStatement("INSERT INTO `groups` (type,sport,date,group_capacity,time,owner_id,court_id,joined_players) values(?,?,?,?,?,?,?,1)");
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/nearcourtdatabase", "root", "");
+            PreparedStatement insertPs = con.prepareStatement("INSERT INTO groups(type,sport,date,group_capacity,time,owner_id,court_id) values(?,?,?,?,?,?,?)");
             String combo = sportc.getSelectedItem().toString();
             String  combo2 = public_players.getSelectedItem().toString();
             String selectdate = ((JTextField) date1.getDateEditor().getUiComponent()).getText();
@@ -91,8 +89,8 @@ public class CreateGroupPage extends JFrame {
             String selectdate = ((JTextField) date.getDateEditor().getUiComponent()).getText();
             Date date1 = new SimpleDateFormat("yyyy-MM-dd").parse(selectdate);
 
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/nearcourt", "root", "");
-            PreparedStatement insertPs = con.prepareStatement("INSERT INTO `groups`(type,sport,date,group_capacity,time,owner_id,court_id,joined_players) values(?,?,?,?,?,?,?,1)");
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/nearcourtdatabase", "root", "");
+            PreparedStatement insertPs = con.prepareStatement("INSERT INTO groups(type,sport,date,group_capacity,time,owner_id,court_id) values(?,?,?,?,?,?,?)");
             insertPs.setString(5, s);
             insertPs.setString(2, combo);
             insertPs.setDate(3, new java.sql.Date(date1.getTime()));
@@ -119,7 +117,7 @@ public class CreateGroupPage extends JFrame {
             Date date1 = new SimpleDateFormat("yyyy-MM-dd").parse(selectdate);
             combo2 = private_players.getSelectedItem().toString();
 
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/nearcourt", "root", "");
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/nearcourtdatabase", "root", "");
             PreparedStatement ps = con.prepareStatement("SELECT time,court_id FROM timetable WHERE court_type = ? AND date = ? AND number_of_players >= ? AND Availability = 0");
             ps.setString(1, combo);
             ps.setDate(2, new java.sql.Date(date1.getTime()));
@@ -164,7 +162,7 @@ public class CreateGroupPage extends JFrame {
 
                     CreateReservation(selectedTime,selectedCourtId);
 
-                    PreparedStatement ferma = con.prepareStatement("SELECT group_id FROM `groups` WHERE type = ? AND sport = ? AND  date = ? AND group_capacity = ? AND time = ? AND owner_id = ?");
+                    PreparedStatement ferma = con.prepareStatement("SELECT group_id FROM groups WHERE type = ? AND sport = ? AND  date = ? AND group_capacity = ? AND time = ? AND owner_id = ?");
 
                     ferma.setString(5, selectedTime);
                     ferma.setString(2,combo);
@@ -183,14 +181,14 @@ public class CreateGroupPage extends JFrame {
 
                     }
 
-                    PreparedStatement lol = con.prepareStatement("UPDATE `timetable` SET availability = 1 WHERE time = ?");
+                    PreparedStatement lol = con.prepareStatement("UPDATE timetable SET availability = 1 WHERE time = ?");
 
                     lol.setString(1, selectedTime);
                     lol.executeUpdate();
 
                     JOptionPane.showMessageDialog(this, "Success Create!");
-                    Payment payment = new Payment(userData);
-                    payment.setVisible(true);
+                    Payment Payment = new Payment(userData);
+                    Payment.setVisible(true);
 
 
                 } else {
@@ -215,7 +213,7 @@ public class CreateGroupPage extends JFrame {
                 combo2 = public_players.getSelectedItem().toString();
 
                 Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/nearcourtdatabase", "root", "");
-                PreparedStatement ps = con.prepareStatement("SELECT time,court_id FROM `timetable` WHERE court_type = ? AND date = ? AND number_of_players >= ? AND Availability = 0");
+                PreparedStatement ps = con.prepareStatement("SELECT time,court_id FROM timetable WHERE court_type = ? AND date = ? AND number_of_players >= ? AND Availability = 0");
                 ps.setString(1, combo);
                 ps.setDate(2, new java.sql.Date(date1.getTime()));
                 ps.setString(3, combo2);
@@ -259,7 +257,7 @@ public class CreateGroupPage extends JFrame {
 
                         UpdateGroupsData(selectedTime,selectedCourtId);
 
-                        PreparedStatement lol = con.prepareStatement("UPDATE `timetable` SET availability = 1 WHERE time = ?");
+                        PreparedStatement lol = con.prepareStatement("UPDATE timetable SET availability = 1 WHERE time = ?");
 
                         lol.setString(1, selectedTime);
                         lol.executeUpdate();
@@ -281,35 +279,35 @@ public class CreateGroupPage extends JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">
     private void initComponents() {
 
-        pblc = new JTabbedPane();
-        jPanel1 = new JPanel();
-        private_players = new JComboBox<>();
-        combo_sport = new JComboBox<>();
-        show_available = new JButton();
+        pblc = new javax.swing.JTabbedPane();
+        jPanel1 = new javax.swing.JPanel();
+        private_players = new javax.swing.JComboBox<>();
+        combo_sport = new javax.swing.JComboBox<>();
+        show_available = new javax.swing.JButton();
         date = new com.toedter.calendar.JDateChooser();
-        cdate = new JTextField();
-        public_panel = new JPanel();
-        public_players = new JComboBox<>();
-        sportc = new JComboBox<>();
-        show_public = new JButton();
+        cdate = new javax.swing.JTextField();
+        public_panel = new javax.swing.JPanel();
+        public_players = new javax.swing.JComboBox<>();
+        sportc = new javax.swing.JComboBox<>();
+        show_public = new javax.swing.JButton();
         date1 = new com.toedter.calendar.JDateChooser();
-        choose_date = new JTextField();
-        main_panel = new JPanel();
-        home = new JButton();
-        title = new JLabel();
+        choose_date = new javax.swing.JTextField();
+        main_panel = new javax.swing.JPanel();
+        home = new javax.swing.JButton();
+        title = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel1.setBorder(BorderFactory.createEtchedBorder());
+        jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         private_players.setBackground(new java.awt.Color(102, 153, 255));
         private_players.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
-        private_players.setModel(new DefaultComboBoxModel<>(new String[] { "Number of players", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13" }));
+        private_players.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Number of players", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13" }));
 
         combo_sport.setBackground(new java.awt.Color(102, 153, 255));
         combo_sport.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
-        combo_sport.setModel(new DefaultComboBoxModel<>(new String[] { "Sport", "Football", "Basketball", "Tennis" }));
+        combo_sport.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Sport", "Football", "Basketball", "Tennis" }));
         combo_sport.setToolTipText("");
         combo_sport.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
@@ -343,55 +341,55 @@ public class CreateGroupPage extends JFrame {
             }
         });
 
-        GroupLayout jPanel1Layout = new GroupLayout(jPanel1);
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
-                jPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addGroup(jPanel1Layout.createSequentialGroup()
                                                 .addGap(84, 84, 84)
-                                                .addComponent(show_available, GroupLayout.PREFERRED_SIZE, 202, GroupLayout.PREFERRED_SIZE))
+                                                .addComponent(show_available, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE))
                                         .addGroup(jPanel1Layout.createSequentialGroup()
                                                 .addGap(25, 25, 25)
-                                                .addGroup(jPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                                                        .addComponent(private_players, GroupLayout.PREFERRED_SIZE, 328, GroupLayout.PREFERRED_SIZE)
-                                                        .addGroup(jPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
+                                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                        .addComponent(private_players, javax.swing.GroupLayout.PREFERRED_SIZE, 328, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                                                 .addGroup(jPanel1Layout.createSequentialGroup()
-                                                                        .addComponent(cdate, GroupLayout.PREFERRED_SIZE, 124, GroupLayout.PREFERRED_SIZE)
-                                                                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                                        .addComponent(date, GroupLayout.PREFERRED_SIZE, 198, GroupLayout.PREFERRED_SIZE))
-                                                                .addComponent(combo_sport, GroupLayout.PREFERRED_SIZE, 328, GroupLayout.PREFERRED_SIZE)))))
+                                                                        .addComponent(cdate, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                                        .addComponent(date, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                                .addComponent(combo_sport, javax.swing.GroupLayout.PREFERRED_SIZE, 328, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                                 .addContainerGap(58, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
-                jPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                        .addGroup(GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                 .addGap(40, 40, 40)
-                                .addComponent(combo_sport, GroupLayout.PREFERRED_SIZE, 39, GroupLayout.PREFERRED_SIZE)
+                                .addComponent(combo_sport, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(52, 52, 52)
-                                .addGroup(jPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(cdate, GroupLayout.DEFAULT_SIZE, 34, Short.MAX_VALUE)
-                                        .addComponent(date, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(cdate, javax.swing.GroupLayout.DEFAULT_SIZE, 34, Short.MAX_VALUE)
+                                        .addComponent(date, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addGap(45, 45, 45)
-                                .addComponent(private_players, GroupLayout.PREFERRED_SIZE, 34, GroupLayout.PREFERRED_SIZE)
+                                .addComponent(private_players, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(78, 78, 78)
-                                .addComponent(show_available, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
+                                .addComponent(show_available, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addContainerGap(158, Short.MAX_VALUE))
         );
 
         pblc.addTab("Private Court", jPanel1);
 
         public_panel.setBackground(new java.awt.Color(255, 255, 255));
-        public_panel.setBorder(BorderFactory.createEtchedBorder());
+        public_panel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         public_players.setBackground(new java.awt.Color(102, 153, 255));
         public_players.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
-        public_players.setModel(new DefaultComboBoxModel<>(new String[] { "Number of players", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13" }));
+        public_players.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Number of players", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13" }));
 
         sportc.setBackground(new java.awt.Color(102, 153, 255));
         sportc.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
-        sportc.setModel(new DefaultComboBoxModel<>(new String[] { "Sport", "Football", "Basketball", "Tennis" }));
+        sportc.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Sport", "Football", "Basketball", "Tennis" }));
         sportc.setToolTipText("");
         sportc.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
@@ -425,42 +423,42 @@ public class CreateGroupPage extends JFrame {
             }
         });
 
-        GroupLayout jPanel2Layout = new GroupLayout(public_panel);
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(public_panel);
         public_panel.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
-                jPanel2Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                        .addGroup(GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                                .addGroup(jPanel2Layout.createParallelGroup(GroupLayout.Alignment.TRAILING)
+                jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                         .addGroup(jPanel2Layout.createSequentialGroup()
-                                                .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                .addComponent(sportc, GroupLayout.PREFERRED_SIZE, 340, GroupLayout.PREFERRED_SIZE))
-                                        .addGroup(GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
+                                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(sportc, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
                                                 .addGap(29, 29, 29)
-                                                .addGroup(jPanel2Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                                                        .addComponent(public_players, GroupLayout.Alignment.TRAILING, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                        .addComponent(public_players, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                                         .addGroup(jPanel2Layout.createSequentialGroup()
-                                                                .addComponent(choose_date, GroupLayout.PREFERRED_SIZE, 110, GroupLayout.PREFERRED_SIZE)
-                                                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                                                .addComponent(date1, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                                                                .addComponent(choose_date, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                                .addComponent(date1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
                                 .addGap(42, 42, 42))
                         .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGap(95, 95, 95)
-                                .addComponent(show_public, GroupLayout.PREFERRED_SIZE, 202, GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(show_public, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
-                jPanel2Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGap(43, 43, 43)
-                                .addComponent(sportc, GroupLayout.PREFERRED_SIZE, 35, GroupLayout.PREFERRED_SIZE)
+                                .addComponent(sportc, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(51, 51, 51)
-                                .addGroup(jPanel2Layout.createParallelGroup(GroupLayout.Alignment.TRAILING)
-                                        .addComponent(choose_date, GroupLayout.PREFERRED_SIZE, 33, GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(date1, GroupLayout.PREFERRED_SIZE, 33, GroupLayout.PREFERRED_SIZE))
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(choose_date, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(date1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(53, 53, 53)
-                                .addComponent(public_players, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
+                                .addComponent(public_players, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(82, 82, 82)
-                                .addComponent(show_public, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
+                                .addComponent(show_public, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addContainerGap(151, Short.MAX_VALUE))
         );
 
@@ -481,18 +479,18 @@ public class CreateGroupPage extends JFrame {
         title.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
         title.setText("Create Group");
 
-        GroupLayout jPanel3Layout = new GroupLayout(main_panel);
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(main_panel);
         main_panel.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
-                jPanel3Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                        .addGroup(GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                                 .addGap(0, 156, Short.MAX_VALUE)
                                 .addComponent(title)
                                 .addGap(119, 119, 119)
                                 .addComponent(home))
         );
         jPanel3Layout.setVerticalGroup(
-                jPanel3Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addComponent(home)
                                 .addGap(0, 0, Short.MAX_VALUE))
@@ -502,22 +500,22 @@ public class CreateGroupPage extends JFrame {
                                 .addContainerGap(17, Short.MAX_VALUE))
         );
 
-        GroupLayout layout = new GroupLayout(getContentPane());
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-                layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                                        .addComponent(pblc, GroupLayout.PREFERRED_SIZE, 415, GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(main_panel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(pblc, javax.swing.GroupLayout.PREFERRED_SIZE, 415, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(main_panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(0, 838, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
-                layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(layout.createSequentialGroup()
-                                .addComponent(main_panel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                .addComponent(main_panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(pblc, GroupLayout.PREFERRED_SIZE, 547, GroupLayout.PREFERRED_SIZE)
+                                .addComponent(pblc, javax.swing.GroupLayout.PREFERRED_SIZE, 547, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addContainerGap(271, Short.MAX_VALUE))
         );
 
@@ -565,7 +563,7 @@ public class CreateGroupPage extends JFrame {
         // TODO add your handling code here:
     }
 
-    /*public static void main(String args[]) {
+    public static void main(String args[]) {
 
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
@@ -575,13 +573,13 @@ public class CreateGroupPage extends JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(CreateGroupPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CreateGroupp.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(CreateGroupPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CreateGroupp.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(CreateGroupPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CreateGroupp.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(CreateGroupPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CreateGroupp.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
 
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -589,23 +587,23 @@ public class CreateGroupPage extends JFrame {
                 //     new CreateGroupp().setVisible(true);
             }
         });
-    }*/
+    }
     // Variables declaration - do not modify
-    private JComboBox<String> combo_sport;
+    private javax.swing.JComboBox<String> combo_sport;
     private com.toedter.calendar.JDateChooser date;
     private com.toedter.calendar.JDateChooser date1;
-    private JButton home;
-    private JButton show_public;
-    private JComboBox<String> private_players;
-    private JComboBox<String> public_players;
-    private JComboBox<String> sportc;
-    private JLabel title;
-    private JPanel jPanel1;
-    private JPanel public_panel;
-    private JPanel main_panel;
-    private JTextField cdate;
-    private JTextField choose_date;
-    private JTabbedPane pblc;
-    private JButton show_available;
+    private javax.swing.JButton home;
+    private javax.swing.JButton show_public;
+    private javax.swing.JComboBox<String> private_players;
+    private javax.swing.JComboBox<String> public_players;
+    private javax.swing.JComboBox<String> sportc;
+    private javax.swing.JLabel title;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel public_panel;
+    private javax.swing.JPanel main_panel;
+    private javax.swing.JTextField cdate;
+    private javax.swing.JTextField choose_date;
+    private javax.swing.JTabbedPane pblc;
+    private javax.swing.JButton show_available;
     // End of variables declaration
 }

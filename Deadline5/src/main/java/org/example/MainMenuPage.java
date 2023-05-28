@@ -1,243 +1,185 @@
-package org.example;
-
-import java.awt.Color;
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import javax.swing.GroupLayout;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.LayoutStyle.ComponentPlacement;
+import java.util.List;
 
-public class MainMenuPage extends JFrame {
+
+public class MainMenuPage extends javax.swing.JFrame {
     private Object[] userData;
-    private int groupId = 0;
-    private JButton jButtonCreate;
-    private JButton jButtonProfile;
-    private JButton jButtonFind;
-    private JButton jButtonManage;
-    private JButton jButtonBook;
-    private JButton jButtonAddF;
-
-    private JLabel jLabel2;
-    private JPanel jPanel1;
 
     public MainMenuPage(Object[] userData) {
-        this.initComponents();
+        initComponents();
         this.userData = userData;
+
         String username = (String) userData[2];
-        this.jLabel2.setText("Welcome, " + username + "!");
-        this.jButtonProfile.addActionListener(new ActionListener() {
+        jLabel2.setText("Welcome, " + username + "!");
+
+        jButton3.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                MainMenuPage.this.showProfile();
-            }
-        });
-        this.jButtonCreate.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                MainMenuPage.this.showCreateGroup();
+                openProfilePage();
             }
         });
 
-        this.jButtonFind.addActionListener(new ActionListener() {
+        jButton4.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                MainMenuPage.this.showFindGroup();
+                openFindGroupPage();
             }
         });
-        this.jButtonManage.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                if (MainMenuPage.this.groupId > 0) {
-                    MainMenuPage.this.showManageMyGroup();
-                } else {
-                    System.out.println("error");
-                }
-
-            }
-
-        });
-
-        this.jButtonBook.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                MainMenuPage.this.showChooseSportScreen();
-            }
-        });
-
-       this.jButtonAddF.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                MainMenuPage.this.showAddFriendsPage();
-            }
-        });
-
-
-
     }
 
-    private void showProfile() {
-        Profile profile = new Profile(this.userData);
-        profile.setVisible(true);
-        profile.displayUserRate(this.userData);
-        this.dispose();
-    }
-    private void showCreateGroup() {
-        CreateGroupPage createGroupPage = new CreateGroupPage(this.userData);
-        createGroupPage.setVisible(true);
+    /*static MainMenuPage createMainMenuPage() {
+        return new MainMenuPage();
+    }*/
+
+    private void openProfilePage() {
+        ProfileGUI profileGUI = new ProfileGUI(userData);
+        profileGUI.setVisible(true);
+        List<String> rateList = profileGUI.displayUserRate(userData);
         this.dispose();
     }
 
-    private void showFindGroup() {
-        FindGroupGUI findGroupGUI = new FindGroupGUI(this.userData);
+   /* private void openFindGroupPage() {
+        FindGroupGUI findGroupGUI = new FindGroupGUI(userData);
         findGroupGUI.setVisible(true);
         this.dispose();
-    }
-
-    private void showManageMyGroup() {
-        if (this.groupId > 0) {
-            ManageMyGroup manageMyGroup = new ManageMyGroup(this.userData);
-            manageMyGroup.setVisible(true);
-            this.dispose();
-        } else {
-            System.out.println("error");
-        }
-
-    }
-    private void showChooseSportScreen() {
-        ChooseSportScreen chooseSportScreen = new ChooseSportScreen(userData);
-        chooseSportScreen.setVisible(true);
-        this.dispose();
-    }
-    private void showAddFriendsPage() {
-        AddFriendsPage addFriendsPage = new AddFriendsPage(userData);
-        addFriendsPage.setVisible(true);
-        this.dispose();
-    }
+    }*/
 
     private void initComponents() {
-        this.jPanel1 = new JPanel();
-        this.jLabel2 = new JLabel();
-        this.jButtonProfile = new JButton();
-        this.jButtonCreate = new JButton();
-        this.jButtonFind = new JButton();
-        this.jButtonManage = new JButton();
-        this.jButtonBook = new JButton();
-        this.jButtonAddF = new JButton();
 
-        this.setDefaultCloseOperation(3);
-        this.jLabel2.setText("jLabel2");
-        this.jButtonProfile.setBackground(new Color(51, 153, 0));
-        this.jButtonProfile.setText("Profile");
-        this.jButtonCreate.setBackground(new Color(0, 153, 0));
-        this.jButtonCreate.setText("Create Group");
-        this.jButtonFind.setBackground(new Color(0, 153, 0));
-        this.jButtonFind.setText("Find Group");
-        this.jButtonManage.setBackground(new Color(51, 153, 0));
-        this.jButtonManage.setText("Manage MyGroup");
-        this.jButtonBook.setBackground(new Color(0, 153, 0));
-        this.jButtonBook.setText("Book Court");
-        this.jButtonAddF.setText("Add Friends");
-        this.jButtonAddF.setBackground(new Color(0, 153, 0));
+        jPanel1 = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        jButton3 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
+        jButton5 = new javax.swing.JButton();
+        jButton6 = new javax.swing.JButton();
 
-        /*GroupLayout jPanel1Layout = new GroupLayout(this.jPanel1);
-        this.jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(jPanel1Layout.createParallelGroup(Alignment.LEADING).addGroup(jPanel1Layout.createSequentialGroup().addContainerGap().addGroup(jPanel1Layout.createParallelGroup(Alignment.TRAILING).addGroup(Alignment.LEADING, jPanel1Layout.createSequentialGroup().addComponent(this.jLabel2, -2, 121, -2).addContainerGap(-1, 32767)).addGroup(jPanel1Layout.createSequentialGroup().addGroup(jPanel1Layout.createParallelGroup(Alignment.TRAILING).addGroup(jPanel1Layout.createSequentialGroup().addComponent(this.jButtonFind, -2, 96, -2).addGap(31, 31, 31).addComponent(this.jButtonManage, -2, 96, -2)).addGroup(jPanel1Layout.createSequentialGroup().addComponent(this.jButtonProfile, -2, 96, -2).addPreferredGap(ComponentPlacement.RELATED, -1, 32767).addComponent(this.jButtonCreate, -2, 96, -2))).addGap(19, 19, 19)))).addGroup(jPanel1Layout.createSequentialGroup().addGap(70, 70, 70).addComponent(this.jButtonBook, -2, 96, -2).addGap(0, 0, 32767)));
-        jPanel1Layout.setVerticalGroup(jPanel1Layout.createParallelGroup(Alignment.LEADING).addGroup(jPanel1Layout.createSequentialGroup().addGap(18, 18, 18).addComponent(this.jLabel2).addGap(45, 45, 45).addGroup(jPanel1Layout.createParallelGroup(Alignment.BASELINE).addComponent(this.jButtonProfile).addComponent(this.jButtonCreate)).addGap(18, 18, 18).addGroup(jPanel1Layout.createParallelGroup(Alignment.BASELINE).addComponent(this.jButtonFind).addComponent(this.jButtonManage)).addGap(18, 18, 18).addComponent(this.jButtonBook).addContainerGap(96, 32767)));
-        GroupLayout layout = new GroupLayout(this.getContentPane());
-        this.getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(layout.createParallelGroup(Alignment.LEADING).addGroup(layout.createSequentialGroup().addGap(110, 110, 110).addComponent(this.jPanel1, -2, -1, -2).addContainerGap(48, 32767)));
-        layout.setVerticalGroup(layout.createParallelGroup(Alignment.LEADING).addGroup(layout.createSequentialGroup().addContainerGap().addComponent(this.jPanel1, -1, -1, 32767).addGap(22, 22, 22)));
-        this.pack();*/
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        GroupLayout jPanel1Layout = new GroupLayout(jPanel1);
+        jLabel2.setText("jLabel2");
+
+        jButton3.setBackground(new java.awt.Color(51, 153, 0));
+        jButton3.setText("Profile");
+
+        jButton2.setBackground(new java.awt.Color(0, 153, 0));
+        jButton2.setText("jButton2");
+
+        jButton4.setBackground(new java.awt.Color(0, 153, 0));
+        jButton4.setText("Find Group");
+
+        jButton5.setBackground(new java.awt.Color(51, 153, 0));
+        jButton5.setText("jButton5");
+
+        jButton6.setBackground(new java.awt.Color(0, 153, 0));
+        jButton6.setText("jButton6");
+
+
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
-                jPanel1Layout.createParallelGroup(Alignment.LEADING)
+                jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addContainerGap()
-                                .addGroup(jPanel1Layout.createParallelGroup(Alignment.LEADING)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                         .addGroup(jPanel1Layout.createSequentialGroup()
-                                                .addComponent(this.jLabel2, -2, 121, -2)
-                                                .addComponent(jButtonProfile)
-                                                .addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                .addComponent(jButtonCreate))
-                                        .addGroup(jPanel1Layout.createSequentialGroup()
-                                                .addComponent(jButtonFind)
-                                                .addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                .addComponent(jButtonManage))
-                                        .addGroup(jPanel1Layout.createSequentialGroup()
-                                                .addComponent(jButtonBook)
-                                                .addGap(18, 18, 18)
-                                                .addComponent(jButtonAddF)
-                                                .addGap(0, 1, Short.MAX_VALUE)))
-                                .addContainerGap())
+                                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                                                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                .addGap(31, 31, 31)
+                                                                .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                                                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                                .addGap(19, 19, 19))))
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(70, 70, 70)
+                                .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
-                jPanel1Layout.createParallelGroup(Alignment.LEADING)
+                jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(53, 53, 53)
-                                .addComponent(this.jLabel2)
-                                .addGroup(jPanel1Layout.createParallelGroup(Alignment.BASELINE)
-                                        .addComponent(jButtonProfile)
-                                        .addComponent(jButtonCreate))
                                 .addGap(18, 18, 18)
-                                .addGroup(jPanel1Layout.createParallelGroup(Alignment.BASELINE)
-                                        .addComponent(jButtonFind)
-                                        .addComponent(jButtonManage))
+                                .addComponent(jLabel2)
+                                .addGap(45, 45, 45)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(jButton3)
+                                        .addComponent(jButton2))
                                 .addGap(18, 18, 18)
-                                .addGroup(jPanel1Layout.createParallelGroup(Alignment.BASELINE)
-                                        .addComponent(jButtonBook)
-                                        .addComponent(jButtonAddF))
-                                .addContainerGap(87, Short.MAX_VALUE))
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(jButton4)
+                                        .addComponent(jButton5))
+                                .addGap(18, 18, 18)
+                                .addComponent(jButton6)
+                                .addContainerGap(96, Short.MAX_VALUE))
         );
 
-        GroupLayout layout = new GroupLayout(getContentPane());
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-                layout.createParallelGroup(Alignment.LEADING)
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(layout.createSequentialGroup()
-                                .addGap(116, 116, 116)
-                                .addComponent(jPanel1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap(103, Short.MAX_VALUE))
+                                .addGap(110, 110, 110)
+                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap(48, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
-                layout.createParallelGroup(Alignment.LEADING)
-                        .addGroup(Alignment.TRAILING, layout.createSequentialGroup()
-                                .addContainerGap(27, Short.MAX_VALUE)
-                                .addComponent(jPanel1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                                .addGap(28, 28, 28))
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(22, 22, 22))
         );
 
         pack();
-    }
+    }// </editor-fold>
 
-    public void selectGroupIdFromDatabase() {
-        String url = "jdbc:mysql://localhost:3306/nearcourt";
-        String username = "root";
-        String password = "";
+
+   /* public static void main(String args[]) {
+        Set the Nimbus look and feel
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+         If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
 
         try {
-            Class.forName("com.mysql.jdbc.Driver");
-            Connection connection = DriverManager.getConnection(url, username, password);
-            String sql = "SELECT group_id FROM `groups` WHERE owner_id = ?";
-            PreparedStatement statement = connection.prepareStatement(sql);
-            statement.setInt(1, (Integer)this.userData[0]);
-            ResultSet resultSet = statement.executeQuery();
-            if (resultSet.next()) {
-                this.groupId = resultSet.getInt("group_id");
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
             }
-
-            resultSet.close();
-            statement.close();
-            connection.close();
-        } catch (ClassNotFoundException var8) {
-            var8.printStackTrace();
-        } catch (SQLException var9) {
-            var9.printStackTrace();
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(MainMenuPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(MainMenuPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(MainMenuPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(MainMenuPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
 
-    }
+        /* Create and display the form */
+        /*java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new MainMenuPage().setVisible(true);
+            }
+        });
+    }*/
+
+    // Variables declaration - do not modify
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JPanel jPanel1;
+    // End of variables declaration
 }
+

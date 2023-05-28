@@ -1,8 +1,10 @@
-package org.example;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
+/**
+ *
+ * @author Admin
+ */
 public class ChooseSportScreen extends javax.swing.JFrame {
 
     private String selectedSport;
@@ -28,7 +30,7 @@ public class ChooseSportScreen extends javax.swing.JFrame {
                 // Perform the action when jButton1 is clicked
                 selectedSport = "Football";
                 System.out.println("Football button clicked!");
-                ShowChooseSportScreen();
+                ShowChooseCourtScreen();
                 dispose(); // Close the MainFrame
             }
         });
@@ -40,7 +42,7 @@ public class ChooseSportScreen extends javax.swing.JFrame {
                 // Perform the action when jButton2 is clicked
                 selectedSport = "Basketball";
                 System.out.println("Basketball button clicked!");
-                ShowChooseSportScreen();
+                ShowChooseCourtScreen();
                 dispose(); // Close the MainFrame
             }
         });
@@ -52,14 +54,14 @@ public class ChooseSportScreen extends javax.swing.JFrame {
                 // Perform the action when jButton4 is clicked
                 selectedSport = "Tennis";
                 System.out.println("Tennis button clicked!");
-                ShowChooseSportScreen();
+                ShowChooseCourtScreen();
                 dispose(); // Close the MainFrame
             }
         });
     }
 
 
-    private void ShowChooseSportScreen() {
+    private void ShowChooseCourtScreen() {
         SportsCenter sportsCenter = new SportsCenter(selectedSport,userData);
         sportsCenter.requestnearbycourts();
         // Use the SportsCenter object as needed
