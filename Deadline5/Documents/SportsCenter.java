@@ -41,14 +41,7 @@ public class SportsCenter {
                     // Retrieve data from the result set
                     String time = resultSet.getString("time");
                     String player = resultSet.getString("court_name");
-                    // ...
 
-                    // Do something with the retrieved data
-                    // System.out.println("Sport: " + type);
-                    //System.out.println("Player: " + player);
-                    // ...
-
-                    // Add the retrieved items to the list
 
                     //sportList.add(player);
                     sportList.add(time);

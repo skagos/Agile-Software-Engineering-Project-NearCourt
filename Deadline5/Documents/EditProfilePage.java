@@ -291,69 +291,6 @@ public class EditProfilePage extends javax.swing.JFrame {
     }
 
 
-
-    private void updateUsername() {
-        String currentPassword = jTextField1.getText();
-        String newUsername = jTextField5.getText();
-        String newPassword = jTextField3.getText();
-        String confirmNewPassword = jTextField4.getText();
-
-        if (currentPassword.isEmpty() || newUsername.isEmpty()) {
-            // Either "Current Password" or "New Username" is empty
-            JOptionPane.showMessageDialog(EditProfilePage.this, "Please enter values for both Current Password and New Username fields.", "Change Personal Info Failed", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-        if (newPassword.isEmpty() || confirmNewPassword.isEmpty()) {
-            // Either "New Password" or "Confirm New Password" is empty
-            JOptionPane.showMessageDialog(EditProfilePage.this, "Please enter values for both New Password and Confirm New Password fields.","Change Personal Info Failed",JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-
-        if (!validatePassword(currentPassword)) {
-            // Current password is incorrect
-            JOptionPane.showMessageDialog(EditProfilePage.this, "Current password is incorrect.", "Change Personal Info Failed", JOptionPane.ERROR_MESSAGE);
-            System.out.println("Current password is incorrect!");
-            return;
-        }
-        if (newPassword.length() < 8 || !newPassword.matches(".*\\d.*") || !newPassword.matches(".*[a-zA-Z].*")) {
-            // Password does not meet the criteria
-            JOptionPane.showMessageDialog(EditProfilePage.this, "The password must be at least 8 characters long and contain both numbers and letters.", "Change Personal Info Failed", JOptionPane.ERROR_MESSAGE);
-            System.out.println("Invalid password format!");
-            return;
-        }
-
-        // Database connection and update logic
-        try {
-            // Establish the database connection
-            String url = "jdbc:mysql://localhost:3306/nearcourt";
-            String username = "root";
-            String password = "";
-            Connection conn = DriverManager.getConnection(url, username, password);
-
-            String updateUsernameSql = "UPDATE users SET name = ? WHERE user_id = ?";
-            PreparedStatement updateUsernameStmt = conn.prepareStatement(updateUsernameSql);
-            updateUsernameStmt.setString(1, newUsername);
-            updateUsernameStmt.setInt(2, (int) userData[0]);
-
-            // Execute the update
-            int rowsUpdated = updateUsernameStmt.executeUpdate();
-
-            if (rowsUpdated > 0) {
-                // The username was updated successfully
-                JOptionPane.showMessageDialog(EditProfilePage.this, "Success! Username has been updated.");
-            } else {
-                // No rows were updated, handle the error or display a message accordingly
-                JOptionPane.showMessageDialog(EditProfilePage.this, "Failed to update username.", "Change Personal Info Failed", JOptionPane.ERROR_MESSAGE);
-                System.out.println("Failed to update username.");
-            }
-            updateUsernameStmt.close();
-            conn.close();
-
-        } catch (SQLException e) {
-            // Handle any database errors
-            e.printStackTrace();
-        }
-    }
     private boolean validatePassword(String currentPassword) {
         try {
             // Establish the database connection

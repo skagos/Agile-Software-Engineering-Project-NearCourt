@@ -5,11 +5,11 @@ import java.awt.event.ActionListener;
 import java.sql.*;
 import java.util.List;
 
-public class User extends JFrame {
+public class loginForm extends JFrame {
     private JTextField usernameField;
     private JPasswordField passwordField;
 
-    public User() {
+    public loginForm() {
         setTitle("Login Form");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(300, 200);
@@ -42,16 +42,17 @@ public class User extends JFrame {
                 // Perform login authentication against the database
                 Object[] userData = authenticateUser(name, password);
                 if (userData != null) {
-                    JOptionPane.showMessageDialog(User.this, "Login Successful!");
+                    JOptionPane.showMessageDialog(loginForm.this, "Login Successful!");
 
                     // Pass user data to the NewPage and open it
-                    MainMenuPage mainMenuPage = new MainMenuPage(userData);
+                   MainMenuPage mainMenuPage = new MainMenuPage(userData);
+                    mainMenuPage.selectGroupIdFromDatabase();
                     mainMenuPage.setVisible(true);
 
 
                     dispose(); // Close the login form
                 } else {
-                    JOptionPane.showMessageDialog(User.this, "Invalid username or password.", "Login Failed", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(loginForm.this, "Invalid username or password.", "Login Failed", JOptionPane.ERROR_MESSAGE);
                 }
             }
 
@@ -85,10 +86,13 @@ public class User extends JFrame {
                         int id = rs.getInt("user_id");
                         String email = rs.getString("email");
                         String namee = rs.getString("name");
+                        String passwordd = rs.getString("password");
+                        int court_id = 0;
+                        int group_id = 0;
                         // Retrieve other user data as needed
 
                         // Populate the userData array with the retrieved data
-                        userData = new Object[] { id, email,namee };
+                        userData = new Object[] { id, email,namee,passwordd,court_id,group_id};
                     }
                 } catch (Exception ex) {
                     ex.printStackTrace();
@@ -110,7 +114,7 @@ public class User extends JFrame {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
-                new User().setVisible(true);
+                new loginForm().setVisible(true);
             }
         });
     }

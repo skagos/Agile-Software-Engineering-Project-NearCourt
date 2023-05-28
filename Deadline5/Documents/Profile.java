@@ -6,14 +6,12 @@ import java.awt.event.ActionListener;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-public class ProfileGUI extends javax.swing.JFrame {
+public class Profile extends javax.swing.JFrame {
 
     private Object[] userData;
 
-    /**
-     * Creates new form ProfileGUI
-     */
-    public ProfileGUI(Object[] userData) {
+
+    public Profile(Object[] userData) {
         initComponents();
         this.userData = userData;
         getUserData();
@@ -37,7 +35,7 @@ public class ProfileGUI extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList<>();
+        rateList1 = new javax.swing.JList<>();
         jButton1 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         nameLabel = new javax.swing.JLabel();
@@ -83,7 +81,7 @@ public class ProfileGUI extends javax.swing.JFrame {
         );
 
 
-        jScrollPane1.setViewportView(jList1);
+        jScrollPane1.setViewportView(rateList1);
 
         jButton1.setBackground(new java.awt.Color(51, 204, 255));
         jButton1.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
@@ -178,7 +176,7 @@ public class ProfileGUI extends javax.swing.JFrame {
                 resultSet.close();
 
                 List<String> finalRateList = rateList;
-                jList1.setModel(new javax.swing.AbstractListModel<String>() {
+                rateList1.setModel(new javax.swing.AbstractListModel<String>() {
                     String[] strings = finalRateList.toArray(new String[0]);
 
                     public int getSize() {
@@ -199,7 +197,7 @@ public class ProfileGUI extends javax.swing.JFrame {
         }
         return rateList;
     }
-    
+
 
 
     private javax.swing.JButton jButton1;
@@ -207,9 +205,10 @@ public class ProfileGUI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel nameLabel;
     private javax.swing.JLabel emailLabel;
-    private javax.swing.JList<String> jList1;
+    private javax.swing.JList<String> rateList1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration
 }
+
