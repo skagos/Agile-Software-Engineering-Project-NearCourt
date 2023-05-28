@@ -5,11 +5,8 @@ import java.sql.*;
 
 public class Payment extends javax.swing.JFrame {
     private Object[] userData;
-
     private int group_id;
-
     private int court_id;
-
     private double amount;
     private javax.swing.JLabel jLabel4;
 
