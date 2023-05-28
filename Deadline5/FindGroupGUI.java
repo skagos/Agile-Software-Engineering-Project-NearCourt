@@ -221,7 +221,7 @@ public class FindGroupGUI extends javax.swing.JFrame {
             System.out.println(e);
         }
     }
-    private void findGroupsButActionPerformed(java.awt.event.ActionEvent evt) {
+    private void getFilterGroupsData(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
         for(int i=0; i<5; i++){
             for (int j=0; j<10; j++){
