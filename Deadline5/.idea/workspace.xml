@@ -5,19 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="23b2456a-d69c-49b2-ad93-c65cc362cbbb" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/runConfigurations/loginForm.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AddFriendsPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/AddFriendsPage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ChooseCourtScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/ChooseCourtScreen.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ChooseSportScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/ChooseSportScreen.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CreateGroupp.java" beforeDir="false" afterPath="$PROJECT_DIR$/CreateGroupp.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SportsCenter.java" beforeDir="false" afterPath="$PROJECT_DIR$/SportsCenter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/class.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FindGroupGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/FindGroupGUI.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

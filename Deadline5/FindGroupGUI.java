@@ -186,8 +186,41 @@ public class FindGroupGUI extends javax.swing.JFrame {
         );
 
         pack();
+        getAllGroupsData();
     }// </editor-fold>
 
+    private void getAllGroupsData(){
+
+        for(int i=0; i<5; i++){
+            for (int j=0; j<10; j++){
+                groupsTable.setValueAt("", j, i);
+            }
+        }
+        String sport = (String) sportComboBox.getSelectedItem();
+        System.out.println(sport);
+        int players = (int) playersComboBox.getSelectedItem();
+        String url = "jdbc:mysql://localhost:3306/nearcourt";
+        String username = "root";
+        String password = "";
+
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection con = DriverManager.getConnection(url, username, password);
+            Statement stm = con.createStatement();
+            ResultSet rslt = stm.executeQuery("SELECT group_id,name,date,groups.sport,joined_players, group_capacity FROM `groups` INNER JOIN court ON court.court_id = groups.court_id;");
+            ResultSetMetaData metaData = rslt.getMetaData();
+            int numOfColumns = metaData.getColumnCount();
+            int row = 0;
+            while(rslt.next()){
+                for(int i=1; i<=numOfColumns; i++){
+                    groupsTable.setValueAt(rslt.getObject(i),row,i-1 );
+                }
+                row++;
+            }
+        }catch (Exception e){
+            System.out.println(e);
+        }
+    }
     private void findGroupsButActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
         for(int i=0; i<5; i++){
