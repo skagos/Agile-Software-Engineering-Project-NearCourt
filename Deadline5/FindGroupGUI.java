@@ -117,7 +117,7 @@ public class FindGroupGUI extends javax.swing.JFrame {
         findGroupsBut.setBorderPainted(false);
         findGroupsBut.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                findGroupsButActionPerformed(evt);
+                getFilterGroupsData(evt);
             }
         });
 
@@ -186,7 +186,7 @@ public class FindGroupGUI extends javax.swing.JFrame {
         );
 
         pack();
-        for(int i=0; i<5; i++){
+        for(int i=0; i<7; i++){
             for (int j=0; j<10; j++){
                 groupsTable.setValueAt("", j, i);
             }
@@ -217,9 +217,11 @@ public class FindGroupGUI extends javax.swing.JFrame {
         }
     }// </editor-fold>
 
-    private void findGroupsButActionPerformed(java.awt.event.ActionEvent evt) {
+
+    //returns the groups based on filters which user inserted
+    private void getFilterGroupsData(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
-        for(int i=0; i<5; i++){
+        for(int i=0; i<7; i++){
             for (int j=0; j<10; j++){
                 groupsTable.setValueAt("", j, i);
             }
@@ -252,6 +254,7 @@ public class FindGroupGUI extends javax.swing.JFrame {
         }
     }
 
+    //opens the payment window for the selected court
     private void joinButActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
 
@@ -288,6 +291,7 @@ public class FindGroupGUI extends javax.swing.JFrame {
 
     }
 
+    //after the success payment this method add the user to the selected group
     private void updateGroupsData(int user_id, int court_id, int groups_id){
         int row = groupsTable.getSelectedRow();
         String url = "jdbc:mysql://localhost:3306/nearcourt";
@@ -315,6 +319,8 @@ public class FindGroupGUI extends javax.swing.JFrame {
         }
     }
 
+
+    //returns the user back to profile
     private void profileButActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
 
