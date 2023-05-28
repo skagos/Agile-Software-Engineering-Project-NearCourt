@@ -22,7 +22,7 @@ public class FindGroupGUI extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jLabel5 = new javax.swing.JLabel();
+        findGroupLabel = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         groupsTable = new javax.swing.JTable();
         joinBut = new javax.swing.JButton();
@@ -36,12 +36,12 @@ public class FindGroupGUI extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel5.setBackground(new java.awt.Color(51, 204, 0));
-        jLabel5.setFont(new java.awt.Font("Showcard Gothic", 0, 36)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel5.setText("jLabel5");
-        jLabel5.setOpaque(true);
+        findGroupLabel.setBackground(new java.awt.Color(51, 204, 0));
+        findGroupLabel.setFont(new java.awt.Font("Showcard Gothic", 0, 36)); // NOI18N
+        findGroupLabel.setForeground(new java.awt.Color(255, 255, 255));
+        findGroupLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        findGroupLabel.setText("Find Group");
+        findGroupLabel.setOpaque(true);
 
         groupsTable.setModel(new javax.swing.table.DefaultTableModel(
                 new Object [][] {
@@ -156,7 +156,7 @@ public class FindGroupGUI extends javax.swing.JFrame {
                                                                         .addComponent(playersComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                                         .addGap(0, 0, Short.MAX_VALUE))))
                                 .addContainerGap(175, Short.MAX_VALUE))
-                        .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(findGroupLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createSequentialGroup()
                                 .addComponent(profileBut)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -165,7 +165,7 @@ public class FindGroupGUI extends javax.swing.JFrame {
         layout.setVerticalGroup(
                 layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(findGroupLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(2, 2, 2)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                         .addComponent(profileBut)
@@ -325,7 +325,7 @@ public class FindGroupGUI extends javax.swing.JFrame {
 
     private static javax.swing.JButton findGroupsBut;
     private static javax.swing.JTable groupsTable;
-    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel findGroupLabel;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private static javax.swing.JButton joinBut;
