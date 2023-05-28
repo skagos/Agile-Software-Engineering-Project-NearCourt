@@ -5,8 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="23b2456a-d69c-49b2-ad93-c65cc362cbbb" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/Nearcourt.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/groups.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/loginForm.java" beforeDir="false" afterPath="$PROJECT_DIR$/User.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
