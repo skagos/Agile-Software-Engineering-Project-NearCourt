@@ -224,9 +224,6 @@ private double getPrice(int court_id){
         return amount;
     }
 
-
-
-
     private void addPayment(double amount) {
             try {
                 // Establishing database connection
