@@ -1,3 +1,5 @@
+package org.example;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -6,14 +8,12 @@ import java.awt.event.ActionListener;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-public class ProfileGUI extends javax.swing.JFrame {
+public class Profile extends JFrame {
 
     private Object[] userData;
 
-    /**
-     * Creates new form ProfileGUI
-     */
-    public ProfileGUI(Object[] userData) {
+
+    public Profile(Object[] userData) {
         initComponents();
         this.userData = userData;
         getUserData();
@@ -33,95 +33,95 @@ public class ProfileGUI extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">
     private void initComponents() {
-        jInternalFrame1 = new javax.swing.JInternalFrame();
-        jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList<>();
-        jButton1 = new javax.swing.JButton();
-        jPanel2 = new javax.swing.JPanel();
-        nameLabel = new javax.swing.JLabel();
-        emailLabel = new javax.swing.JLabel();
+        jInternalFrame1 = new JInternalFrame();
+        jPanel1 = new JPanel();
+        jLabel1 = new JLabel();
+        jScrollPane1 = new JScrollPane();
+        rateList1 = new JList<>();
+        jButton1 = new JButton();
+        jPanel2 = new JPanel();
+        nameLabel = new JLabel();
+        emailLabel = new JLabel();
 
         jInternalFrame1.setVisible(true);
 
-        javax.swing.GroupLayout jInternalFrame1Layout = new javax.swing.GroupLayout(jInternalFrame1.getContentPane());
+        GroupLayout jInternalFrame1Layout = new GroupLayout(jInternalFrame1.getContentPane());
         jInternalFrame1.getContentPane().setLayout(jInternalFrame1Layout);
         jInternalFrame1Layout.setHorizontalGroup(
-                jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                jInternalFrame1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                         .addGap(0, 0, Short.MAX_VALUE)
         );
         jInternalFrame1Layout.setVerticalGroup(
-                jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                jInternalFrame1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                         .addGap(0, 0, Short.MAX_VALUE)
         );
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setBackground(new java.awt.Color(0, 153, 51));
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new Color(0, 153, 51));
 
-        jPanel1.setBackground(new java.awt.Color(0, 153, 0));
-        jPanel1.setForeground(new java.awt.Color(255, 255, 255));
+        jPanel1.setBackground(new Color(0, 153, 0));
+        jPanel1.setForeground(new Color(255, 255, 255));
 
-        jLabel1.setFont(new java.awt.Font("Arial Black", 1, 18)); // NOI18N
+        jLabel1.setFont(new Font("Arial Black", 1, 18)); // NOI18N
         jLabel1.setText("Profile");
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        GroupLayout jPanel1Layout = new GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
-                jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                jPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                         .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(214, 214, 214)
                                 .addComponent(jLabel1)
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
-                jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                jPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                        .addGroup(GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                 .addContainerGap(20, Short.MAX_VALUE)
                                 .addComponent(jLabel1)
                                 .addGap(19, 19, 19))
         );
 
 
-        jScrollPane1.setViewportView(jList1);
+        jScrollPane1.setViewportView(rateList1);
 
-        jButton1.setBackground(new java.awt.Color(51, 204, 255));
-        jButton1.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
+        jButton1.setBackground(new Color(51, 204, 255));
+        jButton1.setFont(new Font("Arial Black", 0, 12)); // NOI18N
         jButton1.setText("Change Username/Password");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jButton1.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
-        jPanel2.setLayout(new java.awt.FlowLayout());
+        jPanel2.setLayout(new FlowLayout());
 
         //jLabel2.add(usernameLabel);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        GroupLayout layout = new GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                        .addComponent(jPanel1, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addContainerGap(93, Short.MAX_VALUE)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                                        .addGroup(GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                                 .addComponent(jButton1)
                                                 .addGap(122, 122, 122))
-                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.TRAILING)
+                                                        .addComponent(jPanel2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                                        .addComponent(jScrollPane1, GroupLayout.PREFERRED_SIZE, 262, GroupLayout.PREFERRED_SIZE))
                                                 .addGap(101, 101, 101))))
         );
         layout.setVerticalGroup(
-                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                         .addGroup(layout.createSequentialGroup()
-                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jPanel1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jPanel2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                                .addComponent(jScrollPane1, GroupLayout.PREFERRED_SIZE, 93, GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(jButton1)
                                 .addGap(14, 14, 14))
@@ -132,9 +132,9 @@ public class ProfileGUI extends javax.swing.JFrame {
         pack();
     }// </editor-fold>
     private void getUserData() {
-        nameLabel = new javax.swing.JLabel();
+        nameLabel = new JLabel();
         nameLabel.setText("Username:" + userData[2] + "   ");
-        emailLabel = new javax.swing.JLabel();
+        emailLabel = new JLabel();
         emailLabel.setText("Email: " + userData[1]);
 
         jPanel2.add(nameLabel);
@@ -143,7 +143,7 @@ public class ProfileGUI extends javax.swing.JFrame {
 
 
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {
+    private void jButton1ActionPerformed(ActionEvent evt) {
         //com.mycompany.editprofile.EditP editP = new com.mycompany.editprofile.EditP(userId);
         //System.out.println("toy koumpioy" + userId);
 
@@ -178,7 +178,7 @@ public class ProfileGUI extends javax.swing.JFrame {
                 resultSet.close();
 
                 List<String> finalRateList = rateList;
-                jList1.setModel(new javax.swing.AbstractListModel<String>() {
+                rateList1.setModel(new AbstractListModel<String>() {
                     String[] strings = finalRateList.toArray(new String[0]);
 
                     public int getSize() {
@@ -199,17 +199,18 @@ public class ProfileGUI extends javax.swing.JFrame {
         }
         return rateList;
     }
-    
 
 
-    private javax.swing.JButton jButton1;
-    private javax.swing.JInternalFrame jInternalFrame1;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel nameLabel;
-    private javax.swing.JLabel emailLabel;
-    private javax.swing.JList<String> jList1;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JScrollPane jScrollPane1;
+
+    private JButton jButton1;
+    private JInternalFrame jInternalFrame1;
+    private JLabel jLabel1;
+    private JLabel nameLabel;
+    private JLabel emailLabel;
+    private JList<String> rateList1;
+    private JPanel jPanel1;
+    private JPanel jPanel2;
+    private JScrollPane jScrollPane1;
     // End of variables declaration
 }
+

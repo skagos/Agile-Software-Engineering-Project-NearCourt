@@ -3,45 +3,45 @@ package org.example;
 import javax.swing.*;
 import java.sql.*;
 
-public class Payment extends javax.swing.JFrame {
+public class Payment extends JFrame {
     private Object[] userData;
-    private int group_id;
-    private int court_id;
+    private JLabel jLabelAmount;
     private double amount;
-    private javax.swing.JLabel jLabel4;
+    private  double price;
 
+    public Payment(Object[] userData) {
 
-    public Payment(Object[] userData, int group_id, int court_id) {
         initComponents();
         this.userData = userData;
-        this.group_id = group_id;
-        this.court_id = court_id;
-        this.amount = calculateAmount(userData, group_id, court_id, getPrice(court_id));
+        // price = getPrice((int) userData[4]);
+        //System.out.println("timi prwth" + price);
+        amount = calculateAmount(userData);
+        for (Object obj : userData) {
+            System.out.println(obj.toString());
+        }
     }
 
-
-    @SuppressWarnings("unchecked")
     private void initComponents() {
-        jPanel1 = new javax.swing.JPanel();
-        jTextField1 = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
-        jTextField4 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        jLabel4 = new javax.swing.JLabel();
+        jPanel1 = new JPanel();
+        jTextFieldName = new JTextField();
+        jLabelName = new JLabel();
+        jLabelNumber = new JLabel();
+        jTextField2 = new JTextField();
+        jLabelCVV = new JLabel();
+        jTextField3 = new JTextField();
+        jTextField4 = new JTextField();
+        jButtonSubmit = new JButton();
+        jLabelAmount = new JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setText("Name");
+        jLabelName.setText("Name");
 
-        jLabel2.setText("Number");
+        jLabelNumber.setText("Number");
 
-        jLabel3.setText("CVV");
+        jLabelCVV.setText("CVV");
 
-        jLabel4.setText("Amount:");
+        jLabelAmount.setText("Amount:");
 
         jTextField3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -56,94 +56,128 @@ public class Payment extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setBackground(new java.awt.Color(102, 204, 0));
-        jButton1.setText("Submit Payment");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jButtonSubmit.setBackground(new java.awt.Color(102, 204, 0));
+        jButtonSubmit.setText("Submit Payment");
+        jButtonSubmit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jButtonSubmitActionPerformed(evt);
             }
         });
 
+        jLabelAmount.setBackground(new java.awt.Color(0, 153, 0));
+        jLabelAmount.setText("Amount");
 
-        jLabel4.setBackground(new java.awt.Color(0, 153, 0));
-        jLabel4.setText("jLabel4");
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        GroupLayout jPanel1Layout = new GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
-                jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                jPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                         .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(jPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                                         .addGroup(jPanel1Layout.createSequentialGroup()
                                                 .addGap(46, 46, 46)
-                                                .addComponent(jButton1))
+                                                .addComponent(jButtonSubmit))
                                         .addGroup(jPanel1Layout.createSequentialGroup()
                                                 .addContainerGap()
-                                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGroup(jPanel1Layout
+                                                        .createParallelGroup(GroupLayout.Alignment.TRAILING)
+                                                        .addComponent(jLabelAmount,
+                                                                GroupLayout.PREFERRED_SIZE, 124,
+                                                                GroupLayout.PREFERRED_SIZE)
                                                         .addGroup(jPanel1Layout.createSequentialGroup()
-                                                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                .addGroup(jPanel1Layout.createParallelGroup(
+                                                                                GroupLayout.Alignment.LEADING)
+                                                                        .addComponent(jLabelName,
+                                                                                GroupLayout.PREFERRED_SIZE,
+                                                                                60,
+                                                                                GroupLayout.PREFERRED_SIZE)
+                                                                        .addComponent(jLabelNumber,
+                                                                                GroupLayout.PREFERRED_SIZE,
+                                                                                64,
+                                                                                GroupLayout.PREFERRED_SIZE)
                                                                         .addGroup(jPanel1Layout.createSequentialGroup()
                                                                                 .addGap(6, 6, 6)
-                                                                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                                                        .addComponent(jLabel3)
-                                                                                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                                                                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                                                                                        .addComponent(jTextField3)
-                                                                                                        .addGap(18, 18, 18)
-                                                                                                        .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                                                                                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                                                                .addGroup(jPanel1Layout
+                                                                                        .createParallelGroup(
+                                                                                                GroupLayout.Alignment.LEADING)
+                                                                                        .addComponent(jLabelCVV)
+                                                                                        .addComponent(jTextFieldName,
+                                                                                                GroupLayout.PREFERRED_SIZE,
+                                                                                                161,
+                                                                                                GroupLayout.PREFERRED_SIZE)
+                                                                                        .addGroup(jPanel1Layout
+                                                                                                .createParallelGroup(
+                                                                                                        GroupLayout.Alignment.TRAILING,
+                                                                                                        false)
+                                                                                                .addGroup(jPanel1Layout
+                                                                                                        .createSequentialGroup()
+                                                                                                        .addComponent(
+                                                                                                                jTextField3)
+                                                                                                        .addGap(18, 18,
+                                                                                                                18)
+                                                                                                        .addComponent(
+                                                                                                                jTextField4,
+                                                                                                                GroupLayout.PREFERRED_SIZE,
+                                                                                                                GroupLayout.DEFAULT_SIZE,
+                                                                                                                GroupLayout.PREFERRED_SIZE))
+                                                                                                .addComponent(
+                                                                                                        jTextField2,
+                                                                                                        GroupLayout.PREFERRED_SIZE,
+                                                                                                        161,
+                                                                                                        GroupLayout.PREFERRED_SIZE)))))
                                                                 .addGap(7, 7, 7)))))
-                                .addContainerGap(37, Short.MAX_VALUE))
-        );
+                                .addContainerGap(37, Short.MAX_VALUE)));
         jPanel1Layout.setVerticalGroup(
-                jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                jPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                         .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addContainerGap()
-                                .addComponent(jLabel1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
-                                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jButton1)
-                                .addContainerGap())
-        );
+                                .addComponent(jLabelName)
+                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jTextFieldName, GroupLayout.PREFERRED_SIZE,
+                                        GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabelNumber)
+                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jTextField2, GroupLayout.PREFERRED_SIZE,
+                                        GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabelCVV, GroupLayout.PREFERRED_SIZE, 14,
+                                        GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel1Layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                                        .addComponent(jTextField3, GroupLayout.PREFERRED_SIZE,
+                                                GroupLayout.DEFAULT_SIZE,
+                                                GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jTextField4, GroupLayout.PREFERRED_SIZE,
+                                                GroupLayout.DEFAULT_SIZE,
+                                                GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 26,
+                                        Short.MAX_VALUE)
+                                .addComponent(jLabelAmount, GroupLayout.PREFERRED_SIZE, 40,
+                                        GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jButtonSubmit)
+                                .addContainerGap()));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        GroupLayout layout = new GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                        .addGroup(GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addContainerGap(109, Short.MAX_VALUE)
-                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(107, 107, 107))
-        );
+                                .addComponent(jPanel1, GroupLayout.PREFERRED_SIZE,
+                                        GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                .addGap(107, 107, 107)));
         layout.setVerticalGroup(
-                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                        .addGroup(GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addContainerGap(17, Short.MAX_VALUE)
-                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(16, 16, 16))
-        );
+                                .addComponent(jPanel1, GroupLayout.PREFERRED_SIZE,
+                                        GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                .addGap(16, 16, 16)));
 
         pack();
 
     }
-
 
     private boolean validateCardInfo() {
         String number = jTextField2.getText();
@@ -169,35 +203,47 @@ public class Payment extends javax.swing.JFrame {
         return true;
     }
 
-private double getPrice(int court_id){
-    try {
-        // Establishing database connection
-        Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/nearcourt", "root", "");
+   /* private double getPrice(int court_id) {
+        try {
+            // Establishing database connection
+            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/nearcourt", "root", "");
 
-        // Retrieving price from the court table
-        PreparedStatement courtStmt = connection.prepareStatement("SELECT price FROM court WHERE court_id = ?");
-        courtStmt.setInt(1, court_id);
-        ResultSet courtResult = courtStmt.executeQuery();
+            // Retrieving price from the court table
+            PreparedStatement courtStmt = connection.prepareStatement("SELECT price FROM court WHERE court_id = ?");
+            courtStmt.setInt(1, court_id);
+            System.out.println(court_id);
 
-        if (courtResult.next()) {
-            double price = courtResult.getDouble("price");
-        }else {
-            JOptionPane.showMessageDialog(this, "Court not found.");
+            ResultSet courtResult = courtStmt.executeQuery();
+
+            if (courtResult.next()) {
+                double price = courtResult.getDouble("price");
+                System.out.println(price);
+            } else {
+                JOptionPane.showMessageDialog(this, "Court not found.");
+            }
         }catch(Exception e){
-            System.out.println(e);
-        }
-    return price;
-}
-
-    public double calculateAmount(Object[] userData, int group_id, int court_id, double price) {
+                System.out.println(e);
+            }
+            return price;
+    }*/
+    public double calculateAmount(Object[] userData) {
         double amount = 0.0;
 
         try {
             // Establishing database connection
             Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/nearcourt", "root", "");
+
+            // Retrieving price from the court table
+            PreparedStatement courtStmt = connection.prepareStatement("SELECT price FROM `court` WHERE court_id = ?");
+            courtStmt.setInt(1, (int) userData[4]);
+            ResultSet courtResult = courtStmt.executeQuery();
+
+            if (courtResult.next()) {
+                double price = courtResult.getDouble("price");
+
                 // Retrieving group_capacity from the groups table
                 PreparedStatement groupStmt = connection.prepareStatement("SELECT group_capacity FROM `groups` WHERE group_id = ?");
-                groupStmt.setInt(1, group_id);
+                groupStmt.setInt(1, (int) userData[5]);
                 ResultSet groupResult = groupStmt.executeQuery();
 
                 if (groupResult.next()) {
@@ -213,18 +259,54 @@ private double getPrice(int court_id){
 
                 groupStmt.close();
                 courtStmt.close();
+            } else {
+                JOptionPane.showMessageDialog(this, "Court not found.");
+            }
 
             connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        // Displaying the amount on the UI
-        jLabel4.setText("Amount: $" + amount);
+        jLabelAmount.setText("Amount: $" + amount);
         return amount;
     }
+        /*public double calculateAmount(Object[] userData, double price){
+            double amount = 0.0;
+            System.out.println("calculateA"+price);
+            try {
+                // Establishing database connection
+                Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/nearcourt", "root", "");
+                // Retrieving group_capacity from the groups table
+                PreparedStatement groupStmt = connection
+                        .prepareStatement("SELECT group_capacity FROM `groups` WHERE group_id = ?");
+                groupStmt.setInt(1, (int) userData[5]);
+                ResultSet groupResult = groupStmt.executeQuery();
 
-    private void addPayment(double amount) {
+                if (groupResult.next()) {
+                    int groupCapacity = groupResult.getInt("group_capacity");
+                        System.out.println(groupCapacity);
+                    // Calculating amount
+                    if (groupCapacity != 0) {
+                        amount = price / groupCapacity;
+                    } else {
+                        amount = price;
+                    }
+                }
+
+                groupStmt.close();
+
+                connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+            // Displaying the amount on the UI
+            jLabelAmount.setText("Amount: $" + amount);
+            return amount;
+        }*/
+
+        private void addPayment ( double amount){
             try {
                 // Establishing database connection
                 Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/nearcourt", "root", "");
@@ -246,95 +328,36 @@ private double getPrice(int court_id){
             }
         }
 
-    public boolean successPayment() {
-        return true;
-    }
-
-
-
-    /*public double calculateAmount(Object[] userData) {
-        double amount = 0.0;
-
-        try {
-            // Establishing database connection
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/nearcourt", "root", "");
-
-            // Retrieving price from the court table
-            PreparedStatement courtStmt = connection.prepareStatement("SELECT price FROM court WHERE court_id = ?");
-            courtStmt.setInt(1, (int) userData[4]);
-            ResultSet courtResult = courtStmt.executeQuery();
-
-            if (courtResult.next()) {
-                double price = courtResult.getDouble("price");
-
-                // Retrieving group_capacity from the groups table
-                PreparedStatement groupStmt = connection.prepareStatement("SELECT group_capacity FROM groups WHERE group_id = ?");
-                groupStmt.setInt(1, (int) userData[5]);
-                ResultSet groupResult = groupStmt.executeQuery();
-
-                if (groupResult.next()) {
-                    int groupCapacity = groupResult.getInt("group_capacity");
-
-                    // Calculating amount
-                    if (groupCapacity != 0) {
-                        amount = price * groupCapacity;
-                    } else {
-                        amount = price;
-                    }
-
-                    // Displaying the amount on the UI
-
-                }
-
-                groupStmt.close();
-                courtStmt.close();
-            } else {
-                JOptionPane.showMessageDialog(this, "Court not found.");
-            }
-
-            connection.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
+        public boolean successPayment () {
+            return true;
         }
-        jLabel4.setText("Amount: $" + amount);
 
-        return amount;
-    }*/
-
-    private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO: Add your handling code here (if any)
-    }
-
-    private void jTextField4ActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO: Add your handling code here (if any)
-    }
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {
-        if (validateCardInfo()) {
-            addPayment(amount);
-            // Additional code for processing the payment can be added here
-            //JOptionPane.showMessageDialog(this, "Payment successful!");
+        private void jTextField3ActionPerformed (java.awt.event.ActionEvent evt){
+            // TODO: Add your handling code here (if any)
         }
-    }
 
-    /*public static void main(String args[]) {
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                Object[] userData = new Object[] { 1, "5", "123", "05/25", 1, 1 }; // Example data
-                new Payment(userData, 1,1).setVisible(true);
+        private void jTextField4ActionPerformed (java.awt.event.ActionEvent evt){
+            // TODO: Add your handling code here (if any)
+        }
+
+        private void jButtonSubmitActionPerformed (java.awt.event.ActionEvent evt){
+            if (validateCardInfo()) {
+                addPayment(amount);
+                // Additional code for processing the payment can be added here
+                // JOptionPane.showMessageDialog(this, "Payment successful!");
             }
-        });
-    }*/
+        }
 
-    // Variables declaration - do not modify
-    private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    // End of variables declaration
-}
+
+        private JButton jButtonSubmit;
+        private JLabel jLabelName;
+        private JLabel jLabelNumber;
+        private JLabel jLabelCVV;
+        private JPanel jPanel1;
+        private JTextField jTextFieldName;
+        private JTextField jTextField2;
+        private JTextField jTextField3;
+        private JTextField jTextField4;
+
+
+    }

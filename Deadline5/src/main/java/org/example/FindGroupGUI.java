@@ -1,4 +1,4 @@
-package org.example;
+package org.example;//package org.example;
 
 import java.awt.event.WindowEvent;
 import java.sql.Statement;
@@ -28,8 +28,8 @@ public class FindGroupGUI extends javax.swing.JFrame {
         joinBut = new javax.swing.JButton();
         sportComboBox = new javax.swing.JComboBox<>();
         playersComboBox = new javax.swing.JComboBox<>();
-        profileBut = new javax.swing.JButton();
-        logoutBut = new javax.swing.JButton();
+        //profileBut = new javax.swing.JButton();
+        //logoutBut = new javax.swing.JButton();
         findGroupsBut = new javax.swing.JButton();
         selectSportLabel = new javax.swing.JLabel();
         selectPlayersLabel = new javax.swing.JLabel();
@@ -83,8 +83,8 @@ public class FindGroupGUI extends javax.swing.JFrame {
         joinBut.setForeground(new java.awt.Color(255, 255, 255));
         joinBut.setText("Join");
         joinBut.setBorderPainted(false);
-        joinBut.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        joinBut.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
                 joinButActionPerformed(evt);
             }
         });
@@ -99,8 +99,8 @@ public class FindGroupGUI extends javax.swing.JFrame {
         profileBut.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         profileBut.setText("Profile");
         profileBut.setBorderPainted(false);
-        profileBut.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        profileBut.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
                 profileButActionPerformed(evt);
             }
         });
@@ -115,9 +115,9 @@ public class FindGroupGUI extends javax.swing.JFrame {
         findGroupsBut.setForeground(new java.awt.Color(255, 255, 255));
         findGroupsBut.setText("Find Groups");
         findGroupsBut.setBorderPainted(false);
-        findGroupsBut.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                getFilterGroupsData(evt);
+        findGroupsBut.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                findGroupsButActionPerformed(evt);
             }
         });
 
@@ -217,9 +217,7 @@ public class FindGroupGUI extends javax.swing.JFrame {
         }
     }// </editor-fold>
 
-
-    //returns the groups based on filters which user inserted
-    private void getFilterGroupsData(java.awt.event.ActionEvent evt) {
+    private void findGroupsButActionPerformed(ActionEvent evt) {
         // TODO add your handling code here:
         for(int i=0; i<7; i++){
             for (int j=0; j<10; j++){
@@ -254,8 +252,7 @@ public class FindGroupGUI extends javax.swing.JFrame {
         }
     }
 
-    //opens the payment window for the selected court
-    private void joinButActionPerformed(java.awt.event.ActionEvent evt) {
+    private void joinButActionPerformed(ActionEvent evt) {
         // TODO add your handling code here:
 
         int row = groupsTable.getSelectedRow();
@@ -272,16 +269,15 @@ public class FindGroupGUI extends javax.swing.JFrame {
             stm.setString(1, courtName);
             ResultSet rslt = stm.executeQuery();
             rslt.next();
-            int court_id = (int) rslt.getObject(1);
-            int groups_id = (int) groupsTable.getValueAt(row, 0);
+             userData[4] = (int) rslt.getObject(1);
+             userData[5] = (int) groupsTable.getValueAt(row, 0);
 
-            Payment payment = new Payment(userData, groups_id, court_id);
+            Payment payment = new Payment(userData);
             payment.addWindowListener(new WindowAdapter() {
                 public void windowClosed(WindowEvent event) {
                     boolean paid = payment.successPayment();
-                    // Do something with the returned value
                     if(paid){
-                        updateGroupsData(user_id, court_id, groups_id);
+                        updateGroupsData(userData);
                     }
                 }
             });
@@ -291,8 +287,7 @@ public class FindGroupGUI extends javax.swing.JFrame {
 
     }
 
-    //after the success payment this method add the user to the selected group
-    private void updateGroupsData(int user_id, int court_id, int groups_id){
+    private void updateGroupsData(Object[] userData){
         int row = groupsTable.getSelectedRow();
         String url = "jdbc:mysql://localhost:3306/nearcourt";
         String username = "root";
@@ -303,9 +298,9 @@ public class FindGroupGUI extends javax.swing.JFrame {
             Connection con = DriverManager.getConnection(url, username, password);
             PreparedStatement stm;
             stm = con.prepareStatement("INSERT INTO `belongs_to` (`user_id`, `court_id`, `groups_id`) VALUES (?, ?, ?);");
-            stm.setInt(1, user_id);
-            stm.setInt(2, court_id);
-            stm.setInt(3, groups_id);
+            stm.setInt(1, (int) userData[0]);
+            stm.setInt(2, (int) userData[4]);
+            stm.setInt(3, (int) userData[5]);
             stm.executeUpdate();
             int group_id = (int) groupsTable.getValueAt(row, 0);
             int players = (int) groupsTable.getValueAt(row, 4);
@@ -319,9 +314,7 @@ public class FindGroupGUI extends javax.swing.JFrame {
         }
     }
 
-
-    //returns the user back to profile
-    private void profileButActionPerformed(java.awt.event.ActionEvent evt) {
+    private void profileButActionPerformed(ActionEvent evt) {
         // TODO add your handling code here:
 
         this.dispose();
@@ -343,4 +336,3 @@ public class FindGroupGUI extends javax.swing.JFrame {
     private static javax.swing.JComboBox<String> sportComboBox;
     // End of variables declaration
 }
-
