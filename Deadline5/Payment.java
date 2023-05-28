@@ -16,7 +16,7 @@ public class Payment extends javax.swing.JFrame {
         this.userData = userData;
         this.group_id = group_id;
         this.court_id = court_id;
-        this.amount = calculateAmount(userData, group_id, court_id);
+        this.amount = calculateAmount(userData, group_id, court_id, getPrice(court_id));
     }
 
 
@@ -169,22 +169,32 @@ public class Payment extends javax.swing.JFrame {
         return true;
     }
 
+private double getPrice(int court_id){
+    try {
+        // Establishing database connection
+        Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/nearcourt", "root", "");
 
-    public double calculateAmount(Object[] userData, int group_id, int court_id) {
+        // Retrieving price from the court table
+        PreparedStatement courtStmt = connection.prepareStatement("SELECT price FROM court WHERE court_id = ?");
+        courtStmt.setInt(1, court_id);
+        ResultSet courtResult = courtStmt.executeQuery();
+
+        if (courtResult.next()) {
+            double price = courtResult.getDouble("price");
+        }else {
+            JOptionPane.showMessageDialog(this, "Court not found.");
+        }catch(Exception e){
+            System.out.println(e);
+        }
+    return price;
+}
+
+    public double calculateAmount(Object[] userData, int group_id, int court_id, double price) {
         double amount = 0.0;
 
         try {
             // Establishing database connection
             Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/nearcourt", "root", "");
-
-            // Retrieving price from the court table
-            PreparedStatement courtStmt = connection.prepareStatement("SELECT price FROM court WHERE court_id = ?");
-            courtStmt.setInt(1, court_id);
-            ResultSet courtResult = courtStmt.executeQuery();
-
-            if (courtResult.next()) {
-                double price = courtResult.getDouble("price");
-
                 // Retrieving group_capacity from the groups table
                 PreparedStatement groupStmt = connection.prepareStatement("SELECT group_capacity FROM `groups` WHERE group_id = ?");
                 groupStmt.setInt(1, group_id);
@@ -203,9 +213,6 @@ public class Payment extends javax.swing.JFrame {
 
                 groupStmt.close();
                 courtStmt.close();
-            } else {
-                JOptionPane.showMessageDialog(this, "Court not found.");
-            }
 
             connection.close();
         } catch (SQLException e) {
