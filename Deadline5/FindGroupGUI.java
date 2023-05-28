@@ -1,10 +1,13 @@
+package org.example;
 
+import java.awt.event.WindowEvent;
 import java.sql.Statement;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.PreparedStatement;
+import java.awt.event.*;
 
 
 public class FindGroupGUI extends javax.swing.JFrame {
@@ -59,7 +62,7 @@ public class FindGroupGUI extends javax.swing.JFrame {
                 }
         ) {
             Class[] types = new Class [] {
-                    java.lang.Integer.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
+                    Integer.class, Object.class, Object.class, Object.class, Object.class, Object.class, Object.class
             };
             boolean[] canEdit = new boolean [] {
                     false, false, false, false, false, false, false
@@ -90,7 +93,7 @@ public class FindGroupGUI extends javax.swing.JFrame {
         sportComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Football", "Basket", "Tennis" }));
 
         playersComboBox.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        playersComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22" }));
+        playersComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new Integer[] { 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22 }));
 
         profileBut.setBackground(new java.awt.Color(102, 153, 255));
         profileBut.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -194,7 +197,7 @@ public class FindGroupGUI extends javax.swing.JFrame {
         }
         String sport = (String) sportComboBox.getSelectedItem();
         System.out.println(sport);
-        //int players = (int) playersComboBox.getSelectedItem();
+        int players = (int) playersComboBox.getSelectedItem();
         String url = "jdbc:mysql://localhost:3306/nearcourt";
         String username = "root";
         String password = "";
@@ -202,29 +205,28 @@ public class FindGroupGUI extends javax.swing.JFrame {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection con = DriverManager.getConnection(url, username, password);
-            PreparedStatement stm = con.prepareStatement("SELECT group_id,name,date,groups.sport,joined_players, group_capacity FROM `groups` INNER JOIN court ON court.court_id = groups.court_id WHERE groups.sport LIKE ? ;");
+            PreparedStatement stm = con.prepareStatement("SELECT group_id,name,date,groups.sport,joined_players, group_capacity FROM `groups` INNER JOIN court ON court.court_id = groups.court_id WHERE groups.sport LIKE ? AND joined_players = ?;");
             stm.setString(1, sport);
-            //stm.setInt(2, players);
+            stm.setInt(2, players);
             ResultSet rslt = stm.executeQuery();
             ResultSetMetaData metaData = rslt.getMetaData();
             int numOfColumns = metaData.getColumnCount();
-            //int row = metaData.getRowCount();
+            int row = 0;
             while(rslt.next()){
                 for(int i=1; i<=numOfColumns; i++){
-                    groupsTable.setValueAt(rslt.getObject(i),0,i-1 );
+                    groupsTable.setValueAt(rslt.getObject(i),row,i-1 );
                 }
-
+                row++;
             }
         }catch (Exception e){
             System.out.println(e);
         }
     }
 
-    //na balw ta
     private void joinButActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
+
         int row = groupsTable.getSelectedRow();
-        int colum = groupsTable.getSelectedColumn();
         int user_id = (int) userData[0];
         String url = "jdbc:mysql://localhost:3306/nearcourt";
         String username = "root";
@@ -234,15 +236,43 @@ public class FindGroupGUI extends javax.swing.JFrame {
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection con = DriverManager.getConnection(url, username, password);
             PreparedStatement stm = con.prepareStatement("SELECT court_id FROM court WHERE court.name LIKE ?");
-            String name = (String) groupsTable.getValueAt(row, 1);
-            stm.setString(1, name);
+            String courtName = (String) groupsTable.getValueAt(row, 1);
+            stm.setString(1, courtName);
             ResultSet rslt = stm.executeQuery();
             rslt.next();
             int court_id = (int) rslt.getObject(1);
-            System.out.println(court_id);
-            stm = con.prepareStatement("INSERT INTO `belongs_to` (`user_id`, `court_id`) VALUES (?, ?);");
+            int groups_id = (int) groupsTable.getValueAt(row, 0);
+
+            Payment payment = new Payment(userData, groups_id, court_id);
+            payment.addWindowListener(new WindowAdapter() {
+                public void windowClosed(WindowEvent event) {
+                    boolean paid = payment.successPayment();
+                    // Do something with the returned value
+                    if(paid){
+                        updateGroupsData(user_id, court_id, groups_id);
+                    }
+                }
+            });
+            payment.setVisible(true);
+        }catch(Exception e){
+            System.out.println(e);}
+
+    }
+
+    private void updateGroupsData(int user_id, int court_id, int groups_id){
+        int row = groupsTable.getSelectedRow();
+        String url = "jdbc:mysql://localhost:3306/nearcourt";
+        String username = "root";
+        String password = "";
+
+        try{
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection con = DriverManager.getConnection(url, username, password);
+            PreparedStatement stm;
+            stm = con.prepareStatement("INSERT INTO `belongs_to` (`user_id`, `court_id`, `groups_id`) VALUES (?, ?, ?);");
             stm.setInt(1, user_id);
             stm.setInt(2, court_id);
+            stm.setInt(3, groups_id);
             stm.executeUpdate();
             int group_id = (int) groupsTable.getValueAt(row, 0);
             int players = (int) groupsTable.getValueAt(row, 4);
@@ -251,9 +281,9 @@ public class FindGroupGUI extends javax.swing.JFrame {
             stm.setInt(2, group_id);
             stm.setInt(1, players);
             stm.executeUpdate();
-        }catch(Exception e){
-            System.out.println(e);}
-
+        }catch (Exception e){
+            System.out.println(e);
+        }
     }
 
     private void profileButActionPerformed(java.awt.event.ActionEvent evt) {
@@ -271,7 +301,7 @@ public class FindGroupGUI extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private static javax.swing.JButton joinBut;
     private static javax.swing.JButton logoutBut;
-    private static javax.swing.JComboBox<String> playersComboBox;
+    private static javax.swing.JComboBox<Integer> playersComboBox;
     private static javax.swing.JButton profileBut;
     private static javax.swing.JLabel selectPlayersLabel;
     private static javax.swing.JLabel selectSportLabel;

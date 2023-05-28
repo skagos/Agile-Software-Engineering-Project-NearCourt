@@ -1,15 +1,25 @@
+package org.example;
+
 import javax.swing.*;
 import java.sql.*;
 
 public class Payment extends javax.swing.JFrame {
     private Object[] userData;
+
+    private int group_id;
+
+    private int court_id;
+
+    private double amount;
     private javax.swing.JLabel jLabel4;
 
 
-    public Payment(Object[] userData) {
+    public Payment(Object[] userData, int group_id, int court_id) {
         initComponents();
         this.userData = userData;
-        calculateAmount(userData);
+        this.group_id = group_id;
+        this.court_id = court_id;
+        this.amount = calculateAmount(userData, group_id, court_id);
     }
 
 
@@ -163,7 +173,7 @@ public class Payment extends javax.swing.JFrame {
     }
 
 
-    public double calculateAmount(Object[] userData) {
+    public double calculateAmount(Object[] userData, int group_id, int court_id) {
         double amount = 0.0;
 
         try {
@@ -172,7 +182,7 @@ public class Payment extends javax.swing.JFrame {
 
             // Retrieving price from the court table
             PreparedStatement courtStmt = connection.prepareStatement("SELECT price FROM court WHERE court_id = ?");
-            courtStmt.setInt(1, (int) userData[4]);
+            courtStmt.setInt(1, court_id);
             ResultSet courtResult = courtStmt.executeQuery();
 
             if (courtResult.next()) {
@@ -180,7 +190,7 @@ public class Payment extends javax.swing.JFrame {
 
                 // Retrieving group_capacity from the groups table
                 PreparedStatement groupStmt = connection.prepareStatement("SELECT group_capacity FROM `groups` WHERE group_id = ?");
-                groupStmt.setInt(1, (int) userData[5]);
+                groupStmt.setInt(1, group_id);
                 ResultSet groupResult = groupStmt.executeQuery();
 
                 if (groupResult.next()) {
@@ -213,7 +223,7 @@ public class Payment extends javax.swing.JFrame {
 
 
 
-        private void addPayment() {
+    private void addPayment(double amount) {
             try {
                 // Establishing database connection
                 Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/nearcourt", "root", "");
@@ -221,20 +231,23 @@ public class Payment extends javax.swing.JFrame {
                 // Inserting payment data into the payment table
                 PreparedStatement paymentStmt = connection.prepareStatement("INSERT INTO payment (user_id, amount) VALUES (?, ?)");
                 paymentStmt.setInt(1, (int) userData[0]); // Assuming userData[0] contains the user ID
-                paymentStmt.setDouble(2, calculateAmount(userData)); // Call calculateAmount method to get the amount
+                paymentStmt.setDouble(2, amount); // Call calculateAmount method to get the amount
                 paymentStmt.executeUpdate();
 
                 paymentStmt.close();
                 connection.close();
 
                 JOptionPane.showMessageDialog(this, "Payment added successfully!");
+                successPayment();
             } catch (SQLException e) {
                 e.printStackTrace();
                 JOptionPane.showMessageDialog(this, "Failed to add payment.");
             }
         }
 
-
+    public boolean successPayment() {
+        return true;
+    }
 
 
 
@@ -297,44 +310,20 @@ public class Payment extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {
         if (validateCardInfo()) {
-            addPayment();
+            addPayment(amount);
             // Additional code for processing the payment can be added here
             //JOptionPane.showMessageDialog(this, "Payment successful!");
         }
     }
 
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Payment.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Payment.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Payment.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Payment.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
+    /*public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 Object[] userData = new Object[] { 1, "5", "123", "05/25", 1, 1 }; // Example data
-                new Payment(userData).setVisible(true);
+                new Payment(userData, 1,1).setVisible(true);
             }
         });
-    }
+    }*/
 
     // Variables declaration - do not modify
     private javax.swing.JButton jButton1;

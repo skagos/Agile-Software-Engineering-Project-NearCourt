@@ -4,10 +4,20 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="63996f8f-b082-48bf-83c3-fea7246eb220" name="Changes" comment="">
+    <list default="true" id="23b2456a-d69c-49b2-ad93-c65cc362cbbb" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/runConfigurations/loginForm.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FindGroupGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/FindGroupGUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AddFriendsPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/AddFriendsPage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ChooseCourtScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/ChooseCourtScreen.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ChooseSportScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/ChooseSportScreen.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CreateGroupp.java" beforeDir="false" afterPath="$PROJECT_DIR$/CreateGroupp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SportsCenter.java" beforeDir="false" afterPath="$PROJECT_DIR$/SportsCenter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/class.txt" beforeDir="false" afterPath="$PROJECT_DIR$/class.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -24,61 +34,56 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
-  <component name="ProjectId" id="2PpbO8ZfRPmDiB7s8gugc2YVqMW" />
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="importingSettings">
+      <MavenImportingSettings>
+        <option name="workspaceImportEnabled" value="true" />
+      </MavenImportingSettings>
+    </option>
+  </component>
+  <component name="ProjectId" id="2QPeKosSyitoBRJbRDMz6PLC13F" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;openjdk-20&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/Στελιος Πανσεληνας/.jdks/openjdk-20.0.1&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Problems&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "C:/Users/Στελιος Πανσεληνας/Documents/GitHub/NearCourt-The-Easy-way-to-play/Deadline5",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.2",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
-  <component name="RunManager">
-    <configuration name="ProfileGUI" type="Application" factoryName="Application">
-      <option name="ALTERNATIVE_JRE_PATH" value="$PROJECT_DIR$/../../../../../../Java/jdk-20" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
-      <option name="MAIN_CLASS_NAME" value="ProfileGUI" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="JetRunConfigurationType">
-      <module name="Deadline5" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
-      <module name="Deadline5" />
-      <option name="filePath" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Στελιος Πανσεληνας\Documents\GitHub\NearCourt-The-Easy-way-to-play\Deadline5" />
+      <recent name="C:\Users\Στελιος Πανσεληνας\Documents\java projects\NearCourt\src\main\java\org\example" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Στελιος Πανσεληνας\Documents\GitHub\NearCourt-The-Easy-way-to-play\Deadline5" />
+      <recent name="C:\Users\Στελιος Πανσεληνας\Documents\GitHub\NearCourt-The-Easy-way-to-play\Deadline5\asdf" />
+    </key>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="63996f8f-b082-48bf-83c3-fea7246eb220" name="Changes" comment="" />
-      <created>1684156935914</created>
+      <changelist id="23b2456a-d69c-49b2-ad93-c65cc362cbbb" name="Changes" comment="" />
+      <created>1685259585956</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1684156935914</updated>
-      <workItem from="1684862797089" duration="329000" />
-      <workItem from="1684864146337" duration="749000" />
+      <updated>1685259585956</updated>
+      <workItem from="1685259587225" duration="6251000" />
     </task>
     <servers />
   </component>
