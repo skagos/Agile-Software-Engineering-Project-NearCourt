@@ -186,11 +186,6 @@ public class FindGroupGUI extends javax.swing.JFrame {
         );
 
         pack();
-        getAllGroupsData();
-    }// </editor-fold>
-
-    private void getAllGroupsData(){
-
         for(int i=0; i<5; i++){
             for (int j=0; j<10; j++){
                 groupsTable.setValueAt("", j, i);
@@ -220,8 +215,9 @@ public class FindGroupGUI extends javax.swing.JFrame {
         }catch (Exception e){
             System.out.println(e);
         }
-    }
-    private void getFilterGroupsData(java.awt.event.ActionEvent evt) {
+    }// </editor-fold>
+
+    private void findGroupsButActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
         for(int i=0; i<5; i++){
             for (int j=0; j<10; j++){
