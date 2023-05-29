@@ -1,21 +1,23 @@
-
+package org.example;/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
+ */
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
-import java.sql.*;
 import java.util.List;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
-/**
- *
- * @author Admin
- */
-public class ChooseCourtScreen extends javax.swing.JFrame {
+public class SelectCourt extends javax.swing.JFrame {
 
     private DefaultListModel<String> listModel;
     private Object[] userData;
 
-    public ChooseCourtScreen(Object[] userData) {
+    public SelectCourt(Object[] userData) {
         initComponents();
-        // Initialize the DefaultListModel
         this.userData = userData;
         listModel = new DefaultListModel<>();
 
@@ -24,9 +26,6 @@ public class ChooseCourtScreen extends javax.swing.JFrame {
         // Set the listModel as the model for jList1
 
     }
-
-
-
 
 
     @SuppressWarnings("unchecked")
@@ -88,6 +87,7 @@ public class ChooseCourtScreen extends javax.swing.JFrame {
     }// </editor-fold>
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {
+        // TODO add your handling code here:
         // Get the selected item from the JList
         String selectedValue = jList1.getSelectedValue();
         if (selectedValue != null) {
@@ -99,55 +99,16 @@ public class ChooseCourtScreen extends javax.swing.JFrame {
             String username = "root";
             String password = "";
             String updateQuery = "UPDATE timetable SET availability = 1 WHERE time = ?";
-            String insertQuery = "INSERT INTO reservation (user_id, court_id, time) VALUES (?, ?, ?)";
 
             try (Connection connection = DriverManager.getConnection(url, username, password);
-                 PreparedStatement updateStatement = connection.prepareStatement(updateQuery);
-                 PreparedStatement insertStatement = connection.prepareStatement(insertQuery)) {
-
-                connection.setAutoCommit(false); // Disable auto-commit
-
-                // Update the timetable
-                updateStatement.setString(1, selectedValue);
-                int rowsUpdated = updateStatement.executeUpdate();
+                 PreparedStatement statement = connection.prepareStatement(updateQuery)) {
+                statement.setString(1, selectedValue);
+                int rowsUpdated = statement.executeUpdate();
 
                 if (rowsUpdated > 0) {
-                    // Get user_id from userData or wherever it is stored
-                    int user_id = (int) userData[0];
-
-                    // Retrieve court_id from the timetable based on selectedValue
-                    int court_id = 0;
-                    String courtIdQuery = "SELECT court_id FROM timetable WHERE time = ?";
-                    try (PreparedStatement courtIdStatement = connection.prepareStatement(courtIdQuery)) {
-                        courtIdStatement.setString(1, selectedValue);
-                        try (ResultSet resultSet = courtIdStatement.executeQuery()) {
-                            if (resultSet.next()) {
-                                court_id = ((ResultSet) resultSet).getInt("court_id");
-                            }
-                        }
-                    }
-
-                    if (court_id != 0) {
-                        // Insert into the reservation table
-                        insertStatement.setInt(1, user_id);
-                        insertStatement.setInt(2, court_id);
-                        insertStatement.setString(3, selectedValue);
-                        int rowsInserted = insertStatement.executeUpdate();
-
-                        if (rowsInserted > 0) {
-                            connection.commit(); // Commit the changes
-                            JOptionPane.showMessageDialog(this, "Updated availability and inserted reservation for " + selectedValue, "Success",
-                                    JOptionPane.INFORMATION_MESSAGE);
-                            dispose(); // Close and dispose of the current JFrame
-                        } else {
-                            connection.rollback(); // Rollback the changes if insertion fails
-                            JOptionPane.showMessageDialog(this, "Failed to insert reservation", "Error",
-                                    JOptionPane.ERROR_MESSAGE);
-                        }
-                    } else {
-                        JOptionPane.showMessageDialog(this, "Failed to retrieve court_id from timetable", "Error",
-                                JOptionPane.ERROR_MESSAGE);
-                    }
+                    JOptionPane.showMessageDialog(this, "Updated availability for " + selectedValue, "Success",
+                            JOptionPane.INFORMATION_MESSAGE);
+                    dispose(); // Close and dispose of the current JFrame
                 } else {
                     JOptionPane.showMessageDialog(this, "Failed to update availability", "Error",
                             JOptionPane.ERROR_MESSAGE);

@@ -1,4 +1,4 @@
-//package org.example;
+package org.example;//package org.example;
 
 import java.awt.event.WindowEvent;
 import java.sql.Statement;

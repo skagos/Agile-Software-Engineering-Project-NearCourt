@@ -1,4 +1,4 @@
-
+package org.example;
 
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
