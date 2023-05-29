@@ -17,8 +17,6 @@ public class EditProfilePage extends javax.swing.JFrame {
 
 
     }
-
-
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();

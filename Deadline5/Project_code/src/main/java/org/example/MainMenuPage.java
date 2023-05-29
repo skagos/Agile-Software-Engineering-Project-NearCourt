@@ -73,9 +73,6 @@ public class MainMenuPage extends JFrame {
                 MainMenuPage.this.showAddFriendsPage();
             }
         });
-
-
-
     }
 
     private void showProfile() {
@@ -126,7 +123,6 @@ public class MainMenuPage extends JFrame {
         this.jButtonManage = new JButton();
         this.jButtonBook = new JButton();
         this.jButtonAddF = new JButton();
-
         this.setDefaultCloseOperation(3);
         this.jLabel2.setText("jLabel2");
         this.jButtonProfile.setBackground(new Color(51, 153, 0));

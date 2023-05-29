@@ -8,7 +8,6 @@ public class Payment extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelAmount;
     private double amount;
     private  double price;
-
     public Payment(Object[] userData) {
 
         initComponents();

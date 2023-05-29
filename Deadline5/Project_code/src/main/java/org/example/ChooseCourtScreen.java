@@ -23,13 +23,7 @@ public class ChooseCourtScreen extends javax.swing.JFrame {
         jList1.setModel(listModel);
 
         // Set the listModel as the model for jList1
-
     }
-
-
-
-
-
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">
     private void initComponents() {

@@ -27,7 +27,6 @@ public class SelectCourt extends javax.swing.JFrame {
 
     }
 
-
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">
     private void initComponents() {
@@ -116,14 +115,11 @@ public class SelectCourt extends javax.swing.JFrame {
             } catch (SQLException e) {
                 e.printStackTrace();
             }
-
         } else {
             // No item selected, display an error message
             JOptionPane.showMessageDialog(this, "No item selected!", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
-
-
 
     public void setItems(List<String> items) {
         for (String item : items) {

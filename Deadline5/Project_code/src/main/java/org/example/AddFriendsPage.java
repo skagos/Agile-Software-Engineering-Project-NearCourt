@@ -40,7 +40,6 @@ public class AddFriendsPage extends javax.swing.JFrame {
         });
     }
 
-
     private void updateFriendList() {
         String searchText = jTextArea1.getText();
 
@@ -94,9 +93,6 @@ public class AddFriendsPage extends javax.swing.JFrame {
             System.out.println("Failed to connect to the database.");
         }
     }
-
-
-
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">

@@ -12,7 +12,6 @@ public class Profile extends javax.swing.JFrame {
 
     private Object[] userData;
 
-
     public Profile(Object[] userData) {
         initComponents();
         this.userData = userData;
@@ -28,7 +27,6 @@ public class Profile extends javax.swing.JFrame {
         editProfilePage.setVisible(true);
         this.dispose(); // Close the current frame
     }
-
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">
@@ -136,12 +134,9 @@ public class Profile extends javax.swing.JFrame {
         nameLabel.setText("Username:" + userData[2] + "   ");
         emailLabel = new javax.swing.JLabel();
         emailLabel.setText("Email: " + userData[1]);
-
         jPanel2.add(nameLabel);
         jPanel2.add(emailLabel);
     }
-
-
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {
         //com.mycompany.editprofile.EditP editP = new com.mycompany.editprofile.EditP(userId);
@@ -152,13 +147,11 @@ public class Profile extends javax.swing.JFrame {
         //System.out.println("toy koumpioy" + user_id);
     }
 
-
     public List<String> displayUserRate(Object[] userData) {
 
         String url = "jdbc:mysql://localhost:3306/nearcourt"; // Replace with your database URL
         String username = "root"; // Replace with your database username
         String password = ""; // Replace with your database password
-
         List<String> rateList = null;
         try (Connection connection = DriverManager.getConnection(url, username, password)) {
             String query2 = "SELECT rate,stars FROM rates WHERE user_id = ?";
@@ -172,7 +165,6 @@ public class Profile extends javax.swing.JFrame {
                     String rateValue = resultSet.getString("rate");
                     int starsValue = resultSet.getInt("stars");
                     rateList.add(rateValue + "               " + starsValue + "/5");
-
                 }
 
                 resultSet.close();

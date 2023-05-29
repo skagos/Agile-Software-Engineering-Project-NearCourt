@@ -58,7 +58,6 @@ public class ChooseSportScreen extends javax.swing.JFrame {
         });
     }
 
-
     private void ShowChooseSportScreen() {
         SportsCenter sportsCenter = new SportsCenter(selectedSport,userData);
         sportsCenter.requestnearbycourts();

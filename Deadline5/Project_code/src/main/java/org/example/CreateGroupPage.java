@@ -70,7 +70,6 @@ public class CreateGroupPage extends javax.swing.JFrame {
             String  combo2 = public_players.getSelectedItem().toString();
             String selectdate = ((JTextField) date1.getDateEditor().getUiComponent()).getText();
             Date date1 = new SimpleDateFormat("yyyy-MM-dd").parse(selectdate);
-
             insertPs.setString(5, s);
             insertPs.setString(2,combo);
             insertPs.setDate(3, new java.sql.Date(date1.getTime()));

@@ -92,7 +92,6 @@ public class loginForm extends JFrame {
                         int court_id = 0;
                         int group_id = 0;
                         // Retrieve other user data as needed
-
                         // Populate the userData array with the retrieved data
                         userData = new Object[] { id, email,namee,passwordd,court_id,group_id};
                     }

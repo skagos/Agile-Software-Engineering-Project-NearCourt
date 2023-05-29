@@ -17,8 +17,6 @@ public class FindGroupGUI extends javax.swing.JFrame {
         initComponents();
         this.userData = userData;
     }
-
-
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();

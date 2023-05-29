@@ -19,7 +19,6 @@ public class ManageMyGroup extends JFrame {
     private JLabel jLabel1;
     private JPanel jPanel1;
     private JScrollPane jScrollPane1;
-
     public ManageMyGroup(Object[] userData) {
         this.initComponents();
         this.userData = userData;
