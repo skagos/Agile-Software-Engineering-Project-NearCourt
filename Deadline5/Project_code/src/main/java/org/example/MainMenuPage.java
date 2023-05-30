@@ -79,25 +79,25 @@ public class MainMenuPage extends JFrame {
         Profile profile = new Profile(this.userData);
         profile.setVisible(true);
         profile.displayUserRate(this.userData);
-        this.dispose();
+        //this.dispose();
     }
     private void showCreateGroup() {
         CreateGroupPage createGroupPage = new CreateGroupPage(this.userData);
         createGroupPage.setVisible(true);
-        this.dispose();
+       // this.dispose();
     }
 
     private void showFindGroup() {
         FindGroupGUI findGroupGUI = new FindGroupGUI(this.userData);
         findGroupGUI.setVisible(true);
-        this.dispose();
+        //this.dispose();
     }
 
     private void showManageMyGroup() {
         if (this.groupId > 0) {
             ManageMyGroup manageMyGroup = new ManageMyGroup(this.userData);
             manageMyGroup.setVisible(true);
-            this.dispose();
+            //this.dispose();
         } else {
             System.out.println("error");
         }
@@ -106,12 +106,12 @@ public class MainMenuPage extends JFrame {
     private void showChooseSportScreen() {
         ChooseSportScreen chooseSportScreen = new ChooseSportScreen(userData);
         chooseSportScreen.setVisible(true);
-        this.dispose();
+        //this.dispose();
     }
     private void showAddFriendsPage() {
         AddFriendsPage addFriendsPage = new AddFriendsPage(userData);
         addFriendsPage.setVisible(true);
-        this.dispose();
+        //this.dispose();
     }
 
     private void initComponents() {
