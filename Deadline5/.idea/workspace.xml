@@ -5,7 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="23b2456a-d69c-49b2-ad93-c65cc362cbbb" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/../.idea/NearCourt-The-Easy-way-to-play.iml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/NearCourt-The-Easy-way-to-play.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project_code/src/main/java/org/example/FindGroupGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/Project_code/src/main/java/org/example/FindGroupGUI.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,13 +28,6 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="MavenImportPreferences">
-    <option name="importingSettings">
-      <MavenImportingSettings>
-        <option name="workspaceImportEnabled" value="true" />
-      </MavenImportingSettings>
-    </option>
-  </component>
   <component name="ProjectId" id="2QPeKosSyitoBRJbRDMz6PLC13F" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -42,7 +38,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "C:/Users/Στελιος Πανσεληνας/Documents/GitHub/NearCourt-The-Easy-way-to-play/Deadline5",
+    "last_opened_file_path": "D:/Users/Koukounaras/Documents/GitHub/NearCourt-The-Easy-way-to-play/Deadline5",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",

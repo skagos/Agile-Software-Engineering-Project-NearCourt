@@ -26,8 +26,8 @@ public class FindGroupGUI extends javax.swing.JFrame {
         joinBut = new javax.swing.JButton();
         sportComboBox = new javax.swing.JComboBox<>();
         playersComboBox = new javax.swing.JComboBox<>();
-        //profileBut = new javax.swing.JButton();
-        //logoutBut = new javax.swing.JButton();
+        profileBut = new javax.swing.JButton();
+        logoutBut = new javax.swing.JButton();
         findGroupsBut = new javax.swing.JButton();
         selectSportLabel = new javax.swing.JLabel();
         selectPlayersLabel = new javax.swing.JLabel();
