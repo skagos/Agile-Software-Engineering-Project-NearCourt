@@ -2,7 +2,6 @@
   <configuration default="false" name="loginForm" type="Java Scratch">
     <option name="MAIN_CLASS_NAME" value="loginForm" />
     <module name="NearCourt-The-Easy-way-to-play" />
-    <option name="SCRATCH_FILE_URL" value="file://$PROJECT_DIR$/Deadline5/loginForm.java" />
     <shortenClasspath name="NONE" />
     <method v="2">
       <option name="Make" enabled="true" />

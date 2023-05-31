@@ -51,6 +51,12 @@ public class ManageMyGroup extends JFrame {
             }
         });
 
+        readyBut.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                readyButActionPerformed(evt);
+            }
+        });
+
         usergroupsTable = new javax.swing.JTable();
         readygroupsTable = new javax.swing.JTable();
         usergroupsTable.setModel(new javax.swing.table.DefaultTableModel(
@@ -93,9 +99,7 @@ public class ManageMyGroup extends JFrame {
         jLabel1.setText("Manage MyGroup");
         readygroupsTable.setModel(new javax.swing.table.DefaultTableModel(
                 new Object[][]{
-                        {null,""},
-                        {null,""},
-                        {null,""}
+
 
                 },
                 new String[]{
@@ -252,9 +256,43 @@ public class ManageMyGroup extends JFrame {
                 }
             }
         }
-        private void jButton2ActionPerformed (java.awt.event.ActionEvent evt){
-            // TODO add your handling code here:
+        private void readyButActionPerformed (java.awt.event.ActionEvent evt) {
+            int row = readygroupsTable.getSelectedRow();
+
+            String url = "jdbc:mysql://localhost:3306/nearcourt";
+            String username = "root";
+            String password = "";
+
+            try (Connection con = DriverManager.getConnection(url, username, password)) {
+                ;
+                String selectpeopleQuery = "SELECT joined_players,group_capacity FROM `groups` WHERE group_id = ? ";
+
+                try (PreparedStatement stmt = con.prepareStatement(selectpeopleQuery)) {
+                    int group_id = (Integer) usergroupsTable.getValueAt(row, 0);
+
+                    stmt.setInt(1, group_id);
+                    ResultSet rs = stmt.executeQuery();
+
+                    if (rs.next()) {
+                        int joined_players = rs.getInt("joined_players");
+                        int group_capacity = rs.getInt("group_capacity");
+
+                    if (joined_players == group_capacity) {
+                        System.out.println(joined_players);
+                        System.out.println(group_capacity);
+                    }
+                    else System.out.println("arxidia");
+                }
+
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
+
+
+
+
 
 
     private static javax.swing.JTable usergroupsTable;
