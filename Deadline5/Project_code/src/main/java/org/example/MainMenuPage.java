@@ -50,16 +50,11 @@ public class MainMenuPage extends JFrame {
                 MainMenuPage.this.showFindGroup();
             }
         });
+
         this.jButtonManage.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                if (MainMenuPage.this.groupId > 0) {
-                    MainMenuPage.this.showManageMyGroup();
-                } else {
-                    System.out.println("error");
-                }
-
+                MainMenuPage.this.showManageMyGroup();
             }
-
         });
 
         this.jButtonBook.addActionListener(new ActionListener() {
@@ -94,13 +89,11 @@ public class MainMenuPage extends JFrame {
     }
 
     private void showManageMyGroup() {
-        if (this.groupId > 0) {
+
             ManageMyGroup manageMyGroup = new ManageMyGroup(this.userData);
             manageMyGroup.setVisible(true);
             //this.dispose();
-        } else {
-            System.out.println("error");
-        }
+
 
     }
     private void showChooseSportScreen() {
@@ -210,30 +203,5 @@ public class MainMenuPage extends JFrame {
         pack();
     }
 
-    public void selectGroupIdFromDatabase() {
-        String url = "jdbc:mysql://localhost:3306/nearcourt";
-        String username = "root";
-        String password = "";
 
-        try {
-            Class.forName("com.mysql.jdbc.Driver");
-            Connection connection = DriverManager.getConnection(url, username, password);
-            String sql = "SELECT group_id FROM `groups` WHERE owner_id = ?";
-            PreparedStatement statement = connection.prepareStatement(sql);
-            statement.setInt(1, (Integer)this.userData[0]);
-            ResultSet resultSet = statement.executeQuery();
-            if (resultSet.next()) {
-                this.groupId = resultSet.getInt("group_id");
-            }
-
-            resultSet.close();
-            statement.close();
-            connection.close();
-        } catch (ClassNotFoundException var8) {
-            var8.printStackTrace();
-        } catch (SQLException var9) {
-            var9.printStackTrace();
-        }
-
-    }
 }

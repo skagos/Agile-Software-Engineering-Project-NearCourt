@@ -30,7 +30,7 @@ public class loginForm extends JFrame {
         panel.add(usernameField);
         panel.add(passwordLabel);
         panel.add(passwordField);
-        panel.add(new JLabel()); // Empty label for alignment
+        panel.add(new JLabel());
         panel.add(loginButton);
 
         add(panel);
@@ -48,11 +48,10 @@ public class loginForm extends JFrame {
 
                     // Pass user data to the NewPage and open it
                    MainMenuPage mainMenuPage = new MainMenuPage(userData);
-                    mainMenuPage.selectGroupIdFromDatabase();
                     mainMenuPage.setVisible(true);
 
 
-                    dispose(); // Close the login form
+                    dispose();
                 } else {
                     JOptionPane.showMessageDialog(loginForm.this, "Invalid username or password.", "Login Failed", JOptionPane.ERROR_MESSAGE);
                 }

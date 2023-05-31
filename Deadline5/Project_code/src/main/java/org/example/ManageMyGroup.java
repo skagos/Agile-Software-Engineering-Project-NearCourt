@@ -1,23 +1,10 @@
 package org.example;//
-// Source code recreated from a .class file by IntelliJ IDEA
-// (powered by FernFlower decompiler)
-//
 
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import javax.swing.*;
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.LayoutStyle.ComponentPlacement;
-import javax.swing.table.DefaultTableModel;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.sql.ResultSetMetaData;
-import javax.swing.*;
+
 
 
 
@@ -28,7 +15,12 @@ public class ManageMyGroup extends JFrame {
     public ManageMyGroup(Object[] userData) {
         this.initComponents();
         this.userData = userData;
-        printUserNamesAndIDs(userData);
+        if (!hasData()) {
+            JOptionPane.showMessageDialog(this, "You do not have any groups.");
+        }
+            getCreatorGroupData(userData);
+            System.out.println("ok bro");
+
     }
 
     private void initComponents() {
@@ -38,8 +30,10 @@ public class ManageMyGroup extends JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         kickBut = new javax.swing.JButton();
         readyBut = new javax.swing.JButton();
+        Invite = new javax.swing.JButton();
         kickBut.setText("Kick");
         readyBut.setText("READY");
+        Invite.setText("Invite Friends");
 
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -47,7 +41,7 @@ public class ManageMyGroup extends JFrame {
 
         kickBut.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                kickButActionPerformed(evt);
+                StoreData(evt);
             }
         });
 
@@ -103,14 +97,14 @@ public class ManageMyGroup extends JFrame {
 
                 },
                 new String[]{
-                        "Group","midas"
+                        "Group"
                 }
         ) {
             Class[] types = new Class[]{
-                    Integer.class, Object.class
+                    Integer.class
             };
             boolean[] canEdit = new boolean[]{
-                    false,false
+                    false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -132,12 +126,6 @@ public class ManageMyGroup extends JFrame {
                                 .addContainerGap(18, Short.MAX_VALUE)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addContainerGap())
-                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                                .addComponent(readyBut)
-                                                .addGap(155, 155, 155))
-                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addGap(126, 126, 126))
                                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
@@ -145,7 +133,16 @@ public class ManageMyGroup extends JFrame {
                                                 .addGap(21, 21, 21))
                                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addGap(90, 90, 90))))
+                                                .addGap(90, 90, 90))
+                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                                        .addComponent(Invite)
+                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                        .addComponent(readyBut)
+                                                        .addGap(155, 155, 155))
+                                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        .addContainerGap()))))
         );
         jPanel1Layout.setVerticalGroup(
                 jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -159,7 +156,9 @@ public class ManageMyGroup extends JFrame {
                                 .addGap(10, 10, 10)
                                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(readyBut)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(readyBut)
+                                        .addComponent(Invite))
                                 .addContainerGap(17, Short.MAX_VALUE))
         );
 
@@ -182,7 +181,7 @@ public class ManageMyGroup extends JFrame {
         pack();
     }
 
-        public static void printUserNamesAndIDs (Object[] userData){
+        public static void getCreatorGroupData (Object[] userData){
             // Step 1: Establish the database connection
             String url = "jdbc:mysql://localhost:3306/nearcourt";
             String username = "root";
@@ -223,7 +222,7 @@ public class ManageMyGroup extends JFrame {
         }
 
 
-        private void kickButActionPerformed (java.awt.event.ActionEvent evt){
+        private void StoreData (java.awt.event.ActionEvent evt){
             int row = usergroupsTable.getSelectedRow();
 
 
@@ -256,6 +255,29 @@ public class ManageMyGroup extends JFrame {
                 }
             }
         }
+    private boolean hasData() {
+        String url = "jdbc:mysql://localhost:3306/nearcourt";
+        String username = "root";
+        String password = "";
+
+        try (Connection con = DriverManager.getConnection(url, username, password)) {
+            String selectGroupQuery = "SELECT group_id FROM `groups` WHERE owner_id = ?";
+
+            try (PreparedStatement stmt = con.prepareStatement(selectGroupQuery)) {
+                stmt.setInt(1, (int) userData[0]);
+                ResultSet rs = stmt.executeQuery();
+
+                if (rs.next()) {
+                    return true; // Group exists for the owner_id
+                } else {
+                    return false; // Group does not exist for the owner_id
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false; // Error occurred while checking group existence
+        }
+    }
         private void readyButActionPerformed (java.awt.event.ActionEvent evt) {
             int row = readygroupsTable.getSelectedRow();
 
@@ -264,7 +286,7 @@ public class ManageMyGroup extends JFrame {
             String password = "";
 
             try (Connection con = DriverManager.getConnection(url, username, password)) {
-                ;
+
                 String selectpeopleQuery = "SELECT joined_players,group_capacity FROM `groups` WHERE group_id = ? ";
 
                 try (PreparedStatement stmt = con.prepareStatement(selectpeopleQuery)) {
@@ -280,11 +302,16 @@ public class ManageMyGroup extends JFrame {
                     if (joined_players == group_capacity) {
                         System.out.println(joined_players);
                         System.out.println(group_capacity);
+                        System.out.println("You can press the 'Ready' button. Group is full.");
                     }
-                    else System.out.println("arxidia");
+                    else {
+                        System.out.println("Cannot press the 'Ready' button. Group is not full.");
+                    }
+
                 }
 
                 }
+
             } catch (SQLException e) {
                 e.printStackTrace();
             }
@@ -299,6 +326,7 @@ public class ManageMyGroup extends JFrame {
     private static javax.swing.JTable readygroupsTable;
     private javax.swing.JButton kickBut;
     private javax.swing.JButton readyBut;
+    private javax.swing.JButton Invite;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
