@@ -5,9 +5,6 @@ import java.awt.Font;
 import javax.swing.*;
 import java.sql.*;
 
-
-
-
 public class ManageMyGroup extends JFrame {
     private Object[] userData;
 

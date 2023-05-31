@@ -107,6 +107,7 @@ public class MainMenuPage extends JFrame {
         //this.dispose();
     }
 
+
     private void initComponents() {
         this.jPanel1 = new JPanel();
         this.jLabel2 = new JLabel();
