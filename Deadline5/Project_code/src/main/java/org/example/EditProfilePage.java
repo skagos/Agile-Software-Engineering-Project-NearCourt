@@ -202,17 +202,17 @@ public class EditProfilePage extends javax.swing.JFrame {
             return;
         }
 
-
+        
+        if (!validatePasswordForm(newPassword) && !newPassword.isEmpty()) {
+            // Password does not meet the criteria
+            JOptionPane.showMessageDialog(EditProfilePage.this, "The password must be at least 8 characters long and contain both numbers and letters.", "Change Personal Info Failed", JOptionPane.ERROR_MESSAGE);
+            System.out.println("Invalid password format!");
+            return;
+        }
         if (!validatePassword(currentPassword)) {
             // Current password is incorrect
             JOptionPane.showMessageDialog(EditProfilePage.this, "Current password is incorrect.", "Change Personal Info Failed", JOptionPane.ERROR_MESSAGE);
             System.out.println("Current password is incorrect!");
-            return;
-        }
-        if ((newPassword.length() < 8 || !newPassword.matches(".*\\d.*") || !newPassword.matches(".*[a-zA-Z].*")) && !newPassword.isEmpty()) {
-            // Password does not meet the criteria
-            JOptionPane.showMessageDialog(EditProfilePage.this, "The password must be at least 8 characters long and contain both numbers and letters.", "Change Personal Info Failed", JOptionPane.ERROR_MESSAGE);
-            System.out.println("Invalid password format!");
             return;
         }
 
@@ -289,6 +289,9 @@ public class EditProfilePage extends javax.swing.JFrame {
             e.printStackTrace();
         }
     }
+    private boolean validatePasswordForm(String newPassword) {
+        return newPassword.length() >= 8 && newPassword.matches(".*\\d.*") && newPassword.matches(".*[a-zA-Z].*");
+    }
 
 
     private boolean validatePassword(String currentPassword) {
@@ -309,6 +312,7 @@ public class EditProfilePage extends javax.swing.JFrame {
             if (currentPassword2Result.next()) {
                 String storedPassword = currentPassword2Result.getString("password");
                 return storedPassword.equals(currentPassword);
+
             } else {
                 // No user record found, handle the error or display a message accordingly
                 JOptionPane.showMessageDialog(EditProfilePage.this, "Failed to retrieve user record.", "Change Personal Info Failed", JOptionPane.ERROR_MESSAGE);
