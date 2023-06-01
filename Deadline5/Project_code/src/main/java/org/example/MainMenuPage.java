@@ -1,39 +1,30 @@
 package org.example;
 
-import java.awt.Color;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import javax.swing.JTextArea;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import javax.swing.GroupLayout;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.LayoutStyle.ComponentPlacement;
+import java.util.ArrayList;
+import java.util.List;
 
-public class MainMenuPage extends JFrame {
+public class MainMenuPage extends javax.swing.JFrame {
     private Object[] userData;
-    private int groupId = 0;
-    private JButton jButtonCreate;
-    private JButton jButtonProfile;
-    private JButton jButtonFind;
-    private JButton jButtonManage;
-    private JButton jButtonBook;
-    private JButton jButtonAddF;
-
-    private JLabel jLabel2;
-    private JPanel jPanel1;
 
     public MainMenuPage(Object[] userData) {
-        this.initComponents();
+        initComponents();
         this.userData = userData;
         String username = (String) userData[2];
         this.jLabel2.setText("Welcome, " + username + "!");
+        loadNotificationText(userData);
+
         this.jButtonProfile.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 MainMenuPage.this.showProfile();
@@ -63,13 +54,12 @@ public class MainMenuPage extends JFrame {
             }
         });
 
-       this.jButtonAddF.addActionListener(new ActionListener() {
+        this.jButtonAddF.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 MainMenuPage.this.showAddFriendsPage();
             }
         });
     }
-
     private void showProfile() {
         Profile profile = new Profile(this.userData);
         profile.setVisible(true);
@@ -79,7 +69,7 @@ public class MainMenuPage extends JFrame {
     private void showCreateGroup() {
         CreateGroupPage createGroupPage = new CreateGroupPage(this.userData);
         createGroupPage.setVisible(true);
-       // this.dispose();
+        // this.dispose();
     }
 
     private void showFindGroup() {
@@ -90,9 +80,9 @@ public class MainMenuPage extends JFrame {
 
     private void showManageMyGroup() {
 
-            ManageMyGroup manageMyGroup = new ManageMyGroup(this.userData);
-            manageMyGroup.setVisible(true);
-            //this.dispose();
+        ManageMyGroup manageMyGroup = new ManageMyGroup(this.userData);
+        manageMyGroup.setVisible(true);
+        //this.dispose();
 
 
     }
@@ -108,101 +98,202 @@ public class MainMenuPage extends JFrame {
     }
 
 
+    @SuppressWarnings("unchecked")
     private void initComponents() {
-        this.jPanel1 = new JPanel();
-        this.jLabel2 = new JLabel();
-        this.jButtonProfile = new JButton();
-        this.jButtonCreate = new JButton();
-        this.jButtonFind = new JButton();
-        this.jButtonManage = new JButton();
-        this.jButtonBook = new JButton();
-        this.jButtonAddF = new JButton();
-        this.setDefaultCloseOperation(3);
-        this.jLabel2.setText("jLabel2");
-        this.jButtonProfile.setBackground(new Color(51, 153, 0));
-        this.jButtonProfile.setText("Profile");
-        this.jButtonCreate.setBackground(new Color(0, 153, 0));
-        this.jButtonCreate.setText("Create Group");
-        this.jButtonFind.setBackground(new Color(0, 153, 0));
-        this.jButtonFind.setText("Find Group");
-        this.jButtonManage.setBackground(new Color(51, 153, 0));
-        this.jButtonManage.setText("Manage MyGroup");
-        this.jButtonBook.setBackground(new Color(0, 153, 0));
-        this.jButtonBook.setText("Book Court");
-        this.jButtonAddF.setText("Add Friends");
-        this.jButtonAddF.setBackground(new Color(0, 153, 0));
 
-        /*GroupLayout jPanel1Layout = new GroupLayout(this.jPanel1);
-        this.jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(jPanel1Layout.createParallelGroup(Alignment.LEADING).addGroup(jPanel1Layout.createSequentialGroup().addContainerGap().addGroup(jPanel1Layout.createParallelGroup(Alignment.TRAILING).addGroup(Alignment.LEADING, jPanel1Layout.createSequentialGroup().addComponent(this.jLabel2, -2, 121, -2).addContainerGap(-1, 32767)).addGroup(jPanel1Layout.createSequentialGroup().addGroup(jPanel1Layout.createParallelGroup(Alignment.TRAILING).addGroup(jPanel1Layout.createSequentialGroup().addComponent(this.jButtonFind, -2, 96, -2).addGap(31, 31, 31).addComponent(this.jButtonManage, -2, 96, -2)).addGroup(jPanel1Layout.createSequentialGroup().addComponent(this.jButtonProfile, -2, 96, -2).addPreferredGap(ComponentPlacement.RELATED, -1, 32767).addComponent(this.jButtonCreate, -2, 96, -2))).addGap(19, 19, 19)))).addGroup(jPanel1Layout.createSequentialGroup().addGap(70, 70, 70).addComponent(this.jButtonBook, -2, 96, -2).addGap(0, 0, 32767)));
-        jPanel1Layout.setVerticalGroup(jPanel1Layout.createParallelGroup(Alignment.LEADING).addGroup(jPanel1Layout.createSequentialGroup().addGap(18, 18, 18).addComponent(this.jLabel2).addGap(45, 45, 45).addGroup(jPanel1Layout.createParallelGroup(Alignment.BASELINE).addComponent(this.jButtonProfile).addComponent(this.jButtonCreate)).addGap(18, 18, 18).addGroup(jPanel1Layout.createParallelGroup(Alignment.BASELINE).addComponent(this.jButtonFind).addComponent(this.jButtonManage)).addGap(18, 18, 18).addComponent(this.jButtonBook).addContainerGap(96, 32767)));
-        GroupLayout layout = new GroupLayout(this.getContentPane());
-        this.getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(layout.createParallelGroup(Alignment.LEADING).addGroup(layout.createSequentialGroup().addGap(110, 110, 110).addComponent(this.jPanel1, -2, -1, -2).addContainerGap(48, 32767)));
-        layout.setVerticalGroup(layout.createParallelGroup(Alignment.LEADING).addGroup(layout.createSequentialGroup().addContainerGap().addComponent(this.jPanel1, -1, -1, 32767).addGap(22, 22, 22)));
-        this.pack();*/
+        jButton2 = new javax.swing.JButton();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jButtonProfile = new javax.swing.JButton();
+        jButtonFind = new javax.swing.JButton();
+        jButtonBook = new javax.swing.JButton();
+        jButtonCreate = new javax.swing.JButton();
+        jButtonManage = new javax.swing.JButton();
+        jButtonAddF = new javax.swing.JButton();
+        jButtonRate = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+
+        jButton2.setText("jButton2");
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        //jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/javaapplication2/thumbnail.jpg"))); // NOI18N
+
+        jButtonProfile.setBackground(new java.awt.Color(0, 153, 0));
+        jButtonProfile.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
+        jButtonProfile.setText("Profile");
+        jButtonProfile.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonProfileActionPerformed(evt);
+            }
+        });
+
+        jButtonFind.setBackground(new java.awt.Color(0, 153, 51));
+        jButtonFind.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
+        jButtonFind.setText("Find Group");
+        jButtonFind.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonFindActionPerformed(evt);
+            }
+        });
+
+        jButtonBook.setBackground(new java.awt.Color(0, 153, 0));
+        jButtonBook.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
+        jButtonBook.setText("Book Court");
+
+        jButtonCreate.setBackground(new java.awt.Color(0, 153, 0));
+        jButtonCreate.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
+        jButtonCreate.setText("Create Group");
+
+        jButtonManage.setBackground(new java.awt.Color(0, 153, 0));
+        jButtonManage.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
+        jButtonManage.setText("ManageMy Group");
+
+        jButtonAddF.setBackground(new java.awt.Color(0, 153, 0));
+        jButtonAddF.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
+        jButtonAddF.setText("Add Friends");
+
+        jButtonRate.setBackground(new java.awt.Color(0, 153, 0));
+        jButtonRate.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
+        jButtonRate.setText("Rate");
+
+        jLabel2.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
+        jLabel2.setText("Welcome,");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
                 jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(jLabel2)
+                                .addGap(158, 158, 158))
                         .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addContainerGap()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addGroup(jPanel1Layout.createSequentialGroup()
-                                                .addComponent(this.jLabel2, -2, 121, -2)
-                                                .addComponent(jButtonProfile)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                .addComponent(jButtonCreate))
+                                                .addGap(14, 14, 14)
+                                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE))
                                         .addGroup(jPanel1Layout.createSequentialGroup()
-                                                .addComponent(jButtonFind)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                .addComponent(jButtonManage))
+                                                .addGap(40, 40, 40)
+                                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                                        .addComponent(jButtonFind, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                        .addComponent(jButtonProfile, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                        .addComponent(jButtonBook, javax.swing.GroupLayout.DEFAULT_SIZE, 118, Short.MAX_VALUE))
+                                                .addGap(33, 33, 33)
+                                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                        .addComponent(jButtonCreate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                        .addComponent(jButtonManage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                        .addComponent(jButtonAddF, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                                         .addGroup(jPanel1Layout.createSequentialGroup()
-                                                .addComponent(jButtonBook)
-                                                .addGap(18, 18, 18)
-                                                .addComponent(jButtonAddF)
-                                                .addGap(0, 1, Short.MAX_VALUE)))
-                                .addContainerGap())
+                                                .addGap(127, 127, 127)
+                                                .addComponent(jButtonRate, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                                .addGap(53, 53, 53)
+                                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 264, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addContainerGap(15, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
                 jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(53, 53, 53)
-                                .addComponent(this.jLabel2)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addGap(15, 15, 15)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                         .addComponent(jButtonProfile)
                                         .addComponent(jButtonCreate))
-                                .addGap(18, 18, 18)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                         .addComponent(jButtonFind)
                                         .addComponent(jButtonManage))
-                                .addGap(18, 18, 18)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                         .addComponent(jButtonBook)
                                         .addComponent(jButtonAddF))
-                                .addContainerGap(87, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jButtonRate)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap(30, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
                 layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                                .addGap(116, 116, 116)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addContainerGap(16, Short.MAX_VALUE)
                                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap(103, Short.MAX_VALUE))
+                                .addGap(25, 25, 25))
         );
         layout.setVerticalGroup(
                 layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addContainerGap(27, Short.MAX_VALUE)
+                        .addGroup(layout.createSequentialGroup()
+                                .addContainerGap()
                                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(28, 28, 28))
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }
+    private void loadNotificationText(Object[] userData) {
+        try {
+            // Establish a database connection
+            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/nearcourt", "root", "");
+
+            // Prepare the SELECT query
+            String query = "SELECT text FROM notifications WHERE user_id = ?";
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setInt(1, (int) userData[0]);
+
+            // Execute the query and obtain the result set
+            ResultSet resultSet = statement.executeQuery();
+
+            // Create a StringBuilder to accumulate the notification text
+            StringBuilder notificationTextBuilder = new StringBuilder();
+
+            // Process the query results
+            while (resultSet.next()) {
+                String notificationText = resultSet.getString("text");
+                notificationTextBuilder.append(notificationText).append("\n");
+            }
+
+            // Create a JTextArea and set its text content
+            JTextArea textArea = new JTextArea(notificationTextBuilder.toString());
+
+            // Set the JTextArea as the viewport view of jScrollPane1
+            jScrollPane1.setViewportView(textArea);
+
+            // Close the database resources
+            resultSet.close();
+            statement.close();
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void jButtonProfileActionPerformed(java.awt.event.ActionEvent evt) {
+        // TODO add your handling code here:
+    }
+
+    private void jButtonFindActionPerformed(java.awt.event.ActionEvent evt) {
+        // TODO add your handling code here:
+    }
 
 
+    private javax.swing.JButton jButtonProfile;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButtonFind;
+    private javax.swing.JButton jButtonBook;
+    private javax.swing.JButton jButtonCreate;
+    private javax.swing.JButton jButtonManage;
+    private javax.swing.JButton jButtonAddF;
+    private javax.swing.JButton jButtonRate;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    // End of variables declaration
 }
