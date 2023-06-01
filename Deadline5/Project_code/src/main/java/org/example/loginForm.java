@@ -13,6 +13,7 @@ public class loginForm extends JFrame {
 
     public loginForm() {
         setTitle("Login Form");
+        //sdaffsadfasdfasd
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(300, 200);
         setResizable(false);
