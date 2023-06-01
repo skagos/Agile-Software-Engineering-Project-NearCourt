@@ -66,6 +66,7 @@ public class CreateGroupPage extends javax.swing.JFrame {
         try{
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/nearcourt", "root", "");
             PreparedStatement insertPs = con.prepareStatement("INSERT INTO `groups` (type,sport,date,group_capacity,time,owner_id,court_id,joined_players) values(?,?,?,?,?,?,?,1)");
+            PreparedStatement insertNotificationPublic = con.prepareStatement("INSERT INTO `notifications`(date,user_id) values(?,?)");
             String combo = sportc.getSelectedItem().toString();
             String  combo2 = public_players.getSelectedItem().toString();
             String selectdate = ((JTextField) date1.getDateEditor().getUiComponent()).getText();
@@ -77,6 +78,10 @@ public class CreateGroupPage extends javax.swing.JFrame {
             insertPs.setInt(6,(int) userData[0]);
             insertPs.setString(1,"public");
             insertPs.setInt(7,i);
+            insertNotificationPublic.setDate(1,new java.sql.Date(date1.getTime()));
+            insertNotificationPublic.setInt(2,(int) userData[0]);
+            insertNotificationPublic.executeUpdate();
+
             insertPs.executeUpdate();
         }catch (Exception e){
             e.printStackTrace();
@@ -92,6 +97,7 @@ public class CreateGroupPage extends javax.swing.JFrame {
 
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/nearcourt", "root", "");
             PreparedStatement insertPs = con.prepareStatement("INSERT INTO `groups`(type,sport,date,group_capacity,time,owner_id,court_id,joined_players) values(?,?,?,?,?,?,?,1)");
+            PreparedStatement insertNotification = con.prepareStatement("INSERT INTO `notifications`(date,user_id) values(?,?)");
             insertPs.setString(5, s);
             insertPs.setString(2, combo);
             insertPs.setDate(3, new java.sql.Date(date1.getTime()));
@@ -99,10 +105,12 @@ public class CreateGroupPage extends javax.swing.JFrame {
             insertPs.setInt(6, (int) userData[0]);
             insertPs.setString(1, "private");
             insertPs.setInt(7,i);
+            insertNotification.setDate(1,new java.sql.Date(date1.getTime()));
+            insertNotification.setInt(2,(int) userData[0]);
 
 
             insertPs.executeUpdate();
-
+            insertNotification.executeUpdate();
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -213,8 +221,9 @@ public class CreateGroupPage extends javax.swing.JFrame {
                 Date date1 = new SimpleDateFormat("yyyy-MM-dd").parse(selectdate);
                 combo2 = public_players.getSelectedItem().toString();
 
-                Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/nearcourtdatabase", "root", "");
+                Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/nearcourt", "root", "");
                 PreparedStatement ps = con.prepareStatement("SELECT time,court_id FROM `timetable` WHERE court_type = ? AND date = ? AND number_of_players >= ? AND Availability = 0");
+                PreparedStatement insertPs = con.prepareStatement("INSERT INTO `groups` (type,sport,date,group_capacity,time,owner_id,court_id,joined_players) values(?,?,?,?,?,?,?,1)");
                 ps.setString(1, combo);
                 ps.setDate(2, new java.sql.Date(date1.getTime()));
                 ps.setString(3, combo2);
@@ -564,32 +573,6 @@ public class CreateGroupPage extends javax.swing.JFrame {
         // TODO add your handling code here:
     }
 
-    /*public static void main(String args[]) {
-
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(CreateGroupPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(CreateGroupPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(CreateGroupPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(CreateGroupPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                //     new CreateGroupp().setVisible(true);
-            }
-        });
-    }*/
-    // Variables declaration - do not modify
     private javax.swing.JComboBox<String> combo_sport;
     private com.toedter.calendar.JDateChooser date;
     private com.toedter.calendar.JDateChooser date1;

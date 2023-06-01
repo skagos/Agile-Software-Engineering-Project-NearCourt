@@ -243,7 +243,7 @@ public class MainMenuPage extends javax.swing.JFrame {
             Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/nearcourt", "root", "");
 
             // Prepare the SELECT query
-            String query = "SELECT text FROM notifications WHERE user_id = ?";
+            String query = "SELECT text,date FROM notifications WHERE user_id = ?";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setInt(1, (int) userData[0]);
 
@@ -256,11 +256,14 @@ public class MainMenuPage extends javax.swing.JFrame {
             // Process the query results
             while (resultSet.next()) {
                 String notificationText = resultSet.getString("text");
-                notificationTextBuilder.append(notificationText).append("\n");
+                String notificationDate = resultSet.getString("date");
+                //notificationTextBuilder.append(notificationText).append("\n");
+                notificationTextBuilder.append(notificationText).append(" ").append(notificationDate).append("\n");
             }
 
             // Create a JTextArea and set its text content
             JTextArea textArea = new JTextArea(notificationTextBuilder.toString());
+
 
             // Set the JTextArea as the viewport view of jScrollPane1
             jScrollPane1.setViewportView(textArea);

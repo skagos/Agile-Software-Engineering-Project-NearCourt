@@ -294,12 +294,23 @@ public class FindGroupGUI extends javax.swing.JFrame {
         try{
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection con = DriverManager.getConnection(url, username, password);
+
             PreparedStatement stm;
+            PreparedStatement stmnot;
             stm = con.prepareStatement("INSERT INTO `belongs_to` (`user_id`, `court_id`, `groups_id`) VALUES (?, ?, ?);");
             stm.setInt(1, (int) userData[0]);
             stm.setInt(2, (int) userData[4]);
             stm.setInt(3, (int) userData[5]);
+
+
             stm.executeUpdate();
+
+            stm = con.prepareStatement("INSERT INTO `notifications` (date, user_id) VALUES ((SELECT date FROM `groups` WHERE group_id = ?), ?);");
+            stm.setInt(1, (int) userData[5]);
+            stm.setInt(2, (int) userData[0]);
+
+            stm.executeUpdate();
+
             int group_id = (int) groupsTable.getValueAt(row, 0);
             int players = (int) groupsTable.getValueAt(row, 4);
             players = players + 1;
