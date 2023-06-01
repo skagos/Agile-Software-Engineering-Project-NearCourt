@@ -46,6 +46,7 @@
         <SOURCES />
       </library>
     </orderEntry>
+<<<<<<< HEAD
     <orderEntry type="module-library" exported="">
       <library>
         <CLASSES>
@@ -59,6 +60,12 @@
       <library>
         <CLASSES>
           <root url="jar://$MODULE_DIR$/../../../../../downloadss/mysql-connector-java-8.0.30.jar!/" />
+=======
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$USER_HOME$/Downloads/mysql-connector-java-8.0.30.jar!/" />
+>>>>>>> 386da74fff132729d3131340fea12fe2b3769d34
         </CLASSES>
         <JAVADOC />
         <SOURCES />

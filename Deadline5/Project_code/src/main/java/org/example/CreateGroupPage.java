@@ -595,6 +595,7 @@ public class CreateGroupPage extends javax.swing.JFrame {
     private com.toedter.calendar.JDateChooser date1;
     private javax.swing.JButton home;
     private javax.swing.JButton show_public;
+    
     private javax.swing.JComboBox<String> private_players;
     private javax.swing.JComboBox<String> public_players;
     private javax.swing.JComboBox<String> sportc;
