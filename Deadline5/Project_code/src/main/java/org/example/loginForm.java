@@ -13,7 +13,6 @@ public class loginForm extends JFrame {
 
     public loginForm() {
         setTitle("Login Form");
-        //sdaffsadfasdfasd
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(300, 200);
         setResizable(false);
@@ -31,7 +30,7 @@ public class loginForm extends JFrame {
         panel.add(usernameField);
         panel.add(passwordLabel);
         panel.add(passwordField);
-        panel.add(new JLabel());
+        panel.add(new JLabel()); // Empty label for alignment
         panel.add(loginButton);
 
         add(panel);
@@ -48,16 +47,58 @@ public class loginForm extends JFrame {
                     JOptionPane.showMessageDialog(loginForm.this, "Login Successful!");
 
                     // Pass user data to the NewPage and open it
-                   MainMenuPage mainMenuPage = new MainMenuPage(userData);
-                    mainMenuPage.setVisible(true);
+                    // MainMenuPage mainMenuPage = new MainMenuPage(userData);
+                    // mainMenuPage.selectGroupIdFromDatabase();
+                    //  mainMenuPage.setVisible(true);
+
+                    final String DB_URL = "jdbc:mysql://localhost:3306/nearcourt";
+                    final String USERNAME = "root";
+                    final String PASSWORD = "";
+                    Connection conn = null;
+                    PreparedStatement stmt = null;
+                    ResultSet rs = null;
+
+                    try {
+                        // Establish a connection to the database
+                        conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
+
+                        // Prepare the SQL statement to validate the user's credentials
+                        String sql = "SELECT admin FROM users WHERE name = ? AND password = ?";
+                        stmt = conn.prepareStatement(sql);
+
+                        stmt.setString(1, name);
+                        stmt.setString(2, password);
+
+                        ResultSet resultSet = stmt.executeQuery();
+
+                        if (resultSet.next()) {
+                            boolean isAdmin = resultSet.getBoolean("admin");
+                            if (isAdmin) {
+                                System.out.println("User is an admin.");
+                                AdminMainMenuPage adminmainMenuPage = new AdminMainMenuPage(userData);
+                                adminmainMenuPage.setVisible(true);
+                            } else {
+                                System.out.println("User is not an admin.");
+                                MainMenuPage mainMenuPage = new MainMenuPage(userData);
+                                mainMenuPage.setVisible(true);
+                            }
+                        } else {
+
+                            System.out.println("Invalid username or password.");
+                        }
 
 
-                    dispose();
+                    }catch(Exception er){
+                        er.printStackTrace();
+                    }
+
+
+
+                    dispose(); // Close the login form
                 } else {
                     JOptionPane.showMessageDialog(loginForm.this, "Invalid username or password.", "Login Failed", JOptionPane.ERROR_MESSAGE);
                 }
             }
-
 
             private Object[] authenticateUser(String username, String password) {
                 final String DB_URL = "jdbc:mysql://localhost:3306/nearcourt";
@@ -93,6 +134,7 @@ public class loginForm extends JFrame {
                         int court_id = 0;
                         int group_id = 0;
                         // Retrieve other user data as needed
+
                         // Populate the userData array with the retrieved data
                         userData = new Object[] { id, email,namee,passwordd,court_id,group_id};
                     }
@@ -121,4 +163,3 @@ public class loginForm extends JFrame {
         });
     }
 }
-
