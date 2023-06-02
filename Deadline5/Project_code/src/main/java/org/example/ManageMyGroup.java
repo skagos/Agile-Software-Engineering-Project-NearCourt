@@ -14,10 +14,14 @@ public class ManageMyGroup extends JFrame {
         this.userData = userData;
         if (!hasData()) {
             JOptionPane.showMessageDialog(this, "You do not have any groups.");
+            MainMenuPage mainMenuPage = new MainMenuPage(userData);
+            mainMenuPage.setVisible(true);
+            this.dispose();
         }
+        else {
             getCreatorGroupData(userData);
             System.out.println("You have groups.");
-
+        }
     }
 
     private void initComponents() {
@@ -36,8 +40,16 @@ public class ManageMyGroup extends JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         this.jPanel1.setBackground(new Color(0, 153, 0));
 
+
+        Invite.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+
+                InviteFriends(evt);
+            }
+        });
         kickBut.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
+
                 StoreData(evt);
             }
         });
@@ -219,45 +231,65 @@ public class ManageMyGroup extends JFrame {
         }
 
 
-        private void StoreData (java.awt.event.ActionEvent evt){
+        private void StoreData (java.awt.event.ActionEvent evt) {
             int row = usergroupsTable.getSelectedRow();
-
-
-            int option = JOptionPane.showConfirmDialog(this, "Are you sure you want to kick this player?", "Confirmation", JOptionPane.YES_NO_OPTION);
+            int user = (Integer) usergroupsTable.getValueAt(row, 1);
+            String url = "jdbc:mysql://localhost:3306/nearcourt";
+            String username = "root";
+            String password = "";
+            String kickUsername = null;
+            try {
+                Connection con = DriverManager.getConnection(url, username, password);
+                PreparedStatement stmName = con.prepareStatement("SELECT name FROM users WHERE user_id = ? ");
+                stmName.setInt(1, user);
+                ResultSet rs = stmName.executeQuery();
+                if (rs.next()) {
+                    kickUsername = rs.getString("name");
+                    // Do something with the retrievedUsername
+                    System.out.println("Retrieved username: " + kickUsername);
+                }
+                con.close();
+            } catch (Exception e) {
+                System.out.println(e);
+            }
+            int option = JOptionPane.showConfirmDialog(this, "Are you sure you want to kick  " + kickUsername + "  player?", "Confirmation", JOptionPane.YES_NO_OPTION);
 
             if (option == JOptionPane.YES_OPTION) {
-                String url = "jdbc:mysql://localhost:3306/nearcourt";
-                String username = "root";
-                String password = "";
+
                 try {
-                    //Class.forName("com.mysql.cj.jdbc.Driver");
+
                     Connection con = DriverManager.getConnection(url, username, password);
                     PreparedStatement stm = con.prepareStatement("DELETE FROM belongs_to WHERE group_id = ? AND user_id = ? ");
-                    PreparedStatement stmdn = con.prepareStatement("DELETE FROM `notifications`  WHERE user_id= ? AND group_id = ?");
+
                     int group = (Integer) usergroupsTable.getValueAt(row, 0);
-                    int user = (Integer) usergroupsTable.getValueAt(row, 1);
+                    //int user = (Integer) usergroupsTable.getValueAt(row, 1);
 
                     stm.setInt(1, group);
                     stm.setInt(2, user);
 
-                    DeleteNotification(con, user,group);
+                    DeleteNotification(con, user, group);
 
-                    stmdn.setInt(1, user);
-                    stmdn.setInt(2, group);
-                    stmdn.executeUpdate();
+
                     int affectedRows = stm.executeUpdate();
                     if (affectedRows > 0) {
                         System.out.println("Row deleted successfully.");
+                        JOptionPane.showMessageDialog(ManageMyGroup.this, "player " + kickUsername + " has been kicked");
                     } else {
                         System.out.println("No rows were deleted.");
                     }
 
-
+                    getCreatorGroupData(userData);
                 } catch (Exception e) {
                     System.out.println(e);
                 }
             }
         }
+
+    private void InviteFriends (java.awt.event.ActionEvent evt) {
+
+            System.out.println("Not in 8 use cases");
+
+    }
 
     private void DeleteNotification(Connection con,  int userId, int groupId) throws SQLException {
         PreparedStatement DeleteNotification = con.prepareStatement("DELETE FROM `notifications`  WHERE user_id= ? AND group_id = ?");
