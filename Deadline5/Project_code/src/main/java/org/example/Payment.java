@@ -179,9 +179,15 @@ public class Payment extends javax.swing.JFrame {
     }
 
     private boolean validateCardInfo() {
+        String name = jTextFieldName.getText();
         String number = jTextField2.getText();
         String cvv = jTextField3.getText();
         String expiration = jTextField4.getText();
+
+        if (name.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Name field cannot be empty.");
+            return false;
+        }
 
         if (number.length() != 12) {
             JOptionPane.showMessageDialog(this, "Number should contain 12 digits.");
