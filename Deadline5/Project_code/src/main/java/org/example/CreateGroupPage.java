@@ -1,16 +1,11 @@
 package org.example;
 
 import javax.swing.*;
+import java.sql.*;
 import java.util.Date;
 import java.lang.String;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.text.SimpleDateFormat;
-import java.sql.ResultSet;
-import java.sql.Statement;
 import javax.swing.table.DefaultTableModel;
-import java.sql.ResultSetMetaData;
 
 
 public class CreateGroupPage extends javax.swing.JFrame {
@@ -101,19 +96,25 @@ public class CreateGroupPage extends javax.swing.JFrame {
             insertPs.setString(5, s);
             insertPs.setString(2, combo);
             insertPs.setDate(3, new java.sql.Date(date1.getTime()));
+
             insertPs.setString(4, combo2);
             insertPs.setInt(6, (int) userData[0]);
             insertPs.setString(1, "private");
             insertPs.setInt(7,i);
-            insertNotification.setDate(1,new java.sql.Date(date1.getTime()));
-            insertNotification.setInt(2,(int) userData[0]);
 
 
+            AddNotification(con, date1, (int) userData[0]);
             insertPs.executeUpdate();
-            insertNotification.executeUpdate();
+
         }catch (Exception e){
             e.printStackTrace();
         }
+    }
+    private void AddNotification(Connection con, Date date1, int userId) throws SQLException {
+        PreparedStatement insertNotification = con.prepareStatement("INSERT INTO `notifications`(date,user_id) values(?,?)");
+        insertNotification.setDate(1, new java.sql.Date(date1.getTime()));
+        insertNotification.setInt(2, userId);
+        insertNotification.executeUpdate();
     }
 
     private void getPrivateCompatableCourts() {

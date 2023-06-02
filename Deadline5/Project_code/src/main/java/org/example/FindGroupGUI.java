@@ -1,12 +1,7 @@
 package org.example;//package org.example;
 
 import java.awt.event.WindowEvent;
-import java.sql.Statement;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
-import java.sql.PreparedStatement;
+import java.sql.*;
 import java.awt.event.*;
 
 
@@ -305,11 +300,7 @@ public class FindGroupGUI extends javax.swing.JFrame {
 
             stm.executeUpdate();
 
-            stm = con.prepareStatement("INSERT INTO `notifications` (date, user_id) VALUES ((SELECT date FROM `groups` WHERE group_id = ?), ?);");
-            stm.setInt(1, (int) userData[5]);
-            stm.setInt(2, (int) userData[0]);
-
-            stm.executeUpdate();
+            AddNotification(con, (int) userData[5], (int) userData[0]);
 
             int group_id = (int) groupsTable.getValueAt(row, 0);
             int players = (int) groupsTable.getValueAt(row, 4);
@@ -321,6 +312,12 @@ public class FindGroupGUI extends javax.swing.JFrame {
         }catch (Exception e){
             System.out.println(e);
         }
+    }
+    private void AddNotification(Connection con, int groupId, int userId) throws SQLException {
+        PreparedStatement stm = con.prepareStatement("INSERT INTO `notifications` (date, user_id) VALUES ((SELECT date FROM `groups` WHERE group_id = ?), ?);");
+        stm.setInt(1, groupId);
+        stm.setInt(2, userId);
+        stm.executeUpdate();
     }
 
     private void profileButActionPerformed(java.awt.event.ActionEvent evt) {
