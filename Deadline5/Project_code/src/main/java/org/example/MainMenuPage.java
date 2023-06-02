@@ -1,6 +1,7 @@
 package org.example;
-
-
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
@@ -118,7 +119,7 @@ public class MainMenuPage extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        //jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/javaapplication2/thumbnail.jpg"))); // NOI18N
+        //jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("D:/Users/Koukounaras/Documents/GitHub/NearCourt-The-Easy-way-to-play/Deadline5/Project_code/src/main/java/org/example/thumbnail.jpg")));
 
         jButtonProfile.setBackground(new java.awt.Color(0, 153, 0));
         jButtonProfile.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N

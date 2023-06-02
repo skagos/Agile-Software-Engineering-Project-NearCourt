@@ -203,8 +203,6 @@ public class Payment extends javax.swing.JFrame {
             return false;
         }
 
-        // Additional checks or validations can be added here
-
         return true;
     }
 

@@ -61,7 +61,7 @@ public class CreateGroupPage extends javax.swing.JFrame {
         try{
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/nearcourt", "root", "");
             PreparedStatement insertPs = con.prepareStatement("INSERT INTO `groups` (type,sport,date,group_capacity,time,owner_id,court_id,joined_players) values(?,?,?,?,?,?,?,1)");
-            PreparedStatement insertNotificationPublic = con.prepareStatement("INSERT INTO `notifications`(date,user_id) values(?,?)");
+
             String combo = sportc.getSelectedItem().toString();
             String  combo2 = public_players.getSelectedItem().toString();
             String selectdate = ((JTextField) date1.getDateEditor().getUiComponent()).getText();
@@ -73,17 +73,16 @@ public class CreateGroupPage extends javax.swing.JFrame {
             insertPs.setInt(6,(int) userData[0]);
             insertPs.setString(1,"public");
             insertPs.setInt(7,i);
-            insertNotificationPublic.setDate(1,new java.sql.Date(date1.getTime()));
-            insertNotificationPublic.setInt(2,(int) userData[0]);
-            insertNotificationPublic.executeUpdate();
+
 
             insertPs.executeUpdate();
+            AddNotification(con, date1, (int) userData[0],(int) userData[5]);
         }catch (Exception e){
             e.printStackTrace();
         }
     }
 
-    private void CreateReservation(String s,int i){
+    private void CreateReservation(String s,int i,Object[] userData){
         try{
             String combo = combo_sport.getSelectedItem().toString();
             String combo2 = private_players.getSelectedItem().toString();
@@ -92,7 +91,6 @@ public class CreateGroupPage extends javax.swing.JFrame {
 
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/nearcourt", "root", "");
             PreparedStatement insertPs = con.prepareStatement("INSERT INTO `groups`(type,sport,date,group_capacity,time,owner_id,court_id,joined_players) values(?,?,?,?,?,?,?,1)");
-            PreparedStatement insertNotification = con.prepareStatement("INSERT INTO `notifications`(date,user_id) values(?,?)");
             insertPs.setString(5, s);
             insertPs.setString(2, combo);
             insertPs.setDate(3, new java.sql.Date(date1.getTime()));
@@ -101,19 +99,20 @@ public class CreateGroupPage extends javax.swing.JFrame {
             insertPs.setInt(6, (int) userData[0]);
             insertPs.setString(1, "private");
             insertPs.setInt(7,i);
+            //int group_id = (int) userData[5];
 
-
-            AddNotification(con, date1, (int) userData[0]);
             insertPs.executeUpdate();
+            //AddNotification(con, date1, (int) userData[0],group_id);
 
         }catch (Exception e){
             e.printStackTrace();
         }
     }
-    private void AddNotification(Connection con, Date date1, int userId) throws SQLException {
-        PreparedStatement insertNotification = con.prepareStatement("INSERT INTO `notifications`(date,user_id) values(?,?)");
+    private void AddNotification(Connection con, Date date1, int userId,int groupId) throws SQLException {
+        PreparedStatement insertNotification = con.prepareStatement("INSERT INTO `notifications`(date,user_id,group_id) values(?,?,?)");
         insertNotification.setDate(1, new java.sql.Date(date1.getTime()));
         insertNotification.setInt(2, userId);
+        insertNotification.setInt(3, groupId);
         insertNotification.executeUpdate();
     }
 
@@ -170,7 +169,7 @@ public class CreateGroupPage extends javax.swing.JFrame {
                     int selectedCourtId = Integer.parseInt(selectedRowData[1].toString());
                     userData[4]=selectedCourtId;
 
-                    CreateReservation(selectedTime,selectedCourtId);
+                    CreateReservation(selectedTime,selectedCourtId,userData);
 
                     PreparedStatement ferma = con.prepareStatement("SELECT group_id FROM `groups` WHERE type = ? AND sport = ? AND  date = ? AND group_capacity = ? AND time = ? AND owner_id = ?");
 
@@ -189,6 +188,7 @@ public class CreateGroupPage extends javax.swing.JFrame {
                         selectedGroupId = rsr.getInt("group_id");
                         userData[5]=selectedGroupId;
 
+                        AddNotification(con, date1, (int) userData[0],selectedGroupId);
                     }
 
                     PreparedStatement lol = con.prepareStatement("UPDATE `timetable` SET availability = 1 WHERE time = ?");

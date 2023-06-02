@@ -262,8 +262,8 @@ public class FindGroupGUI extends javax.swing.JFrame {
             stm.setString(1, courtName);
             ResultSet rslt = stm.executeQuery();
             rslt.next();
-             userData[4] = (int) rslt.getObject(1);
-             userData[5] = (int) groupsTable.getValueAt(row, 0);
+            userData[4] = (int) rslt.getObject(1);
+            userData[5] = (int) groupsTable.getValueAt(row, 0);
 
             Payment payment = new Payment(userData);
             payment.addWindowListener(new WindowAdapter() {
@@ -314,9 +314,10 @@ public class FindGroupGUI extends javax.swing.JFrame {
         }
     }
     private void AddNotification(Connection con, int groupId, int userId) throws SQLException {
-        PreparedStatement stm = con.prepareStatement("INSERT INTO `notifications` (date, user_id) VALUES ((SELECT date FROM `groups` WHERE group_id = ?), ?);");
+        PreparedStatement stm = con.prepareStatement("INSERT INTO `notifications` (date, user_id,group_id) VALUES ((SELECT date FROM `groups` WHERE group_id = ?), ?, ?);");
         stm.setInt(1, groupId);
         stm.setInt(2, userId);
+        stm.setInt(3, groupId);
         stm.executeUpdate();
     }
 

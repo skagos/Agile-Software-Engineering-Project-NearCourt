@@ -16,7 +16,7 @@ public class ManageMyGroup extends JFrame {
             JOptionPane.showMessageDialog(this, "You do not have any groups.");
         }
             getCreatorGroupData(userData);
-            System.out.println("ok bro");
+            System.out.println("You have groups.");
 
     }
 
@@ -233,12 +233,18 @@ public class ManageMyGroup extends JFrame {
                     //Class.forName("com.mysql.cj.jdbc.Driver");
                     Connection con = DriverManager.getConnection(url, username, password);
                     PreparedStatement stm = con.prepareStatement("DELETE FROM belongs_to WHERE group_id = ? AND user_id = ? ");
+                    PreparedStatement stmdn = con.prepareStatement("DELETE FROM `notifications`  WHERE user_id= ? AND group_id = ?");
                     int group = (Integer) usergroupsTable.getValueAt(row, 0);
                     int user = (Integer) usergroupsTable.getValueAt(row, 1);
 
                     stm.setInt(1, group);
                     stm.setInt(2, user);
 
+                    DeleteNotification(con, user,group);
+
+                    stmdn.setInt(1, user);
+                    stmdn.setInt(2, group);
+                    stmdn.executeUpdate();
                     int affectedRows = stm.executeUpdate();
                     if (affectedRows > 0) {
                         System.out.println("Row deleted successfully.");
@@ -252,6 +258,14 @@ public class ManageMyGroup extends JFrame {
                 }
             }
         }
+
+    private void DeleteNotification(Connection con,  int userId, int groupId) throws SQLException {
+        PreparedStatement DeleteNotification = con.prepareStatement("DELETE FROM `notifications`  WHERE user_id= ? AND group_id = ?");
+        DeleteNotification.setInt(1, userId);
+        DeleteNotification.setInt(2, groupId);
+        DeleteNotification.executeUpdate();
+    }
+
     private boolean hasData() {
         String url = "jdbc:mysql://localhost:3306/nearcourt";
         String username = "root";
