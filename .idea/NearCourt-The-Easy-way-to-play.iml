@@ -8,7 +8,7 @@
       <excludeFolder url="file://$MODULE_DIR$/Deadline5/target" />
     </content>
     <content url="jar://$USER_HOME$/Downloads/mysql-connector-java-8.0.26.jar!/" />
-    <orderEntry type="jdk" jdkName="20" jdkType="JavaSDK" />
+    <orderEntry type="jdk" jdkName="openjdk-20" jdkType="JavaSDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module-library">
       <library>
@@ -49,7 +49,7 @@
     <orderEntry type="module-library" exported="">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/../../../../../downloadss/jcalendar-1.4/jcalendar-1.4.jar!/" />
+          <root url="jar://C:/downloadss/jcalendar-1.4/jcalendar-1.4.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -58,7 +58,7 @@
     <orderEntry type="module-library" exported="">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/../../../../../downloadss/mysql-connector-java-8.0.30.jar!/" />
+          <root url="jar://C:/downloadss/mysql-connector-java-8.0.30.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
