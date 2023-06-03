@@ -10,7 +10,6 @@ public class Payment extends javax.swing.JFrame {
     private Object[] userData;
     private javax.swing.JLabel jLabelAmount;
     private double amount;
-    private  double price;
     private boolean isPaid;
     public Payment(Object[] userData) {
 
