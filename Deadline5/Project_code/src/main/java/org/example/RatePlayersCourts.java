@@ -20,8 +20,6 @@ public class RatePlayersCourts extends javax.swing.JFrame {
         initComponents();
     }
     
-    @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">
     private void initComponents() {
 
         jLayeredPane2 = new javax.swing.JLayeredPane();
