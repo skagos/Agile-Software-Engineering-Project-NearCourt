@@ -130,10 +130,72 @@ public class ChooseCourtScreen extends javax.swing.JFrame {
                         int rowsInserted = insertStatement.executeUpdate();
 
                         if (rowsInserted > 0) {
+                            userData[4] = court_id;
+
                             connection.commit(); // Commit the changes
-                            JOptionPane.showMessageDialog(this, "Updated availability and inserted reservation for " + selectedValue, "Success",
-                                    JOptionPane.INFORMATION_MESSAGE);
-                            dispose(); // Close and dispose of the current JFrame
+                            String courtType = null;
+                            int courtId = 0;
+                            String datett = null;
+                            String timett = null;
+                            String courtDataQuery = "SELECT court_type, court_id ,date , time FROM timetable WHERE time = ?";
+                            try (PreparedStatement courtDataStatement = connection.prepareStatement(courtDataQuery)) {
+                                courtDataStatement.setString(1, selectedValue);
+                                try (ResultSet resultSet = courtDataStatement.executeQuery()) {
+                                    if (resultSet.next()) {
+                                        courtType = resultSet.getString("court_type");
+                                        courtId = resultSet.getInt("court_id");
+                                        datett = resultSet.getString("date");
+                                        timett = resultSet.getString("time");
+                                    }
+                                }
+                            }
+
+                            if (courtType != null && courtId != 0) {
+                                // Insert into the groups table
+                                String groupInsertQuery = "INSERT INTO groups (group_capacity, owner_id, sport, court_id,joined_players,type,date,time) VALUES (?, ?, ?, ?, ? , ?, ?, ?)";
+                                try (PreparedStatement groupInsertStatement = connection.prepareStatement(groupInsertQuery, Statement.RETURN_GENERATED_KEYS)) {
+                                    int groupCapacity = 1;  // Set the group capacity value as required
+                                    int joinedplayers = 1;
+                                    String typeCourt = "private";
+                                    int ownerId = (int) userData[0];  // Assuming userData[0] contains the owner_id
+                                    groupInsertStatement.setInt(1, groupCapacity);
+                                    groupInsertStatement.setInt(2, ownerId);
+                                    groupInsertStatement.setString(3, courtType);
+                                    groupInsertStatement.setInt(4, courtId);
+                                    groupInsertStatement.setInt(5, joinedplayers);
+                                    groupInsertStatement.setString(6, typeCourt);
+                                    groupInsertStatement.setString(7, datett);
+                                    groupInsertStatement.setString(8, timett);
+                                    int rowsInsertedToGroups = groupInsertStatement.executeUpdate();
+                                    if (rowsInsertedToGroups > 0) {
+                                        connection.commit(); // Commit the changes
+
+                                        // Retrieve the generated group_id
+                                        int group_id = 0;
+                                        try (ResultSet generatedKeys = groupInsertStatement.getGeneratedKeys()) {
+                                            if (generatedKeys.next()) {
+                                                group_id = generatedKeys.getInt(1);
+                                                userData[5] = group_id;
+                                            }
+                                        }
+
+                                        JOptionPane.showMessageDialog(this, "Updated availability, inserted reservation, created group, and added sport for " + selectedValue, "Success",
+                                                JOptionPane.INFORMATION_MESSAGE);
+
+                                        // Open the Payment class with userData object
+                                        Payment payment = new Payment(userData);
+                                        payment.setVisible(true);
+
+                                        dispose(); // Close and dispose of the current JFrame
+                                    } else {
+                                        connection.rollback(); // Rollback the changes if insertion fails
+                                        JOptionPane.showMessageDialog(this, "Failed to create group", "Error",
+                                                JOptionPane.ERROR_MESSAGE);
+                                    }
+                                } catch (SQLException e) {
+                                    e.printStackTrace();
+                                }
+                            }
                         } else {
                             connection.rollback(); // Rollback the changes if insertion fails
                             JOptionPane.showMessageDialog(this, "Failed to insert reservation", "Error",
