@@ -19,7 +19,7 @@ public class RatePlayersCourts extends javax.swing.JFrame {
         this.userData = userData;
         initComponents();
     }
-    
+
     private void initComponents() {
 
         jLayeredPane2 = new javax.swing.JLayeredPane();
@@ -297,7 +297,6 @@ public class RatePlayersCourts extends javax.swing.JFrame {
     }
 
     private void playerSliderStateChanged(javax.swing.event.ChangeEvent evt) {
-        // TODO add your handling code here:
         int rate = playerSlider.getValue() + 1;
         ratePLabel.setText("Rate: " + rate + "/5");
     }
