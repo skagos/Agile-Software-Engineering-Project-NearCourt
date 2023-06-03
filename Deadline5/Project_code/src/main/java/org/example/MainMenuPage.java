@@ -63,6 +63,13 @@ public class MainMenuPage extends javax.swing.JFrame {
                 MainMenuPage.this.showAddFriendsPage();
             }
         });
+
+        this.jButtonRate.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                MainMenuPage.this.showRatePage();
+            }
+        });
     }
     private void showProfile() {
         Profile profile = new Profile(this.userData);
@@ -98,6 +105,12 @@ public class MainMenuPage extends javax.swing.JFrame {
     private void showAddFriendsPage() {
         AddFriendsPage addFriendsPage = new AddFriendsPage(userData);
         addFriendsPage.setVisible(true);
+        //this.dispose();
+    }
+
+    private void showRatePage(){
+        RatePlayersCourts ratePlayersCourts = new RatePlayersCourts(userData);
+        ratePlayersCourts.setVisible(true);
         //this.dispose();
     }
 

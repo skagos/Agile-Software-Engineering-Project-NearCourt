@@ -1,9 +1,7 @@
 package org.example;//package org.example;
 
 import javax.swing.*;
-import java.awt.event.WindowEvent;
 import java.sql.*;
-import java.awt.event.*;
 
 
 public class FindGroupGUI extends javax.swing.JFrame implements WindowCloseListener{
@@ -204,7 +202,7 @@ public class FindGroupGUI extends javax.swing.JFrame implements WindowCloseListe
             int row = 0;
             while(rslt.next()){
                 for(int i=1; i<=numOfColumns; i++){
-                    groupsTable.setValueAt(rslt.getObject(i),row,i-1 );
+                    groupsTable.setValueAt(rslt.getObject(i),row,i-2 );
                 }
                 row++;
             }
@@ -239,7 +237,7 @@ public class FindGroupGUI extends javax.swing.JFrame implements WindowCloseListe
             int row = 0;
             while(rslt.next()){
                 for(int i=1; i<=numOfColumns; i++){
-                    groupsTable.setValueAt(rslt.getObject(i),row,i-1 );
+                    groupsTable.setValueAt(rslt.getObject(i),row,i-2 );
                 }
                 row++;
             }
