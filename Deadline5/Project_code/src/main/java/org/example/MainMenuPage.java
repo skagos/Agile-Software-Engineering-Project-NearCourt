@@ -123,7 +123,7 @@ public class MainMenuPage extends javax.swing.JFrame {
         ImageIcon icon = new ImageIcon("C:/Users/user/Desktop/thumbnail.jpg");
         JLabel label = new JLabel(icon);
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         //jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("D:/Users/Koukounaras/Documents/GitHub/NearCourt-The-Easy-way-to-play/Deadline5/Project_code/src/main/java/org/example/thumbnail.jpg")));
 
