@@ -4,6 +4,7 @@
  */
 package org.example;
 
+import javax.swing.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -332,50 +333,68 @@ public class RatePlayersCourts extends javax.swing.JFrame {
     private void storeDataPlayer(java.awt.event.ActionEvent evt) {
         int stars = playerSlider.getValue();
         String playerComment = playersTextField.getText();
-        String url = "jdbc:mysql://localhost:3306/nearcourt";
-        String username = "root";
-        String password = "";
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection con = DriverManager.getConnection(url, username, password);
-            PreparedStatement stm = con.prepareStatement("SELECT user_id FROM users WHERE name = ?;");
-            stm.setString(1, jList2.getSelectedValue());
-            ResultSet rslt = stm.executeQuery();
-            rslt.next();
-            int userId = rslt.getInt(1);
-            stm = con.prepareStatement("INSERT INTO rates (rate,stars,rate_id,user_id) VALUES (?, ?, DEFAULT, ?)");
-            stm.setString(1, playerComment);
-            stm.setInt(2, stars);
-            stm.setInt(3, userId);
-            stm.executeUpdate();
-        }catch (Exception e){
-            System.out.println(e);
+        if(playerComment.equals("Write your rate")){
+            unsuccessfulRateMessage();
+        }else {
+            String url = "jdbc:mysql://localhost:3306/nearcourt";
+            String username = "root";
+            String password = "";
+            try {
+                Class.forName("com.mysql.cj.jdbc.Driver");
+                Class.forName("com.mysql.cj.jdbc.Driver");
+                Connection con = DriverManager.getConnection(url, username, password);
+                PreparedStatement stm = con.prepareStatement("SELECT user_id FROM users WHERE name = ?;");
+                stm.setString(1, jList2.getSelectedValue());
+                ResultSet rslt = stm.executeQuery();
+                rslt.next();
+                int userId = rslt.getInt(1);
+                stm = con.prepareStatement("INSERT INTO rates (rate,stars,rate_id,user_id) VALUES (?, ?, DEFAULT, ?)");
+                stm.setString(1, playerComment);
+                stm.setInt(2, stars);
+                stm.setInt(3, userId);
+                stm.executeUpdate();
+            } catch (Exception e) {
+                System.out.println(e);
+            }
+            successfullRateMessage();
         }
     }
 
     private void storeDataCourt(java.awt.event.ActionEvent evt) {
         int stars = courtSlider.getValue();
         String courtComment = courtsTextField.getText();
-        String url = "jdbc:mysql://localhost:3306/nearcourt";
-        String username = "root";
-        String password = "";
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection con = DriverManager.getConnection(url, username, password);
-            PreparedStatement stm = con.prepareStatement("SELECT court_id FROM court WHERE name = ?;");
-            stm.setString(1, jList1.getSelectedValue());
-            ResultSet rslt = stm.executeQuery();
-            rslt.next();
-            int courtId = rslt.getInt(1);
-            stm = con.prepareStatement("INSERT INTO courts_rate (rate_id,stars,rate,court_id) VALUES (DEFAULT, ?, ?, ?)");
-            stm.setInt(1, stars);
-            stm.setString(2, courtComment);
-            stm.setInt(3, courtId);
-            stm.executeUpdate();
-        }catch (Exception e){
-            System.out.println(e);
+        if(courtComment.equals("Write your rate")){
+            unsuccessfulRateMessage();
+        }else {
+            String url = "jdbc:mysql://localhost:3306/nearcourt";
+            String username = "root";
+            String password = "";
+            try {
+                Class.forName("com.mysql.cj.jdbc.Driver");
+                Connection con = DriverManager.getConnection(url, username, password);
+                PreparedStatement stm = con.prepareStatement("SELECT court_id FROM court WHERE name = ?;");
+                stm.setString(1, jList1.getSelectedValue());
+                ResultSet rslt = stm.executeQuery();
+                rslt.next();
+                int courtId = rslt.getInt(1);
+                stm = con.prepareStatement("INSERT INTO courts_rate (rate_id,stars,rate,court_id) VALUES (DEFAULT, ?, ?, ?)");
+                stm.setInt(1, stars);
+                stm.setString(2, courtComment);
+                stm.setInt(3, courtId);
+                stm.executeUpdate();
+            } catch (Exception e) {
+                System.out.println(e);
+            }
+            successfullRateMessage();
         }
+    }
+
+    private void successfullRateMessage(){
+        JOptionPane.showMessageDialog(this, "Your rate has been submitted!");
+    }
+
+    private void unsuccessfulRateMessage(){
+        JOptionPane.showMessageDialog(this, "Please insert a rate!");
     }
 
 
