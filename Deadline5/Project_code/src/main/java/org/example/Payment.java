@@ -361,9 +361,7 @@ public class Payment extends javax.swing.JFrame {
         dispose(); // Close the second window
     }
 
-    public boolean successPayment () {
-            return true;
-        }
+
 
     private void jTextField3ActionPerformed (java.awt.event.ActionEvent evt){
             // TODO: Add your handling code here (if any)
