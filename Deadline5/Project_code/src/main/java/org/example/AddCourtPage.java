@@ -31,7 +31,7 @@ public class AddCourtPage extends javax.swing.JFrame {
 
                 // Check if the line has the correct number of values
                 if (values.length != 5) {
-                    System.out.println("Invalid file format: " + file.getName());
+                    System.out.println("There has been an error with the uploaded file format: " + file.getName());
                     return false;
                 }
 
@@ -51,7 +51,7 @@ public class AddCourtPage extends javax.swing.JFrame {
 
                 // Check if a duplicate record exists
                 if (count > 0) {
-                    System.out.println("Duplicate record found: " + line);
+                    System.out.println("There has been an error with the uploaded file duplicate row found at: " + line);
                     return false;
                 }
             }
@@ -110,7 +110,7 @@ public class AddCourtPage extends javax.swing.JFrame {
 
 
                     if(ValidateFile(selectedFile)==false){
-                        System.out.println("varikari");
+                        JOptionPane.showMessageDialog(AddCourtPage.this, "There has been an error with the uploaded file");
                     }else{
 
                         try (
@@ -124,8 +124,7 @@ public class AddCourtPage extends javax.swing.JFrame {
                                 UpdateCourts(values);
 
                             }
-
-                            System.out.println("Data uploaded successfully!");
+                            JOptionPane.showMessageDialog(AddCourtPage.this, "Modify Completed!");
                         }
                         catch (Exception ex) {
                             ex.printStackTrace();

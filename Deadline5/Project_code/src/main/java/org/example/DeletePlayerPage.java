@@ -40,7 +40,8 @@ public class DeletePlayerPage extends javax.swing.JFrame {
             statement.setString(1, rei);
 
             statement.executeUpdate();
-            System.out.println("Player "+ rei +" deleted!");
+
+            JOptionPane.showMessageDialog(DeletePlayerPage.this, "Modify Completed!");
 
         } catch(Exception e){
             e.printStackTrace();

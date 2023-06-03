@@ -43,7 +43,7 @@ public class DeleteCourtPage extends javax.swing.JFrame {
             statement.setString(1, rei);
 
             statement.executeUpdate();
-            System.out.println(rei+" Court deleted!");
+            JOptionPane.showMessageDialog(DeleteCourtPage.this, "Modify Completed!");
 
         } catch(Exception e){
             e.printStackTrace();
