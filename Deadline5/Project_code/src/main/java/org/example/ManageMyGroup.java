@@ -39,7 +39,7 @@ public class ManageMyGroup extends JFrame {
         Invite.setText("Invite Friends");
 
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         this.jPanel1.setBackground(new Color(0, 153, 0));
 
 
