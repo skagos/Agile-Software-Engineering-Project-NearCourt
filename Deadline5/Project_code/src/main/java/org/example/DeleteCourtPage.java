@@ -65,7 +65,7 @@ public class DeleteCourtPage extends javax.swing.JFrame {
         select_text = new javax.swing.JTextField();
         delete_button = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         delete_panel.setBackground(new java.awt.Color(204, 204, 255));
 
