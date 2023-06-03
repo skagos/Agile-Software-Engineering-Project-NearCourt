@@ -300,9 +300,9 @@ public class MainMenuPage extends javax.swing.JFrame {
     }
 
     private void jButtonFindActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
+        
     }
-    
+
     private javax.swing.JButton jButtonProfile;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButtonFind;
