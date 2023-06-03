@@ -78,63 +78,9 @@ public class RatePlayersCourts extends javax.swing.JFrame {
         rateCourtsLabel.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         rateCourtsLabel.setText("Rate Courts");
 
-        String url = "jdbc:mysql://localhost:3306/nearcourt";
-        String username = "root";
-        String password = "";
-        List<String> courts = null;
-        try {
-            courts = new ArrayList<>();
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection con = DriverManager.getConnection(url, username, password);
-            PreparedStatement stm = con.prepareStatement("SELECT name FROM court WHERE court_id IN (SELECT court_id FROM `belongs_to` WHERE user_id=?);");
-            stm.setInt(1, (int) userData[0]);
-            ResultSet rslt = stm.executeQuery();
-            while(rslt.next()){
-                courts.add((String) rslt.getObject(1));
-            }
-        }catch (Exception e){
-            System.out.println(e);
-        }
-        List<String> finalcourrts = courts;
-        jList1.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = finalcourrts.toArray(new String[0]);
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
-        jList1.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
-            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
-                jList1ValueChanged(evt);
-            }
-        });
-        jScrollPane1.setViewportView(jList1);
 
-        List<String> users = null;
-        try {
-            users = new ArrayList<>();
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection con = DriverManager.getConnection(url, username, password);
-            PreparedStatement stm = con.prepareStatement("SELECT name FROM users WHERE user_id IN(SELECT user_id FROM belongs_to WHERE group_id IN (SELECT group_id FROM `belongs_to` WHERE user_id = ?) AND user_id != ?);");
-            stm.setInt(1, (int) userData[0]);
-            stm.setInt(2, (int) userData[0]);
-            ResultSet rslt = stm.executeQuery();
-            while(rslt.next()){
-                users.add((String) rslt.getObject(1));
-            }
-        }catch (Exception e){
-            System.out.println(e);
-        }
-        List<String> finalusers = users;
-        jList2.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = finalusers.toArray(new String[0]);
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
-        jList2.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
-            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
-                jList2ValueChanged(evt);
-            }
-        });
-        jScrollPane2.setViewportView(jList2);
+        getCourtHistory();
+        getPlayers();
 
         ratePLabel.setFont(new java.awt.Font("Segoe UI Black", 1, 18)); // NOI18N
         ratePLabel.setText("Rate: 1/5");
@@ -162,7 +108,7 @@ public class RatePlayersCourts extends javax.swing.JFrame {
         submitPlayerRate.setBorderPainted(false);
         submitPlayerRate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                submitPlayerRateActionPerformed(evt);
+                storeDataPlayer(evt);
             }
         });
 
@@ -187,7 +133,7 @@ public class RatePlayersCourts extends javax.swing.JFrame {
         submitCourtRate1.setBorderPainted(false);
         submitCourtRate1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                submitCourtRate1ActionPerformed(evt);
+                storeDataCourt(evt);
             }
         });
 
@@ -295,6 +241,71 @@ public class RatePlayersCourts extends javax.swing.JFrame {
         pack();
     }// </editor-fold>
 
+    private void getCourtHistory(){
+        String url = "jdbc:mysql://localhost:3306/nearcourt";
+        String username = "root";
+        String password = "";
+        List<String> courts = null;
+        try {
+            courts = new ArrayList<>();
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection con = DriverManager.getConnection(url, username, password);
+            PreparedStatement stm = con.prepareStatement("SELECT name FROM court WHERE court_id IN (SELECT court_id FROM `belongs_to` WHERE user_id=?);");
+            stm.setInt(1, (int) userData[0]);
+            ResultSet rslt = stm.executeQuery();
+            while(rslt.next()){
+                courts.add((String) rslt.getObject(1));
+            }
+        }catch (Exception e){
+            System.out.println(e);
+        }
+        List<String> finalcourrts = courts;
+        jList1.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = finalcourrts.toArray(new String[0]);
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        jList1.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                jList1ValueChanged(evt);
+            }
+        });
+        jScrollPane1.setViewportView(jList1);
+    }
+
+    private void getPlayers(){
+        List<String> users = null;
+        try {
+            String url = "jdbc:mysql://localhost:3306/nearcourt";
+            String username = "root";
+            String password = "";
+            users = new ArrayList<>();
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection con = DriverManager.getConnection(url, username, password);
+            PreparedStatement stm = con.prepareStatement("SELECT name FROM users WHERE user_id IN(SELECT user_id FROM belongs_to WHERE group_id IN (SELECT group_id FROM `belongs_to` WHERE user_id = ?) AND user_id != ?);");
+            stm.setInt(1, (int) userData[0]);
+            stm.setInt(2, (int) userData[0]);
+            ResultSet rslt = stm.executeQuery();
+            while(rslt.next()){
+                users.add((String) rslt.getObject(1));
+            }
+        }catch (Exception e){
+            System.out.println(e);
+        }
+        List<String> finalusers = users;
+        jList2.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = finalusers.toArray(new String[0]);
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        jList2.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                jList2ValueChanged(evt);
+            }
+        });
+        jScrollPane2.setViewportView(jList2);
+    }
+
     private void playerSliderStateChanged(javax.swing.event.ChangeEvent evt) {
         // TODO add your handling code here:
         int rate = playerSlider.getValue() + 1;
@@ -318,7 +329,7 @@ public class RatePlayersCourts extends javax.swing.JFrame {
         rateCourtLabel.setText("Rate: "+jList1.getSelectedValue());
     }
 
-    private void submitPlayerRateActionPerformed(java.awt.event.ActionEvent evt) {
+    private void storeDataPlayer(java.awt.event.ActionEvent evt) {
         int stars = playerSlider.getValue();
         String playerComment = playersTextField.getText();
         String url = "jdbc:mysql://localhost:3306/nearcourt";
@@ -343,7 +354,7 @@ public class RatePlayersCourts extends javax.swing.JFrame {
         }
     }
 
-    private void submitCourtRate1ActionPerformed(java.awt.event.ActionEvent evt) {
+    private void storeDataCourt(java.awt.event.ActionEvent evt) {
         int stars = courtSlider.getValue();
         String courtComment = courtsTextField.getText();
         String url = "jdbc:mysql://localhost:3306/nearcourt";
