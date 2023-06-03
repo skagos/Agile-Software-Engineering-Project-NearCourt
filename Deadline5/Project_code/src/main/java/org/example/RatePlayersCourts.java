@@ -225,7 +225,7 @@ public class RatePlayersCourts extends javax.swing.JFrame {
         );
 
         pack();
-    }// </editor-fold>
+    }
 
     private void getCourtHistory(){
         String url = "jdbc:mysql://localhost:3306/nearcourt";
