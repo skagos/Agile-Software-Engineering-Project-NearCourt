@@ -30,7 +30,7 @@ public class FindGroupGUI extends javax.swing.JFrame implements WindowCloseListe
         selectSportLabel = new javax.swing.JLabel();
         selectPlayersLabel = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         findGroupLabel.setBackground(new java.awt.Color(0, 153, 0));
         findGroupLabel.setFont(new java.awt.Font("Showcard Gothic", 0, 36)); // NOI18N
