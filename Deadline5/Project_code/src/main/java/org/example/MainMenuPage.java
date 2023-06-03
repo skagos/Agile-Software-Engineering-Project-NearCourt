@@ -296,11 +296,11 @@ public class MainMenuPage extends javax.swing.JFrame {
     }
 
     private void jButtonProfileActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
+
     }
 
     private void jButtonFindActionPerformed(java.awt.event.ActionEvent evt) {
-        
+
     }
 
     private javax.swing.JButton jButtonProfile;
