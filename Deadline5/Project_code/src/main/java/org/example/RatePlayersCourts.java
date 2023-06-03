@@ -378,7 +378,7 @@ public class RatePlayersCourts extends javax.swing.JFrame {
     }
 
 
-    // Variables declaration - do not modify
+    // Variables declaration
     private static javax.swing.JSlider courtSlider;
     private static javax.swing.JTextField courtsTextField;
     private javax.swing.JLayeredPane jLayeredPane2;
