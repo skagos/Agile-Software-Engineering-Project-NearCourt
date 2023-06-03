@@ -6,7 +6,7 @@ import java.sql.*;
 import java.awt.event.*;
 
 
-public class FindGroupGUI extends javax.swing.JFrame {
+public class FindGroupGUI extends javax.swing.JFrame implements WindowCloseListener{
     private Object[] userData;
 
     public FindGroupGUI(Object[] userData) {
@@ -269,18 +269,21 @@ public class FindGroupGUI extends javax.swing.JFrame {
             userData[5] = (int) groupsTable.getValueAt(row, 0);
 
             Payment payment = new Payment(userData);
-            payment.addWindowListener(new WindowAdapter() {
-                public void windowClosed(WindowEvent event) {
-                    boolean paid = payment.successPayment();
-                    if(paid){
-                        updateGroupsData(userData);
-                    }
-                }
-            });
+            payment.setCloseListener(this);
+
+
             payment.setVisible(true);
         }catch(Exception e){
             System.out.println(e);}
 
+    }
+    public void onWindowClose(boolean isPaid) {
+        // Use the returned value from the first window
+        if(isPaid){
+            this.updateGroupsData(userData);
+        }else{
+            JOptionPane.showMessageDialog(this, "The payment is declined.");
+        }
     }
 
     private void updateGroupsData(Object[] userData){
@@ -295,7 +298,7 @@ public class FindGroupGUI extends javax.swing.JFrame {
 
             PreparedStatement stm;
             PreparedStatement stmnot;
-            stm = con.prepareStatement("INSERT INTO `belongs_to` (`user_id`, `court_id`, `groups_id`) VALUES (?, ?, ?);");
+            stm = con.prepareStatement("INSERT INTO `belongs_to` (`user_id`, `court_id`, `group_id`) VALUES (?, ?, ?);");
             stm.setInt(1, (int) userData[0]);
             stm.setInt(2, (int) userData[4]);
             stm.setInt(3, (int) userData[5]);

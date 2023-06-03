@@ -1,13 +1,17 @@
 package org.example;
 
-import javax.swing.*;
+import  javax.swing.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.sql.*;
+
 
 public class Payment extends javax.swing.JFrame {
     private Object[] userData;
     private javax.swing.JLabel jLabelAmount;
     private double amount;
     private  double price;
+    private boolean isPaid;
     public Payment(Object[] userData) {
 
         initComponents();
@@ -18,6 +22,12 @@ public class Payment extends javax.swing.JFrame {
         for (Object obj : userData) {
             System.out.println(obj.toString());
         }
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                closeWindow();
+            }
+        });
     }
 
     private void initComponents() {
@@ -34,7 +44,7 @@ public class Payment extends javax.swing.JFrame {
         jButtonSubmit = new javax.swing.JButton();
         jLabelAmount = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabelName.setText("Name");
 
@@ -187,20 +197,24 @@ public class Payment extends javax.swing.JFrame {
         String expiration = jTextField4.getText();
 
         if (name.isEmpty()) {
+            isPaid = false;
             JOptionPane.showMessageDialog(this, "Name field cannot be empty.");
             return false;
         }
 
         if (number.length() != 12) {
+            isPaid = false;
             JOptionPane.showMessageDialog(this, "Number should contain 12 digits.");
             return false;
         }
 
         if (cvv.length() != 3) {
+            isPaid = false;
             JOptionPane.showMessageDialog(this, "CVV should contain 3 digits.");
             return false;
         }
         if (!expiration.matches("\\d{2}/\\d{2}")) {
+            isPaid = false;
             JOptionPane.showMessageDialog(this, "Expiration should be in the format MM/YY.");
             return false;
         }
@@ -311,58 +325,69 @@ public class Payment extends javax.swing.JFrame {
             return amount;
         }*/
 
-        private void addPayment ( double amount){
+    private void addPayment ( double amount){
             try {
                 // Establishing database connection
                 Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/nearcourt", "root", "");
 
                 // Inserting payment data into the payment table
                 PreparedStatement paymentStmt = connection.prepareStatement("INSERT INTO payment (user_id, amount) VALUES (?, ?)");
-                paymentStmt.setInt(1, (int) userData[0]); // Assuming userData[0] contains the user ID
-                paymentStmt.setDouble(2, amount); // Call calculateAmount method to get the amount
+                paymentStmt.setInt(1, (int) userData[0]);                                                              // Assuming userData[0] contains the user ID
+                paymentStmt.setDouble(2, amount);                                                                      // Call calculateAmount method to get the amount
                 paymentStmt.executeUpdate();
 
                 paymentStmt.close();
                 connection.close();
 
                 JOptionPane.showMessageDialog(this, "Payment added successfully!");
-                successPayment();
+                isPaid = true;
             } catch (SQLException e) {
                 e.printStackTrace();
+                isPaid = false;
                 JOptionPane.showMessageDialog(this, "Failed to add payment.");
             }
         }
+    private WindowCloseListener closeListener;
 
-        public boolean successPayment () {
+    public void setCloseListener(WindowCloseListener listener) {
+        this.closeListener = listener;
+    }
+
+    // Call this method when the window is closing
+    private void closeWindow() {
+        if (closeListener != null) {
+            closeListener.onWindowClose(isPaid);
+        }
+        dispose(); // Close the second window
+    }
+
+    public boolean successPayment () {
             return true;
         }
 
-        private void jTextField3ActionPerformed (java.awt.event.ActionEvent evt){
+    private void jTextField3ActionPerformed (java.awt.event.ActionEvent evt){
             // TODO: Add your handling code here (if any)
         }
 
-        private void jTextField4ActionPerformed (java.awt.event.ActionEvent evt){
+    private void jTextField4ActionPerformed (java.awt.event.ActionEvent evt){
             // TODO: Add your handling code here (if any)
         }
 
-        private void jButtonSubmitActionPerformed (java.awt.event.ActionEvent evt){
-            if (validateCardInfo()) {
+    private void jButtonSubmitActionPerformed (java.awt.event.ActionEvent evt){
+        if (validateCardInfo()) {
                 addPayment(amount);
-                // Additional code for processing the payment can be added here
-                // JOptionPane.showMessageDialog(this, "Payment successful!");
             }
         }
 
 
-        private javax.swing.JButton jButtonSubmit;
-        private javax.swing.JLabel jLabelName;
-        private javax.swing.JLabel jLabelNumber;
-        private javax.swing.JLabel jLabelCVV;
-        private javax.swing.JPanel jPanel1;
-        private javax.swing.JTextField jTextFieldName;
-        private javax.swing.JTextField jTextField2;
-        private javax.swing.JTextField jTextField3;
-        private javax.swing.JTextField jTextField4;
-
+    private javax.swing.JButton jButtonSubmit;
+    private javax.swing.JLabel jLabelName;
+    private javax.swing.JLabel jLabelNumber;
+    private javax.swing.JLabel jLabelCVV;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JTextField jTextFieldName;
+    private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextField jTextField3;
+    private javax.swing.JTextField jTextField4;
 
     }
