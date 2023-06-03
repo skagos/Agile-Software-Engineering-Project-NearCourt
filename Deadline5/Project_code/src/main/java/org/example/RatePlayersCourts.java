@@ -12,10 +12,6 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- *
- * @author Στελιος Πανσεληνας
- */
 public class RatePlayersCourts extends javax.swing.JFrame {
 
     private Object[] userData;
