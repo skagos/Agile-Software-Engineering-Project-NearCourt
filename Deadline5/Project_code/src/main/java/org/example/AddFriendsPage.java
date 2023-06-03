@@ -97,7 +97,8 @@ public class AddFriendsPage extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">
     private void initComponents() {
-
+        ImageIcon icon = new ImageIcon("C:\\Users\\user\\Documents\\GitHub\\NearCourt-The-Easy-way-to-play\\Deadline5\\Project_code\\src\\main\\java\\org\\example\\Nearcourt.png");
+        setIconImage(icon.getImage());
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -109,7 +110,7 @@ public class AddFriendsPage extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel1.setBackground(new java.awt.Color(51, 153, 0));
+        jPanel1.setBackground(new java.awt.Color(0, 153, 0));
 
         jLabel1.setBackground(new java.awt.Color(0, 153, 0));
         jLabel1.setFont(new java.awt.Font("Calibri Light", 1, 24)); // NOI18N

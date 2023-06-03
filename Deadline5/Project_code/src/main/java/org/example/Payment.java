@@ -21,6 +21,8 @@ public class Payment extends javax.swing.JFrame {
     }
 
     private void initComponents() {
+        ImageIcon icon = new ImageIcon("C:\\Users\\user\\Documents\\GitHub\\NearCourt-The-Easy-way-to-play\\Deadline5\\Project_code\\src\\main\\java\\org\\example\\Nearcourt.png");
+        setIconImage(icon.getImage());
         jPanel1 = new javax.swing.JPanel();
         jTextFieldName = new javax.swing.JTextField();
         jLabelName = new javax.swing.JLabel();

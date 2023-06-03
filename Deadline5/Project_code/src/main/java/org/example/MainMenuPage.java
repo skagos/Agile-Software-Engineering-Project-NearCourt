@@ -25,6 +25,9 @@ public class MainMenuPage extends javax.swing.JFrame {
         String username = (String) userData[2];
         this.jLabel2.setText("Welcome, " + username + "!");
         loadNotificationText(userData);
+        ImageIcon icon = new ImageIcon("C:\\Users\\user\\Documents\\GitHub\\NearCourt-The-Easy-way-to-play\\Deadline5\\Project_code\\src\\main\\java\\org\\example\\Nearcourt.png");
+        setIconImage(icon.getImage());
+
 
         this.jButtonProfile.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -117,6 +120,9 @@ public class MainMenuPage extends javax.swing.JFrame {
 
         jButton2.setText("jButton2");
 
+        ImageIcon icon = new ImageIcon("C:/Users/user/Desktop/thumbnail.jpg");
+        JLabel label = new JLabel(icon);
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         //jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("D:/Users/Koukounaras/Documents/GitHub/NearCourt-The-Easy-way-to-play/Deadline5/Project_code/src/main/java/org/example/thumbnail.jpg")));
@@ -130,7 +136,7 @@ public class MainMenuPage extends javax.swing.JFrame {
             }
         });
 
-        jButtonFind.setBackground(new java.awt.Color(0, 153, 51));
+        jButtonFind.setBackground(new java.awt.Color(0, 153, 0));
         jButtonFind.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
         jButtonFind.setText("Find Group");
         jButtonFind.addActionListener(new java.awt.event.ActionListener() {

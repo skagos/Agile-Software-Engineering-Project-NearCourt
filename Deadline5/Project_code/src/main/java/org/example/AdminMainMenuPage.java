@@ -1,6 +1,8 @@
 package org.example;
 
 
+import javax.swing.*;
+
 public class AdminMainMenuPage extends javax.swing.JFrame {
 
     private Object[] userData;
@@ -22,6 +24,8 @@ public class AdminMainMenuPage extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">
     private void initComponents() {
+        ImageIcon icon = new ImageIcon("C:\\Users\\user\\Documents\\GitHub\\NearCourt-The-Easy-way-to-play\\Deadline5\\Project_code\\src\\main\\java\\org\\example\\Nearcourt.png");
+        setIconImage(icon.getImage());
 
         welcome_panel = new javax.swing.JPanel();
         welcome_label = new javax.swing.JLabel();

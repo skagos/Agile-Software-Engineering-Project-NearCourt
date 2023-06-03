@@ -1,5 +1,6 @@
 package org.example;//package org.example;
 
+import javax.swing.*;
 import java.awt.event.WindowEvent;
 import java.sql.*;
 import java.awt.event.*;
@@ -13,6 +14,8 @@ public class FindGroupGUI extends javax.swing.JFrame {
         this.userData = userData;
     }
     private void initComponents() {
+        ImageIcon icon = new ImageIcon("C:\\Users\\user\\Documents\\GitHub\\NearCourt-The-Easy-way-to-play\\Deadline5\\Project_code\\src\\main\\java\\org\\example\\Nearcourt.png");
+        setIconImage(icon.getImage());
 
         jScrollPane1 = new javax.swing.JScrollPane();
         findGroupLabel = new javax.swing.JLabel();
@@ -29,7 +32,7 @@ public class FindGroupGUI extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        findGroupLabel.setBackground(new java.awt.Color(51, 204, 0));
+        findGroupLabel.setBackground(new java.awt.Color(0, 153, 0));
         findGroupLabel.setFont(new java.awt.Font("Showcard Gothic", 0, 36)); // NOI18N
         findGroupLabel.setForeground(new java.awt.Color(255, 255, 255));
         findGroupLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
