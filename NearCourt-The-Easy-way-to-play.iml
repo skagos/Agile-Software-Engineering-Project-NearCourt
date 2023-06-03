@@ -6,23 +6,32 @@
       <sourceFolder url="file://$MODULE_DIR$/Deadline5/Project_code/src/main/java" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/Deadline5/target" />
     </content>
-    <orderEntry type="jdk" jdkName="19" jdkType="JavaSDK" />
+    <orderEntry type="jdk" jdkName="20" jdkType="JavaSDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module-library">
       <library>
         <CLASSES />
         <JAVADOC>
-          <root url="jar://$MODULE_DIR$/../../../../../downloadss/jcalendar-1.4.zip!/doc/api" />
+          <root url="jar://C:/downloadss/jcalendar-1.4.zip!/doc/api" />
         </JAVADOC>
         <SOURCES>
-          <root url="jar://$MODULE_DIR$/../../../../../downloadss/jcalendar-1.4.zip!/src" />
+          <root url="jar://C:/downloadss/jcalendar-1.4.zip!/src" />
         </SOURCES>
       </library>
     </orderEntry>
-    <orderEntry type="module-library" exported="">
+    <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/../../../../../downloadss/jcalendar-1.4/jcalendar-1.4.jar!/" />
+          <root url="jar://C:/downloadss/jcalendar-1.4/jcalendar-1.4.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://C:/downloadss/mysql-connector-java-8.0.29.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -31,7 +40,16 @@
     <orderEntry type="module-library" exported="">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/../../../../../downloadss/mysql-connector-java-8.0.29.jar!/" />
+          <root url="jar://C:/jcalendar-1.4.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library>
+        <CLASSES>
+          <root url="jar://$USER_HOME$/Downloads/mysql-connector-java-8.0.29.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />

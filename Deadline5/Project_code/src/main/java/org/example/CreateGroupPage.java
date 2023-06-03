@@ -1,6 +1,7 @@
 package org.example;
 
 import javax.swing.*;
+import java.awt.*;
 import java.sql.*;
 import java.util.Date;
 import java.lang.String;
@@ -289,7 +290,8 @@ public class CreateGroupPage extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">
     private void initComponents() {
-
+        ImageIcon icon = new ImageIcon("C:\\Users\\user\\Documents\\GitHub\\NearCourt-The-Easy-way-to-play\\Deadline5\\Project_code\\src\\main\\java\\org\\example\\Nearcourt.png");
+        setIconImage(icon.getImage());
         pblc = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         private_players = new javax.swing.JComboBox<>();
@@ -476,7 +478,7 @@ public class CreateGroupPage extends javax.swing.JFrame {
         pblc.addTab("Public Court", public_panel);
         public_panel.getAccessibleContext().setAccessibleName("Private Court");
 
-        main_panel.setBackground(new java.awt.Color(0, 101, 66));
+        main_panel.setBackground(new java.awt.Color(0, 153, 0));
 
         home.setBackground(new java.awt.Color(102, 153, 255));
         home.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
@@ -489,6 +491,7 @@ public class CreateGroupPage extends javax.swing.JFrame {
 
         title.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
         title.setText("Create Group");
+
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(main_panel);
         main_panel.setLayout(jPanel3Layout);
@@ -519,21 +522,28 @@ public class CreateGroupPage extends javax.swing.JFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(pblc, javax.swing.GroupLayout.PREFERRED_SIZE, 415, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addComponent(main_panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(0, 838, Short.MAX_VALUE))
+                                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
                 layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(layout.createSequentialGroup()
                                 .addComponent(main_panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(pblc, javax.swing.GroupLayout.PREFERRED_SIZE, 547, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap(271, Short.MAX_VALUE))
+                                .addComponent(pblc, javax.swing.GroupLayout.PREFERRED_SIZE, 547, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                //.addContainerGap(271, Short.MAX_VALUE))
         );
 
         pblc.getAccessibleContext().setAccessibleName("Create Group");
         pblc.getAccessibleContext().setAccessibleDescription("");
 
+       // jPanel1.setPreferredSize(new Dimension(300, 300));
+       // public_panel.setPreferredSize(new Dimension(300, 300));
+        //main_panel.setPreferredSize(new Dimension(300, 300));
+
+
+
         pack();
+
     }// </editor-fold>
 
     private void combo_sportActionPerformed(java.awt.event.ActionEvent evt) {
