@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Εξυπηρετητής: 127.0.0.1:3306
--- Χρόνος δημιουργίας: 03 Ιουν 2023 στις 09:43:47
+-- Χρόνος δημιουργίας: 03 Ιουν 2023 στις 18:55:06
 -- Έκδοση διακομιστή: 8.0.31
 -- Έκδοση PHP: 8.0.26
 
@@ -45,7 +45,10 @@ CREATE TABLE IF NOT EXISTS `belongs_to` (
 INSERT INTO `belongs_to` (`user_id`, `court_id`, `group_id`) VALUES
 (3, 1, 8),
 (3, 1, 18),
-(2, 2, 18);
+(2, 2, 18),
+(3, 1, 7),
+(3, 1, 7),
+(3, 1, 5);
 
 -- --------------------------------------------------------
 
@@ -56,11 +59,12 @@ INSERT INTO `belongs_to` (`user_id`, `court_id`, `group_id`) VALUES
 DROP TABLE IF EXISTS `court`;
 CREATE TABLE IF NOT EXISTS `court` (
   `court_id` int NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `sport_center_id` int NOT NULL,
-  `sport` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `sport` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `capacity` int NOT NULL,
   `price` double NOT NULL,
+  `rate` int NOT NULL,
   PRIMARY KEY (`court_id`),
   KEY `center_court` (`sport_center_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -69,11 +73,34 @@ CREATE TABLE IF NOT EXISTS `court` (
 -- Άδειασμα δεδομένων του πίνακα `court`
 --
 
-INSERT INTO `court` (`court_id`, `name`, `sport_center_id`, `sport`, `capacity`, `price`) VALUES
-(1, 'court 1', 2, 'Football', 10, 10),
-(2, 'court 2', 2, 'Basket', 10, 20),
-(3, 'court 3', 1, 'Football', 10, 30),
-(4, 'court 4', 1, 'Basket', 10, 20);
+INSERT INTO `court` (`court_id`, `name`, `sport_center_id`, `sport`, `capacity`, `price`, `rate`) VALUES
+(1, 'court 1', 2, 'Football', 10, 10, 0),
+(2, 'court 2', 2, 'Basket', 10, 20, 0),
+(3, 'court 3', 1, 'Football', 10, 30, 0),
+(4, 'court 4', 1, 'Basket', 10, 20, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Δομή πίνακα για τον πίνακα `courts_rate`
+--
+
+DROP TABLE IF EXISTS `courts_rate`;
+CREATE TABLE IF NOT EXISTS `courts_rate` (
+  `rate_id` int NOT NULL AUTO_INCREMENT,
+  `stars` int NOT NULL,
+  `rate` varchar(255) NOT NULL,
+  `court_id` int NOT NULL,
+  PRIMARY KEY (`rate_id`),
+  KEY `court_id` (`court_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb3;
+
+--
+-- Άδειασμα δεδομένων του πίνακα `courts_rate`
+--
+
+INSERT INTO `courts_rate` (`rate_id`, `stars`, `rate`, `court_id`) VALUES
+(1, 4, 'Write your rate', 1);
 
 -- --------------------------------------------------------
 
@@ -86,7 +113,7 @@ CREATE TABLE IF NOT EXISTS `friend_req` (
   `request_id` int NOT NULL,
   `sender_id` int NOT NULL,
   `receiver_id` int NOT NULL,
-  `Accept` enum('yes','no') COLLATE utf8mb4_general_ci NOT NULL DEFAULT 'no'
+  `Accept` enum('yes','no') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT 'no'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -107,14 +134,14 @@ INSERT INTO `friend_req` (`request_id`, `sender_id`, `receiver_id`, `Accept`) VA
 DROP TABLE IF EXISTS `groups`;
 CREATE TABLE IF NOT EXISTS `groups` (
   `group_id` int NOT NULL AUTO_INCREMENT,
-  `sport` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `sport` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `date` date NOT NULL,
   `court_id` int NOT NULL,
   `joined_players` int NOT NULL,
   `owner_id` int NOT NULL,
   `group_capacity` int NOT NULL,
-  `type` enum('private','public') COLLATE utf8mb4_general_ci NOT NULL,
-  `time` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `type` enum('private','public') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `time` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   PRIMARY KEY (`group_id`),
   KEY `group_owner` (`court_id`),
   KEY `group_center` (`owner_id`)
@@ -127,8 +154,8 @@ CREATE TABLE IF NOT EXISTS `groups` (
 INSERT INTO `groups` (`group_id`, `sport`, `date`, `court_id`, `joined_players`, `owner_id`, `group_capacity`, `type`, `time`) VALUES
 (1, 'Football', '2023-05-17', 1, 9, 1, 22, 'private', ''),
 (2, 'Basket', '2023-05-17', 3, 10, 2, 10, 'private', ''),
-(5, 'Tennis', '2023-05-17', 1, 4, 1, 4, 'private', ''),
-(7, 'Football', '2023-05-31', 1, 1, 3, 1, 'private', 'Agia Stadium 18:00-19:00'),
+(5, 'Tennis', '2023-05-17', 1, 5, 1, 4, 'private', ''),
+(7, 'Football', '2023-05-31', 1, 3, 3, 1, 'private', 'Agia Stadium 18:00-19:00'),
 (8, 'Football', '2023-05-31', 1, 2, 3, 1, 'private', 'Agia Stadium 18:00-19:00'),
 (9, 'Football', '2023-05-31', 1, 1, 3, 1, 'private', 'Agia Stadium 17:00-18:00'),
 (10, 'Football', '2023-05-31', 1, 1, 3, 1, 'private', 'Agia Stadium 18:00-19:00'),
@@ -164,7 +191,7 @@ INSERT INTO `groups` (`group_id`, `sport`, `date`, `court_id`, `joined_players`,
 
 DROP TABLE IF EXISTS `history`;
 CREATE TABLE IF NOT EXISTS `history` (
-  `player` varchar(255) COLLATE utf8mb4_general_ci NOT NULL
+  `player` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -193,7 +220,7 @@ CREATE TABLE IF NOT EXISTS `notifications` (
   `user_id` int NOT NULL,
   `group_id` int NOT NULL,
   PRIMARY KEY (`notification_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Άδειασμα δεδομένων του πίνακα `notifications`
@@ -204,7 +231,10 @@ INSERT INTO `notifications` (`notification_id`, `date`, `text`, `user_id`, `grou
 (2, '2023-05-31', 'You have a group at:', 3, 0),
 (3, '2023-05-31', 'You have a group at:', 3, 0),
 (4, '2023-05-17', 'You have a group at:', 1, 0),
-(13, '2023-05-31', 'You have a group at:', 3, 15);
+(13, '2023-05-31', 'You have a group at:', 3, 15),
+(18, '2023-05-31', 'You have a group at:', 3, 7),
+(19, '2023-05-31', 'You have a group at:', 3, 7),
+(20, '2023-05-17', 'You have a group at:', 3, 5);
 
 -- --------------------------------------------------------
 
@@ -215,10 +245,10 @@ INSERT INTO `notifications` (`notification_id`, `date`, `text`, `user_id`, `grou
 DROP TABLE IF EXISTS `owner`;
 CREATE TABLE IF NOT EXISTS `owner` (
   `owner_id` int NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
-  `surname` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
-  `email` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
-  `password` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `surname` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   PRIMARY KEY (`owner_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -242,7 +272,7 @@ CREATE TABLE IF NOT EXISTS `payment` (
   `user_id` int NOT NULL,
   `amount` float NOT NULL,
   PRIMARY KEY (`payment_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Άδειασμα δεδομένων του πίνακα `payment`
@@ -260,7 +290,18 @@ INSERT INTO `payment` (`payment_id`, `user_id`, `amount`) VALUES
 (9, 3, 0.454545),
 (10, 3, 0.454545),
 (11, 3, 2.5),
-(12, 3, 20);
+(12, 3, 20),
+(13, 3, 10),
+(14, 3, 10),
+(15, 3, 10),
+(16, 3, 2.5),
+(17, 3, 10),
+(18, 3, 10),
+(19, 3, 2.5),
+(20, 3, 10),
+(21, 3, 10),
+(22, 3, 10),
+(23, 3, 2.5);
 
 -- --------------------------------------------------------
 
@@ -270,7 +311,7 @@ INSERT INTO `payment` (`payment_id`, `user_id`, `amount`) VALUES
 
 DROP TABLE IF EXISTS `rates`;
 CREATE TABLE IF NOT EXISTS `rates` (
-  `rate` varchar(40) COLLATE utf8mb4_general_ci NOT NULL,
+  `rate` varchar(40) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `stars` int NOT NULL,
   `rate_id` int NOT NULL AUTO_INCREMENT,
   `user_id` int NOT NULL,
@@ -302,7 +343,7 @@ CREATE TABLE IF NOT EXISTS `reservation` (
   `res_id` int NOT NULL AUTO_INCREMENT,
   `user_id` int NOT NULL,
   `court_id` int NOT NULL,
-  `time` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `time` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   PRIMARY KEY (`res_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -324,9 +365,9 @@ INSERT INTO `reservation` (`res_id`, `user_id`, `court_id`, `time`) VALUES
 DROP TABLE IF EXISTS `sport_center`;
 CREATE TABLE IF NOT EXISTS `sport_center` (
   `center_id` int NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `owner_id` int NOT NULL,
-  `address` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `address` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   PRIMARY KEY (`center_id`),
   KEY `owner_id` (`owner_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -349,14 +390,14 @@ DROP TABLE IF EXISTS `timetable`;
 CREATE TABLE IF NOT EXISTS `timetable` (
   `ttid` int NOT NULL AUTO_INCREMENT,
   `court_id` int NOT NULL,
-  `court_name` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
-  `time` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
-  `court_type` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `court_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `time` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `court_type` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `Availability` int NOT NULL,
   `date` date DEFAULT NULL,
   `number_of_players` int NOT NULL,
   PRIMARY KEY (`ttid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Άδειασμα δεδομένων του πίνακα `timetable`
@@ -381,11 +422,11 @@ INSERT INTO `timetable` (`ttid`, `court_id`, `court_name`, `time`, `court_type`,
 DROP TABLE IF EXISTS `users`;
 CREATE TABLE IF NOT EXISTS `users` (
   `user_id` int NOT NULL AUTO_INCREMENT,
-  `name` varchar(200) COLLATE utf8mb4_general_ci NOT NULL,
-  `email` varchar(200) COLLATE utf8mb4_general_ci NOT NULL,
-  `phone` varchar(200) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `address` varchar(200) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `password` varchar(200) COLLATE utf8mb4_general_ci NOT NULL,
+  `name` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `email` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `phone` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `address` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `password` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `admin` tinyint(1) NOT NULL,
   PRIMARY KEY (`user_id`),
   UNIQUE KEY `email` (`email`)
@@ -419,6 +460,12 @@ ALTER TABLE `belongs_to`
 --
 ALTER TABLE `court`
   ADD CONSTRAINT `center_court` FOREIGN KEY (`sport_center_id`) REFERENCES `sport_center` (`center_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Περιορισμοί για πίνακα `courts_rate`
+--
+ALTER TABLE `courts_rate`
+  ADD CONSTRAINT `court_rate` FOREIGN KEY (`court_id`) REFERENCES `court` (`court_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Περιορισμοί για πίνακα `groups`
