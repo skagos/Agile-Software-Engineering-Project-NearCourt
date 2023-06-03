@@ -306,9 +306,7 @@ public class RatePlayersCourts extends javax.swing.JFrame {
         rateCLabel.setText("Rate: " + rate + "/5");
     }
 
-    private void jList2ValueChanged(javax.swing.event.ListSelectionEvent evt) {
-        // TODO add your handling code here:
-
+    private void jList2ValueChanged(javax.swing.event.ListSelectionEvent evt) { 
         ratePlayerLabel.setText("Rate: "+jList2.getSelectedValue());
     }
 
