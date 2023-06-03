@@ -94,8 +94,6 @@ public class MainMenuPage extends javax.swing.JFrame {
         ManageMyGroup manageMyGroup = new ManageMyGroup(this.userData);
         manageMyGroup.setVisible(true);
         //this.dispose();
-
-
     }
     private void showChooseSportScreen() {
         ChooseSportScreen chooseSportScreen = new ChooseSportScreen(userData);
