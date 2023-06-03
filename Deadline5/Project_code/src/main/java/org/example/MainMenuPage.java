@@ -67,7 +67,7 @@ public class MainMenuPage extends javax.swing.JFrame {
         this.jButtonRate.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                MainMenuPage.this.showRatePage();
+                MainMenuPage.this.showRateSelectionPage();
             }
         });
     }
@@ -108,7 +108,7 @@ public class MainMenuPage extends javax.swing.JFrame {
         //this.dispose();
     }
 
-    private void showRatePage(){
+    private void showRateSelectionPage(){
         RatePlayersCourts ratePlayersCourts = new RatePlayersCourts(userData);
         ratePlayersCourts.setVisible(true);
         //this.dispose();
