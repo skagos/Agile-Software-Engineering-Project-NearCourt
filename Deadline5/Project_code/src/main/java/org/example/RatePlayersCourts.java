@@ -302,7 +302,6 @@ public class RatePlayersCourts extends javax.swing.JFrame {
     }
 
     private void courtSliderStateChanged(javax.swing.event.ChangeEvent evt) {
-        // TODO add your handling code here:
         int rate = courtSlider.getValue() + 1;
         rateCLabel.setText("Rate: " + rate + "/5");
     }
