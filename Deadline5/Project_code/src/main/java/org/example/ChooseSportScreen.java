@@ -75,7 +75,7 @@ public class ChooseSportScreen extends javax.swing.JFrame {
         jButtonBasketball = new javax.swing.JButton();
         jButtonTennis = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setBackground(new java.awt.Color(0, 153, 0));
         jLabel1.setFont(new java.awt.Font("Calibri Light", 1, 18)); // NOI18N

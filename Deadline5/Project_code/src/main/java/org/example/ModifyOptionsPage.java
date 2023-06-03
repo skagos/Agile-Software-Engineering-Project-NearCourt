@@ -40,7 +40,7 @@ public class ModifyOptionsPage extends javax.swing.JFrame {
         delete_court = new javax.swing.JButton();
         delete_player = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         modify_panel.setBackground(new java.awt.Color(204, 204, 255));
 

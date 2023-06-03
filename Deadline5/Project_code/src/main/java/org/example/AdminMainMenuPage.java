@@ -34,7 +34,7 @@ public class AdminMainMenuPage extends javax.swing.JFrame {
         incomes = new javax.swing.JButton();
         tsupport = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         welcome_panel.setBackground(new java.awt.Color(204, 204, 255));
 

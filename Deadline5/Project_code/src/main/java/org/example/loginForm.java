@@ -5,7 +5,6 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.*;
-import java.util.List;
 
 public class loginForm extends JFrame {
     private JTextField usernameField;
@@ -13,7 +12,7 @@ public class loginForm extends JFrame {
 
     public loginForm() {
         setTitle("Login Form");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setSize(300, 200);
         setResizable(false);
         setLocationRelativeTo(null);
