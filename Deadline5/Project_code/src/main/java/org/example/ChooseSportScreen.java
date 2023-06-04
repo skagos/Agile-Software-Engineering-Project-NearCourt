@@ -66,16 +66,15 @@ public class ChooseSportScreen extends javax.swing.JFrame {
 
     // Rest of your code...
 
-    @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
         jButtonFootball = new javax.swing.JButton();
         jButtonBasketball = new javax.swing.JButton();
         jButtonTennis = new javax.swing.JButton();
+        jButtonAnother = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setBackground(new java.awt.Color(0, 153, 0));
         jLabel1.setFont(new java.awt.Font("Calibri Light", 1, 18)); // NOI18N
@@ -94,7 +93,9 @@ public class ChooseSportScreen extends javax.swing.JFrame {
         jButtonTennis.setFont(new java.awt.Font("Calibri Light", 1, 18)); // NOI18N
         jButtonTennis.setText("Tennis");
 
-
+        jButtonAnother.setBackground(new java.awt.Color(255, 0, 0));
+        jButtonAnother.setFont(new java.awt.Font("Calibri Light", 1, 18)); // NOI18N
+        jButtonAnother.setText("Cancel Reservation");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -106,7 +107,8 @@ public class ChooseSportScreen extends javax.swing.JFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                         .addComponent(jButtonFootball, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addComponent(jButtonBasketball, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jButtonTennis, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(jButtonTennis, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jButtonAnother, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addContainerGap(254, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -120,6 +122,8 @@ public class ChooseSportScreen extends javax.swing.JFrame {
                                 .addComponent(jButtonBasketball, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(49, 49, 49)
                                 .addComponent(jButtonTennis, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(49, 49, 49)
+                                .addComponent(jButtonAnother, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addContainerGap(49, Short.MAX_VALUE))
         );
 
@@ -128,6 +132,8 @@ public class ChooseSportScreen extends javax.swing.JFrame {
     private javax.swing.JButton jButtonFootball;
     private javax.swing.JButton jButtonBasketball;
     private javax.swing.JButton jButtonTennis;
+
+    private javax.swing.JButton jButtonAnother;
     private javax.swing.JLabel jLabel1;
     // End of variables declaration
 }

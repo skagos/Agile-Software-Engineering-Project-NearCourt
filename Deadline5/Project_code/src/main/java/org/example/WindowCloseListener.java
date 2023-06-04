@@ -1,6 +1,6 @@
 package org.example;
 
 public interface WindowCloseListener {
-    void onWindowClose(boolean paid);
+    void successfullPayment(boolean paid);
 
 }

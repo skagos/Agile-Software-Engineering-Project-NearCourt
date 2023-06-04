@@ -1,5 +1,6 @@
 package org.example;
 
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.sql.Connection;
@@ -47,18 +48,22 @@ public class SportsCenter {
                     //sportList.add(player);
                     sportList.add(time);
 
-                    for (String item : sportList) {
-                        System.out.println(item);
-                    }
+
                 }
             }
 
-            ChooseCourtScreen selectCourt = new ChooseCourtScreen(userData);
-            selectCourt.setItems(sportList);
-            selectCourt.setVisible(true);
+            if (sportList.isEmpty()) {
+                String message = "No nearby courts available for " + selectedSport;
+                JOptionPane.showMessageDialog(null, message, "No Courts Available", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                ChooseCourtScreen selectCourt = new ChooseCourtScreen(userData);
+                selectCourt.setItems(sportList);
+                selectCourt.setVisible(true);
+            }
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
+
 }

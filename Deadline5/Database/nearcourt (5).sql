@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Εξυπηρετητής: 127.0.0.1:3306
--- Χρόνος δημιουργίας: 03 Ιουν 2023 στις 09:43:47
+-- Χρόνος δημιουργίας: 04 Ιουν 2023 στις 00:05:34
 -- Έκδοση διακομιστή: 8.0.31
 -- Έκδοση PHP: 8.0.26
 
@@ -38,15 +38,6 @@ CREATE TABLE IF NOT EXISTS `belongs_to` (
   KEY `group_id_2` (`group_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Άδειασμα δεδομένων του πίνακα `belongs_to`
---
-
-INSERT INTO `belongs_to` (`user_id`, `court_id`, `group_id`) VALUES
-(3, 1, 8),
-(3, 1, 18),
-(2, 2, 18);
-
 -- --------------------------------------------------------
 
 --
@@ -74,6 +65,29 @@ INSERT INTO `court` (`court_id`, `name`, `sport_center_id`, `sport`, `capacity`,
 (2, 'court 2', 2, 'Basket', 10, 20),
 (3, 'court 3', 1, 'Football', 10, 30),
 (4, 'court 4', 1, 'Basket', 10, 20);
+
+-- --------------------------------------------------------
+
+--
+-- Δομή πίνακα για τον πίνακα `courts_rate`
+--
+
+DROP TABLE IF EXISTS `courts_rate`;
+CREATE TABLE IF NOT EXISTS `courts_rate` (
+  `rate_id` int NOT NULL AUTO_INCREMENT,
+  `stars` int NOT NULL,
+  `rate` varchar(255) NOT NULL,
+  `court_id` int NOT NULL,
+  PRIMARY KEY (`rate_id`),
+  KEY `court_id` (`court_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb3;
+
+--
+-- Άδειασμα δεδομένων του πίνακα `courts_rate`
+--
+
+INSERT INTO `courts_rate` (`rate_id`, `stars`, `rate`, `court_id`) VALUES
+(1, 4, 'Write your rate', 1);
 
 -- --------------------------------------------------------
 
@@ -118,43 +132,14 @@ CREATE TABLE IF NOT EXISTS `groups` (
   PRIMARY KEY (`group_id`),
   KEY `group_owner` (`court_id`),
   KEY `group_center` (`owner_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Άδειασμα δεδομένων του πίνακα `groups`
 --
 
 INSERT INTO `groups` (`group_id`, `sport`, `date`, `court_id`, `joined_players`, `owner_id`, `group_capacity`, `type`, `time`) VALUES
-(1, 'Football', '2023-05-17', 1, 9, 1, 22, 'private', ''),
-(2, 'Basket', '2023-05-17', 3, 10, 2, 10, 'private', ''),
-(5, 'Tennis', '2023-05-17', 1, 4, 1, 4, 'private', ''),
-(7, 'Football', '2023-05-31', 1, 1, 3, 1, 'private', 'Agia Stadium 18:00-19:00'),
-(8, 'Football', '2023-05-31', 1, 2, 3, 1, 'private', 'Agia Stadium 18:00-19:00'),
-(9, 'Football', '2023-05-31', 1, 1, 3, 1, 'private', 'Agia Stadium 17:00-18:00'),
-(10, 'Football', '2023-05-31', 1, 1, 3, 1, 'private', 'Agia Stadium 18:00-19:00'),
-(11, 'Football', '2023-05-31', 1, 1, 3, 1, 'private', 'Agia Stadium 18:00-19:00'),
-(12, 'Football', '2023-05-31', 1, 1, 3, 1, 'private', 'Agia Stadium 17:00-18:00'),
-(13, 'Football', '2023-05-31', 1, 1, 3, 1, 'private', 'Agia Stadium 18:00-19:00'),
-(14, 'Football', '2023-05-31', 1, 1, 3, 2, 'private', 'Agia Stadium 17:00-18:00'),
-(15, 'Football', '2023-05-31', 1, 1, 3, 4, 'private', 'Agia Stadium 18:00-19:00'),
-(16, 'Football', '2023-05-31', 1, 1, 3, 5, 'private', 'Agia Stadium 17:00-18:00'),
-(17, 'Football', '2023-05-31', 1, 1, 3, 3, 'private', 'Agia Stadium 18:00-19:00'),
-(18, 'Football', '2023-05-31', 1, 1, 3, 4, 'private', 'Agia Stadium 18:00-19:00'),
-(19, 'Football', '2023-05-31', 1, 1, 3, 4, 'private', 'Agia Stadium 18:00-19:00'),
-(20, 'Football', '2023-05-31', 1, 1, 3, 4, 'private', 'Agia Stadium 17:00-18:00'),
-(21, 'Football', '2023-05-31', 1, 1, 3, 4, 'private', 'Agia Stadium 17:00-18:00'),
-(22, 'Football', '2023-05-31', 1, 1, 3, 3, 'private', 'Agia Stadium 18:00-19:00'),
-(23, 'Football', '2023-05-31', 1, 1, 3, 2, 'private', 'Agia Stadium 17:00-18:00'),
-(24, 'Football', '2023-05-31', 1, 1, 3, 3, 'public', 'Agia Stadium 18:00-19:00'),
-(25, 'Football', '2023-05-31', 1, 1, 3, 4, 'private', 'Agia Stadium 17:00-18:00'),
-(26, 'Football', '2023-05-31', 1, 1, 3, 4, 'private', 'Agia Stadium 18:00-19:00'),
-(27, 'Football', '2023-05-31', 2, 1, 3, 1, 'private', 'Bahamas 18:00-19:00'),
-(28, 'Football', '2023-05-31', 1, 1, 3, 4, 'private', 'Agia Stadium 17:00-18:00'),
-(29, 'Football', '2023-05-31', 1, 1, 3, 1, 'private', 'Agia Stadium 18:00-19:00'),
-(30, 'Football', '2023-05-31', 1, 1, 3, 4, 'private', 'Agia Stadium 17:00-18:00'),
-(31, 'Football', '2023-05-31', 1, 1, 3, 4, 'private', 'Agia Stadium 18:00-19:00'),
-(32, 'Football', '2023-05-31', 1, 1, 3, 1, 'private', 'Agia Stadium 17:00-18:00'),
-(33, 'Football', '2023-05-31', 1, 1, 3, 4, 'private', 'Agia Stadium 18:00-19:00');
+(34, 'Football', '2023-05-31', 1, 1, 2, 10, 'private', 'Agia Stadium 18:00-19:00');
 
 -- --------------------------------------------------------
 
@@ -193,7 +178,7 @@ CREATE TABLE IF NOT EXISTS `notifications` (
   `user_id` int NOT NULL,
   `group_id` int NOT NULL,
   PRIMARY KEY (`notification_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Άδειασμα δεδομένων του πίνακα `notifications`
@@ -204,7 +189,8 @@ INSERT INTO `notifications` (`notification_id`, `date`, `text`, `user_id`, `grou
 (2, '2023-05-31', 'You have a group at:', 3, 0),
 (3, '2023-05-31', 'You have a group at:', 3, 0),
 (4, '2023-05-17', 'You have a group at:', 1, 0),
-(13, '2023-05-31', 'You have a group at:', 3, 15);
+(13, '2023-05-31', 'You have a group at:', 3, 15),
+(18, '2023-05-31', 'You have a group at:', 2, 34);
 
 -- --------------------------------------------------------
 
@@ -270,26 +256,12 @@ INSERT INTO `payment` (`payment_id`, `user_id`, `amount`) VALUES
 
 DROP TABLE IF EXISTS `rates`;
 CREATE TABLE IF NOT EXISTS `rates` (
-  `rate` varchar(40) COLLATE utf8mb4_general_ci NOT NULL,
+  `rate` varchar(40) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `stars` int NOT NULL,
   `rate_id` int NOT NULL AUTO_INCREMENT,
   `user_id` int NOT NULL,
   PRIMARY KEY (`rate_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Άδειασμα δεδομένων του πίνακα `rates`
---
-
-INSERT INTO `rates` (`rate`, `stars`, `rate_id`, `user_id`) VALUES
-('malakas', 5, 1, 1),
-('kalosssss', 6, 2, 1),
-('kalos kalos', 5, 3, 2),
-('xasths', 4, 4, 2),
-('kalos kalosklkl', 6, 5, 2),
-('palikaros', 2, 6, 2),
-('o neymar', 3, 7, 2),
-('apaixtos', 6, 8, 2);
 
 -- --------------------------------------------------------
 
@@ -304,7 +276,7 @@ CREATE TABLE IF NOT EXISTS `reservation` (
   `court_id` int NOT NULL,
   `time` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
   PRIMARY KEY (`res_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Άδειασμα δεδομένων του πίνακα `reservation`
@@ -313,7 +285,8 @@ CREATE TABLE IF NOT EXISTS `reservation` (
 INSERT INTO `reservation` (`res_id`, `user_id`, `court_id`, `time`) VALUES
 (1, 2, 3, 'Lolen Stadium 18:00-19:00'),
 (2, 3, 1, 'Agia Stadium 20:00-21:00'),
-(3, 3, 2, 'Bahamas 18:00-19:00');
+(3, 3, 2, 'Bahamas 18:00-19:00'),
+(4, 3, 2, 'Bahamas 18:00-19:00');
 
 -- --------------------------------------------------------
 
@@ -356,21 +329,83 @@ CREATE TABLE IF NOT EXISTS `timetable` (
   `date` date DEFAULT NULL,
   `number_of_players` int NOT NULL,
   PRIMARY KEY (`ttid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=71 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Άδειασμα δεδομένων του πίνακα `timetable`
 --
 
 INSERT INTO `timetable` (`ttid`, `court_id`, `court_name`, `time`, `court_type`, `Availability`, `date`, `number_of_players`) VALUES
-(1, 1, 'Agia Stadium', 'Agia Stadium 17:00-18:00', 'Football', 1, '2023-05-31', 5),
+(1, 1, 'Agia Stadium', 'Agia Stadium 17:00-18:00', 'Football', 0, '2023-05-31', 5),
 (2, 1, 'Agia Stadium', 'Agia Stadium 18:00-19:00', 'Football', 1, '2023-05-31', 10),
-(3, 1, 'Agia Stadium', 'Agia Stadium 20:00-21:00', 'Football', 1, NULL, 0),
-(4, 2, 'Bahamas', 'Bahamas 16:00-17:00', 'Football', 0, NULL, 0),
+(3, 1, 'Agia Stadium', 'Agia Stadium 20:00-21:00', 'Football', 0, '2023-06-21', 0),
+(4, 2, 'Bahamas', 'Bahamas 16:00-17:00', 'Football', 0, '2023-06-29', 0),
 (5, 2, 'Bahamas', 'Bahamas 18:00-19:00', 'Football', 0, '2023-05-31', 2),
-(6, 3, 'Lolen Stadium', 'Lolen Stadium 18:00-19:00', 'Football', 0, NULL, 0),
-(7, 3, 'Lolen Stadium', 'Lolen Stadium 19:00-20:00', 'Football', 0, NULL, 0),
-(8, 3, 'Lolen Stadium', 'Lolen Stadium 20:00-21:00', 'Football', 0, NULL, 0);
+(6, 3, 'Lolen Stadium', 'Lolen Stadium 18:00-19:00', 'Football', 0, '2023-06-28', 0),
+(7, 3, 'Lolen Stadium', 'Lolen Stadium 19:00-20:00', 'Football', 0, '2023-06-29', 0),
+(8, 3, 'Lolen Stadium', 'Lolen Stadium 20:00-21:00', 'Football', 0, '2023-06-29', 0),
+(9, 2, 'Agios Alexios', 'Agios Alexios 17:00-18:00', 'Basket', 0, '2023-07-01', 10),
+(10, 2, 'Agios Alexios', 'Agios Alexios 18:00-19:00', 'Basket', 0, '2023-07-01', 10),
+(11, 2, 'Agios Alexios', 'Agios Alexios 19:00-20:00', 'Basket', 0, '2023-07-01', 10),
+(12, 2, 'Agios Alexios', 'Agios Alexios 20:00-21:00', 'Basket', 0, '2023-07-01', 10),
+(13, 2, 'Agios Alexios', 'Agios Alexios 16:00-17:00', 'Basket', 0, '2023-07-01', 10),
+(14, 2, 'Agios Alexios', 'Agios Alexios 15:00-15:00', 'Basket', 0, '2023-07-01', 10),
+(15, 4, 'Agios Alexios 2', 'Agios Alexios 2 18:00-19:00', 'Basket', 0, '2023-07-01', 10),
+(16, 4, 'Agios Alexios 2', 'Agios Alexios 2 19:00-20:00', 'Basket', 0, '2023-07-01', 10),
+(17, 4, 'Agios Alexios 2', 'Agios Alexios 2 20:00-21:00', 'Basket', 0, '2023-07-01', 10),
+(18, 4, 'Agios Alexios 2', 'Agios Alexios 2 16:00-17:00', 'Basket', 0, '2023-07-01', 10),
+(19, 4, 'Agios Alexios 2', 'Agios Alexios 2 15:00-15:00', 'Basket', 0, '2023-07-01', 10),
+(20, 4, 'Agios Alexios 2', 'Agios Alexios 2 18:00-19:00', 'Basket', 0, '2023-07-02', 10),
+(21, 4, 'Agios Alexios 2', 'Agios Alexios 2 19:00-20:00', 'Basket', 0, '2023-07-02', 10),
+(22, 4, 'Agios Alexios 2', 'Agios Alexios 2 20:00-21:00', 'Basket', 0, '2023-07-02', 10),
+(23, 4, 'Agios Alexios 2', 'Agios Alexios 2 16:00-17:00', 'Basket', 0, '2023-07-02', 10),
+(24, 4, 'Agios Alexios 2', 'Agios Alexios 2 15:00-15:00', 'Basket', 0, '2023-07-02', 10),
+(25, 4, 'Agios Alexios 2', 'Agios Alexios 2 18:00-19:00', 'Basket', 0, '2023-07-03', 10),
+(26, 4, 'Agios Alexios 2', 'Agios Alexios 2 19:00-20:00', 'Basket', 0, '2023-07-03', 10),
+(27, 4, 'Agios Alexios 2', 'Agios Alexios 2 20:00-21:00', 'Basket', 0, '2023-07-03', 10),
+(28, 4, 'Agios Alexios 2', 'Agios Alexios 2 16:00-17:00', 'Basket', 0, '2023-07-03', 10),
+(29, 4, 'Agios Alexios 2', 'Agios Alexios 2 15:00-15:00', 'Basket', 0, '2023-07-03', 10),
+(30, 4, 'Agios Alexios 2', 'Agios Alexios 2 18:00-19:00', 'Basket', 0, '2023-07-04', 10),
+(31, 4, 'Agios Alexios 2', 'Agios Alexios 2 19:00-20:00', 'Basket', 0, '2023-07-04', 10),
+(32, 4, 'Agios Alexios 2', 'Agios Alexios 2 20:00-21:00', 'Basket', 0, '2023-07-04', 10),
+(33, 4, 'Agios Alexios 2', 'Agios Alexios 2 16:00-17:00', 'Basket', 0, '2023-07-04', 10),
+(34, 4, 'Agios Alexios 2', 'Agios Alexios 2 15:00-15:00', 'Basket', 0, '2023-07-04', 10),
+(35, 4, 'Agios Alexios 2', 'Agios Alexios 2 18:00-19:00', 'Basket', 0, '2023-07-05', 10),
+(36, 4, 'Agios Alexios 2', 'Agios Alexios 2 19:00-20:00', 'Basket', 0, '2023-07-05', 10),
+(37, 4, 'Agios Alexios 2', 'Agios Alexios 2 20:00-21:00', 'Basket', 0, '2023-07-05', 10),
+(38, 4, 'Agios Alexios 2', 'Agios Alexios 2 16:00-17:00', 'Basket', 0, '2023-07-05', 10),
+(39, 4, 'Agios Alexios 2', 'Agios Alexios 2 15:00-15:00', 'Basket', 0, '2023-07-05', 10),
+(40, 3, 'kaltseto', 'kaltseto 18:00-19:00', 'Football', 0, '2023-07-01', 10),
+(41, 4, 'kaltseto', 'kaltseto 19:00-20:00', 'Football', 0, '2023-07-01', 10),
+(42, 4, 'kaltseto', 'kaltseto 20:00-21:00', 'Football', 0, '2023-07-01', 10),
+(43, 4, 'kaltseto', 'kaltseto 16:00-17:00', 'Football', 0, '2023-07-01', 10),
+(44, 4, 'kaltseto', 'kaltseto 15:00-15:00', 'Football', 0, '2023-07-01', 10),
+(45, 3, 'kaltseto', 'kaltseto 18:00-19:00', 'Football', 0, '2023-07-02', 10),
+(46, 4, 'kaltseto', 'kaltseto 19:00-20:00', 'Football', 0, '2023-07-02', 10),
+(47, 4, 'kaltseto', 'kaltseto 20:00-21:00', 'Football', 0, '2023-07-02', 10),
+(48, 4, 'kaltseto', 'kaltseto 16:00-17:00', 'Football', 0, '2023-07-02', 10),
+(49, 4, 'kaltseto', 'kaltseto 15:00-15:00', 'Football', 0, '2023-07-02', 10),
+(50, 3, 'kaltseto', 'kaltseto 18:00-19:00', 'Football', 0, '2023-07-03', 10),
+(51, 4, 'kaltseto', 'kaltseto 19:00-20:00', 'Football', 0, '2023-07-03', 10),
+(52, 4, 'kaltseto', 'kaltseto 20:00-21:00', 'Football', 0, '2023-07-03', 10),
+(53, 4, 'kaltseto', 'kaltseto 16:00-17:00', 'Football', 0, '2023-07-03', 10),
+(54, 4, 'kaltseto', 'kaltseto 15:00-15:00', 'Football', 0, '2023-07-03', 10),
+(55, 3, 'kaltseto', 'kaltseto 18:00-19:00', 'Football', 0, '2023-07-04', 10),
+(56, 4, 'kaltseto', 'kaltseto 19:00-20:00', 'Football', 0, '2023-07-04', 10),
+(57, 4, 'kaltseto', 'kaltseto 20:00-21:00', 'Football', 0, '2023-07-04', 10),
+(58, 4, 'kaltseto', 'kaltseto 16:00-17:00', 'Football', 0, '2023-07-04', 10),
+(59, 1, 'Kanistras', 'kaltseto 15:00-15:00', 'Football', 0, '2023-07-04', 10),
+(60, 1, 'Kanistras', 'kaltseto 18:00-19:00', 'Football', 0, '2023-07-04', 10),
+(61, 1, 'Kanistras', 'kaltseto 19:00-20:00', 'Football', 0, '2023-07-04', 10),
+(62, 1, 'Kanistras', 'kaltseto 20:00-21:00', 'Football', 0, '2023-07-04', 10),
+(63, 1, 'Kanistras', 'kaltseto 16:00-17:00', 'Football', 0, '2023-07-04', 10),
+(64, 1, 'Kanistras', 'kaltseto 15:00-15:00', 'Football', 0, '2023-07-04', 10),
+(65, 1, 'Kanistras', 'kaltseto 15:00-15:00', 'Football', 0, '2023-07-03', 10),
+(66, 1, 'Kanistras', 'kaltseto 18:00-19:00', 'Football', 0, '2023-07-03', 10),
+(67, 1, 'Kanistras', 'kaltseto 19:00-20:00', 'Football', 0, '2023-07-03', 10),
+(68, 1, 'Kanistras', 'kaltseto 20:00-21:00', 'Football', 0, '2023-07-03', 10),
+(69, 1, 'Kanistras', 'kaltseto 16:00-17:00', 'Football', 0, '2023-07-03', 10),
+(70, 1, 'Kanistras', 'kaltseto 15:00-15:00', 'Football', 0, '2023-07-03', 10);
 
 -- --------------------------------------------------------
 
@@ -389,18 +424,19 @@ CREATE TABLE IF NOT EXISTS `users` (
   `admin` tinyint(1) NOT NULL,
   PRIMARY KEY (`user_id`),
   UNIQUE KEY `email` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Άδειασμα δεδομένων του πίνακα `users`
 --
 
 INSERT INTO `users` (`user_id`, `name`, `email`, `phone`, `address`, `password`, `admin`) VALUES
-(1, 'giio', 'stergos@gmail.com', '6969696969', 'pipa2', 'stergos', 0),
-(2, 'giannis33', 'giannissk@gmail.com', '696969696969', '5353', 'giannis44', 0),
+(1, 'stergiou', 'stergosfamily@gmail.com', '6969696969', 'kythairwnos 20', 'stergos001', 0),
+(2, 'skagkos', 'johnskagos@gmail.com', '6969696969', 'ellhnos 16', 'skagos001', 0),
 (3, 'user', '', '123456555454', 'ghvjm', '', 0),
-(7, 'user2', 'user2@', NULL, NULL, '', 1),
-(10, 'userr', 'sdgsgdsgdgsd', 'tegsg', 'fffsasfa', '', 0);
+(7, 'saridakis', 'geosar@gmail.com', '6969696969', 'karolou 50', 'sari001', 0),
+(10, 'panselinas', 'steliospans@gmail.com', '6969696969', 'ellhnos 48', 'panselinas001', 0),
+(11, 'admin', 'admin@gmail.com', '6969696969', 'admin 23', 'admin001', 1);
 
 --
 -- Περιορισμοί για άχρηστους πίνακες

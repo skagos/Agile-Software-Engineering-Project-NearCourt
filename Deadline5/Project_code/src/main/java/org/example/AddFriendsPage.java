@@ -6,7 +6,8 @@ import javax.swing.event.DocumentListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.*;
-
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class AddFriendsPage extends javax.swing.JFrame {
@@ -53,14 +54,36 @@ public class AddFriendsPage extends javax.swing.JFrame {
     private void getTeammates() {
         try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/nearcourt", "root", "")) {
             friendsListModel.clear();
-            String query = "SELECT player FROM history";
 
-            try (PreparedStatement statement = connection.prepareStatement(query);
-                 ResultSet resultSet = statement.executeQuery()) {
+            // Retrieve all group_ids associated with the user_id
+            String groupQuery = "SELECT group_id FROM belongs_to WHERE user_id = ?";
+            List<Integer> groupIds = new ArrayList<>();
 
-                while (resultSet.next()) {
-                    String playerName = resultSet.getString("player");
-                    friendsListModel.addElement(playerName);
+            try (PreparedStatement groupStatement = connection.prepareStatement(groupQuery)) {
+                groupStatement.setInt(1, (int) userData[0]); // Set parameter at index 1 for user_id
+
+                try (ResultSet groupResultSet = groupStatement.executeQuery()) {
+                    while (groupResultSet.next()) {
+                        int groupId = groupResultSet.getInt("group_id");
+                        groupIds.add(groupId);
+                    }
+                }
+            }
+
+            // Retrieve teammates from the groups
+            String query = "SELECT name FROM users WHERE users.user_id IN (SELECT b.user_id FROM belongs_to b WHERE b.group_id = ?) AND name <> ?";
+
+            try (PreparedStatement statement = connection.prepareStatement(query)) {
+                for (int groupId : groupIds) {
+                    statement.setInt(1, groupId); // Set parameter at index 1 for groups_id
+                    statement.setString(2, (String) userData[2]); // Set parameter at index 2 for name <> ?
+
+                    try (ResultSet resultSet = statement.executeQuery()) {
+                        while (resultSet.next()) {
+                            String playerName = resultSet.getString("name");
+                            friendsListModel.addElement(playerName);
+                        }
+                    }
                 }
             } catch (SQLException e) {
                 e.printStackTrace();
@@ -74,15 +97,21 @@ public class AddFriendsPage extends javax.swing.JFrame {
     private void getUsername(String searchText) {
         try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/nearcourt", "root", "")) {
             friendsListModel.clear();
-            String query = "SELECT name FROM users WHERE name LIKE ?";
+            String query = "SELECT name FROM users WHERE name LIKE ? AND name <> ?";
 
             try (PreparedStatement statement = connection.prepareStatement(query)) {
                 statement.setString(1, "%" + searchText + "%");
+                statement.setString(2, (String) userData[2]); // Replace 'userData.getName()' with the appropriate method to get the specific value you want to exclude
 
                 try (ResultSet resultSet = statement.executeQuery()) {
                     while (resultSet.next()) {
                         String username = resultSet.getString("name");
                         friendsListModel.addElement(username);
+                    }
+                    if (friendsListModel.isEmpty()) {
+                        // Print a message when the list is empty
+                        JOptionPane.showMessageDialog(this, "No usernames found.", "Empty List", JOptionPane.INFORMATION_MESSAGE);
+
                     }
                 }
             } catch (SQLException e) {
@@ -97,8 +126,7 @@ public class AddFriendsPage extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">
     private void initComponents() {
-        ImageIcon icon = new ImageIcon("C:\\Users\\user\\Documents\\GitHub\\NearCourt-The-Easy-way-to-play\\Deadline5\\Project_code\\src\\main\\java\\org\\example\\Nearcourt.png");
-        setIconImage(icon.getImage());
+
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -110,7 +138,7 @@ public class AddFriendsPage extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jPanel1.setBackground(new java.awt.Color(0, 153, 0));
+        jPanel1.setBackground(new java.awt.Color(51, 153, 0));
 
         jLabel1.setBackground(new java.awt.Color(0, 153, 0));
         jLabel1.setFont(new java.awt.Font("Calibri Light", 1, 24)); // NOI18N
@@ -248,7 +276,7 @@ public class AddFriendsPage extends javax.swing.JFrame {
         );
 
         pack();
-    }
+    }// </editor-fold>
     private javax.swing.JButton jButtonSelect;
     private javax.swing.JButton jButtonViewfriends;
     private javax.swing.JLabel jLabel1;
