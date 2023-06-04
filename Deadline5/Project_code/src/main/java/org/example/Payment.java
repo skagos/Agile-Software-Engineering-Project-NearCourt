@@ -266,7 +266,7 @@ public class Payment extends javax.swing.JFrame {
         jLabelAmount.setText("Amount: $" + amount);
         return amount;
     }
-     
+
 
     private void addPayment ( double amount){
             try {

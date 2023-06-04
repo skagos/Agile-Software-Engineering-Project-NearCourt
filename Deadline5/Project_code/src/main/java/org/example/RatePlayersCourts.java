@@ -223,7 +223,16 @@ public class RatePlayersCourts extends javax.swing.JFrame {
                                         .addComponent(submitCourtRate1))
                                 .addGap(40, 40, 40))
         );
-
+        submitPlayerRate.setVisible(false);
+        ratePLabel.setVisible(false);
+        playerSlider.setVisible(false);
+        ratePlayerLabel.setVisible(false);
+        playersTextField.setVisible(false);
+        submitCourtRate1.setVisible(false);
+        rateCLabel.setVisible(false);
+        courtSlider.setVisible(false);
+        rateCourtLabel.setVisible(false);
+        courtsTextField.setVisible(false);
         pack();
     }
 
@@ -304,10 +313,27 @@ public class RatePlayersCourts extends javax.swing.JFrame {
 
     private void jList2ValueChanged(javax.swing.event.ListSelectionEvent evt) {
         ratePlayerLabel.setText("Rate: "+jList2.getSelectedValue());
+        showRatePage(true);
     }
 
     private void jList1ValueChanged(javax.swing.event.ListSelectionEvent evt) {
         rateCourtLabel.setText("Rate: "+jList1.getSelectedValue());
+        showRatePage(false);
+    }
+    private void showRatePage(boolean player){
+        if(player) {
+            submitPlayerRate.setVisible(true);
+            ratePLabel.setVisible(true);
+            playerSlider.setVisible(true);
+            ratePlayerLabel.setVisible(true);
+            playersTextField.setVisible(true);
+        }else{
+            submitCourtRate1.setVisible(true);
+            rateCLabel.setVisible(true);
+            courtSlider.setVisible(true);
+            rateCourtLabel.setVisible(true);
+            courtsTextField.setVisible(true);
+        }
     }
 
     private void storeDataPlayer(java.awt.event.ActionEvent evt) {
@@ -398,5 +424,5 @@ public class RatePlayersCourts extends javax.swing.JFrame {
     private static javax.swing.JLabel ratePlayersLabel;
     private static javax.swing.JButton submitCourtRate1;
     private static javax.swing.JButton submitPlayerRate;
-    // End of variables declaration                   
+    // End of variables declaration
 }
