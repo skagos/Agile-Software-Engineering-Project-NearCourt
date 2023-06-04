@@ -186,7 +186,7 @@ public class FindGroupGUI extends javax.swing.JFrame implements WindowCloseListe
         );
 
         pack();
-        getAllUsersData();
+        getAllGroupsData();
     }// </editor-fold>
 
     private void findGroupsButActionPerformed(java.awt.event.ActionEvent evt) {
@@ -316,8 +316,8 @@ public class FindGroupGUI extends javax.swing.JFrame implements WindowCloseListe
         this.dispose();
         this.setVisible(false);
     }
-    
-    private void getAllUsersData(){
+
+    private void getAllGroupsData(){
         for(int i=0; i<7; i++){
             for (int j=0; j<10; j++){
                 groupsTable.setValueAt("", j, i);
