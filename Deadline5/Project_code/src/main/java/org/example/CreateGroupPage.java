@@ -316,7 +316,7 @@ public class CreateGroupPage extends javax.swing.JFrame {
 
         combo_sport.setBackground(new java.awt.Color(102, 153, 255));
         combo_sport.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
-        combo_sport.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Sport", "Football", "Basketball", "Tennis" }));
+        combo_sport.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Sport", "Football", "Basket", "Tennis" }));
         combo_sport.setToolTipText("");
         combo_sport.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
@@ -398,7 +398,7 @@ public class CreateGroupPage extends javax.swing.JFrame {
 
         sportc.setBackground(new java.awt.Color(102, 153, 255));
         sportc.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
-        sportc.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Sport", "Football", "Basketball", "Tennis" }));
+        sportc.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Sport", "Football", "Basket", "Tennis" }));
         sportc.setToolTipText("");
         sportc.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
