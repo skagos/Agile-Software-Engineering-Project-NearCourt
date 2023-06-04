@@ -136,7 +136,7 @@ public class AddFriendsPage extends javax.swing.JFrame {
         jButtonSelect = new javax.swing.JButton();
         jButtonViewfriends = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(51, 153, 0));
 
