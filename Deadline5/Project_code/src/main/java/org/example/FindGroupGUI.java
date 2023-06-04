@@ -299,7 +299,7 @@ public class FindGroupGUI extends javax.swing.JFrame implements WindowCloseListe
         login.setVisible(true);
         this.dispose();
     }
-    public void onWindowClose(boolean isPaid) {
+    public void successfullPayment(boolean isPaid) {
         // Use the returned value from the first window
         if(isPaid){
             this.updateGroupsData(userData);

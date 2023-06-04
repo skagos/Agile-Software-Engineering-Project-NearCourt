@@ -355,7 +355,7 @@ public class Payment extends javax.swing.JFrame {
     // Call this method when the window is closing
     private void closeWindow() {
         if (closeListener != null) {
-            closeListener.onWindowClose(isPaid);
+            closeListener.successfullPayment(isPaid);
         }
         dispose(); // Close the second window
     }
