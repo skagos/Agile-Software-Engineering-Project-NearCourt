@@ -9,9 +9,7 @@ public class ChooseSportScreen extends javax.swing.JFrame {
     private Object[] userData;
 
 
-    /**
-     * Creates new form MainFrame
-     */
+
     public ChooseSportScreen(Object[] userData) {
         initComponents();
         this.userData = userData;
@@ -64,7 +62,7 @@ public class ChooseSportScreen extends javax.swing.JFrame {
         // Use the SportsCenter object as needed
     }
 
-    // Rest of your code...
+
 
     private void initComponents() {
 
@@ -135,5 +133,5 @@ public class ChooseSportScreen extends javax.swing.JFrame {
 
     private javax.swing.JButton jButtonAnother;
     private javax.swing.JLabel jLabel1;
-    // End of variables declaration
+
 }
