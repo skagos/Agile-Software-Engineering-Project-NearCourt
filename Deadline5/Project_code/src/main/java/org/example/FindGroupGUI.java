@@ -117,7 +117,7 @@ public class FindGroupGUI extends javax.swing.JFrame implements WindowCloseListe
         findGroupsBut.setBorderPainted(false);
         findGroupsBut.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                findGroupsButActionPerformed(evt);
+                getFilterGroupsData(evt);
             }
         });
 
@@ -189,7 +189,7 @@ public class FindGroupGUI extends javax.swing.JFrame implements WindowCloseListe
         getAllGroupsData();
     }// </editor-fold>
 
-    private void findGroupsButActionPerformed(java.awt.event.ActionEvent evt) {
+    private void getFilterGroupsData(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
         for(int i=0; i<7; i++){
             for (int j=0; j<10; j++){
