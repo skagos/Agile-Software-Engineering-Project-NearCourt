@@ -40,20 +40,20 @@ public class FindGroupGUI extends javax.swing.JFrame implements WindowCloseListe
 
         groupsTable.setModel(new javax.swing.table.DefaultTableModel(
                 new Object [][] {
-                        {null, "", "", "", "","",""},
-                        {null, "", "", "", "","",""},
-                        {null, "", "", "", "","",""},
-                        {null, "", "", "", "","",""},
-                        {null, "", "", "", "","",""},
-                        {null, "", "", "", "","",""},
-                        {null, "", "", "", "","",""},
-                        {null, "", "", "", "","",""},
-                        {null, "", "", "", "","",""},
-                        {null, "", "", "", "","",""},
-                        {null, "", "", "", "","",""},
+                        {null, "", "", "", "",""},
+                        {null, "", "", "", "",""},
+                        {null, "", "", "", "",""},
+                        {null, "", "", "", "",""},
+                        {null, "", "", "", "",""},
+                        {null, "", "", "", "",""},
+                        {null, "", "", "", "",""},
+                        {null, "", "", "", "",""},
+                        {null, "", "", "", "",""},
+                        {null, "", "", "", "",""},
+                        {null, "", "", "", "",""},
                 },
                 new String [] {
-                        "ID", "Court", "Date", "Sport", "Joined Players","Price","Group Capacity"
+                        "ID", "Court", "Date", "Sport", "Joined Players","Group Capacity"
                 }
         ) {
             Class[] types = new Class [] {
@@ -117,7 +117,7 @@ public class FindGroupGUI extends javax.swing.JFrame implements WindowCloseListe
         findGroupsBut.setBorderPainted(false);
         findGroupsBut.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                getFilterGroupsData(evt);
+                getFilterGroupsData();
             }
         });
 
@@ -189,15 +189,14 @@ public class FindGroupGUI extends javax.swing.JFrame implements WindowCloseListe
         getAllGroupsData();
     }// </editor-fold>
 
-    private void getFilterGroupsData(java.awt.event.ActionEvent evt) {
+    private void getFilterGroupsData() {
         // TODO add your handling code here:
-        for(int i=0; i<7; i++){
+        for(int i=0; i<6; i++){
             for (int j=0; j<10; j++){
                 groupsTable.setValueAt("", j, i);
             }
         }
         String sport = (String) sportComboBox.getSelectedItem();
-        System.out.println(sport);
         int players = (int) playersComboBox.getSelectedItem();
         String url = "jdbc:mysql://localhost:3306/nearcourt";
         String username = "root";
@@ -215,7 +214,7 @@ public class FindGroupGUI extends javax.swing.JFrame implements WindowCloseListe
             int row = 0;
             while(rslt.next()){
                 for(int i=1; i<=numOfColumns; i++){
-                    groupsTable.setValueAt(rslt.getObject(i),row,i-2 );
+                    groupsTable.setValueAt(rslt.getObject(i),row,i-1 );
                 }
                 row++;
             }
@@ -357,13 +356,12 @@ public class FindGroupGUI extends javax.swing.JFrame implements WindowCloseListe
     }
 
     private void getAllGroupsData(){
-        for(int i=0; i<7; i++){
+        for(int i=0; i<6; i++){
             for (int j=0; j<10; j++){
                 groupsTable.setValueAt("", j, i);
             }
         }
         String sport = (String) sportComboBox.getSelectedItem();
-        System.out.println(sport);
         int players = (int) playersComboBox.getSelectedItem();
         String url = "jdbc:mysql://localhost:3306/nearcourt";
         String username = "root";
@@ -379,7 +377,7 @@ public class FindGroupGUI extends javax.swing.JFrame implements WindowCloseListe
             int row = 0;
             while(rslt.next()){
                 for(int i=1; i<=numOfColumns; i++){
-                    groupsTable.setValueAt(rslt.getObject(i),row,i-2 );
+                    groupsTable.setValueAt(rslt.getObject(i),row,i-1 );
                 }
                 row++;
             }
