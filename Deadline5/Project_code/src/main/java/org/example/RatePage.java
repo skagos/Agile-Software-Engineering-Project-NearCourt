@@ -341,7 +341,7 @@ public class RatePage extends javax.swing.JFrame {
         int stars = playerSlider.getValue();
         String playerComment = playersTextField.getText();
         if(playerComment.equals("Write your rate")){
-            unsuccessfulRateMessage();
+            JOptionPane.showMessageDialog(this, "Please insert a rate!");
         }else {
             String url = "jdbc:mysql://localhost:3306/nearcourt";
             String username = "root";
@@ -363,7 +363,7 @@ public class RatePage extends javax.swing.JFrame {
             } catch (Exception e) {
                 System.out.println(e);
             }
-            successfullRateMessage();
+            JOptionPane.showMessageDialog(this, "Your rate has been submitted!");
         }
     }
 
@@ -371,7 +371,7 @@ public class RatePage extends javax.swing.JFrame {
         int stars = courtSlider.getValue();
         String courtComment = courtsTextField.getText();
         if(courtComment.equals("Write your rate")){
-            unsuccessfulRateMessage();
+            JOptionPane.showMessageDialog(this, "Please insert a rate!");
         }else {
             String url = "jdbc:mysql://localhost:3306/nearcourt";
             String username = "root";
@@ -392,16 +392,8 @@ public class RatePage extends javax.swing.JFrame {
             } catch (Exception e) {
                 System.out.println(e);
             }
-            successfullRateMessage();
+            JOptionPane.showMessageDialog(this, "Your rate has been submitted!");
         }
-    }
-
-    private void successfullRateMessage(){
-        JOptionPane.showMessageDialog(this, "Your rate has been submitted!");
-    }
-
-    private void unsuccessfulRateMessage(){
-        JOptionPane.showMessageDialog(this, "Please insert a rate!");
     }
 
 
