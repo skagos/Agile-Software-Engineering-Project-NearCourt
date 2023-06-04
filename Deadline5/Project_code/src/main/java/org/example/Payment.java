@@ -221,29 +221,6 @@ public class Payment extends javax.swing.JFrame {
         return true;
     }
 
-   /* private double getPrice(int court_id) {
-        try {
-            // Establishing database connection
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/nearcourt", "root", "");
-
-            // Retrieving price from the court table
-            PreparedStatement courtStmt = connection.prepareStatement("SELECT price FROM court WHERE court_id = ?");
-            courtStmt.setInt(1, court_id);
-            System.out.println(court_id);
-
-            ResultSet courtResult = courtStmt.executeQuery();
-
-            if (courtResult.next()) {
-                double price = courtResult.getDouble("price");
-                System.out.println(price);
-            } else {
-                JOptionPane.showMessageDialog(this, "Court not found.");
-            }
-        }catch(Exception e){
-                System.out.println(e);
-            }
-            return price;
-    }*/
     public double calculateAmount(Object[] userData) {
         double amount = 0.0;
 
@@ -289,40 +266,7 @@ public class Payment extends javax.swing.JFrame {
         jLabelAmount.setText("Amount: $" + amount);
         return amount;
     }
-        /*public double calculateAmount(Object[] userData, double price){
-            double amount = 0.0;
-            System.out.println("calculateA"+price);
-            try {
-                // Establishing database connection
-                Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/nearcourt", "root", "");
-                // Retrieving group_capacity from the groups table
-                PreparedStatement groupStmt = connection
-                        .prepareStatement("SELECT group_capacity FROM `groups` WHERE group_id = ?");
-                groupStmt.setInt(1, (int) userData[5]);
-                ResultSet groupResult = groupStmt.executeQuery();
-
-                if (groupResult.next()) {
-                    int groupCapacity = groupResult.getInt("group_capacity");
-                        System.out.println(groupCapacity);
-                    // Calculating amount
-                    if (groupCapacity != 0) {
-                        amount = price / groupCapacity;
-                    } else {
-                        amount = price;
-                    }
-                }
-
-                groupStmt.close();
-
-                connection.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-
-            // Displaying the amount on the UI
-            jLabelAmount.setText("Amount: $" + amount);
-            return amount;
-        }*/
+     
 
     private void addPayment ( double amount){
             try {
