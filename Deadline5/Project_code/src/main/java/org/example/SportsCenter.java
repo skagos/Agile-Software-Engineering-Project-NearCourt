@@ -19,9 +19,9 @@ public class SportsCenter {
     }
 
     public void requestnearbycourts() {
-        // Perform actions when the SportsCenter is opened
+
         System.out.println("Opening SportsCenter for " + selectedSport);
-        // Add your desired functionality here
+
         String url = "jdbc:mysql://localhost:3306/nearcourt";
         String username = "root";
         String password = "";
@@ -36,11 +36,11 @@ public class SportsCenter {
             // Set the selected sport as a parameter in the query
             statement.setString(1, selectedSport);
 
-            // Execute the query and retrieve the result set
+
             try (ResultSet resultSet = statement.executeQuery()) {
                 // Process the result set
                 while (resultSet.next()) {
-                    // Retrieve data from the result set
+
                     String time = resultSet.getString("time");
                     String player = resultSet.getString("court_name");
 

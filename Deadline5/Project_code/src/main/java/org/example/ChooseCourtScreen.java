@@ -5,10 +5,7 @@ import javax.swing.JOptionPane;
 import java.sql.*;
 import java.util.List;
 
-/**
- *
- * @author Admin
- */
+
 public class ChooseCourtScreen extends javax.swing.JFrame {
 
     private DefaultListModel<String> listModel;
@@ -102,7 +99,7 @@ public class ChooseCourtScreen extends javax.swing.JFrame {
 
                 connection.setAutoCommit(false); // Disable auto-commit
 
-                // Update the timetable
+                // Update timetable
                 updateStatement.setString(1, selectedValue);
                 int rowsUpdated = updateStatement.executeUpdate();
 
@@ -132,7 +129,7 @@ public class ChooseCourtScreen extends javax.swing.JFrame {
                         if (rowsInserted > 0) {
                             userData[4] = court_id;
 
-                            connection.commit(); // Commit the changes
+                            connection.commit();
                             String courtType = null;
                             int courtId = 0;
                             String datett = null;
@@ -151,7 +148,7 @@ public class ChooseCourtScreen extends javax.swing.JFrame {
                             }
 
                             if (courtType != null && courtId != 0) {
-                                // Insert into the groups table
+
                                 String groupInsertQuery = "INSERT INTO groups (group_capacity, owner_id, sport, court_id,joined_players,type,date,time) VALUES (?, ?, ?, ?, ? , ?, ?, ?)";
                                 try (PreparedStatement groupInsertStatement = connection.prepareStatement(groupInsertQuery, Statement.RETURN_GENERATED_KEYS)) {
                                     int groupCapacity = 1;  // Set the group capacity value as required
@@ -170,7 +167,7 @@ public class ChooseCourtScreen extends javax.swing.JFrame {
                                     if (rowsInsertedToGroups > 0) {
                                         connection.commit(); // Commit the changes
 
-                                        // Retrieve the generated group_id
+
                                         int group_id = 0;
                                         try (ResultSet generatedKeys = groupInsertStatement.getGeneratedKeys()) {
                                             if (generatedKeys.next()) {
@@ -186,9 +183,9 @@ public class ChooseCourtScreen extends javax.swing.JFrame {
                                         Payment payment = new Payment(userData);
                                         payment.setVisible(true);
 
-                                        dispose(); // Close and dispose of the current JFrame
+                                        dispose();
                                     } else {
-                                        connection.rollback(); // Rollback the changes if insertion fails
+                                        connection.rollback();
                                         JOptionPane.showMessageDialog(this, "Failed to create group", "Error",
                                                 JOptionPane.ERROR_MESSAGE);
                                     }
@@ -197,7 +194,7 @@ public class ChooseCourtScreen extends javax.swing.JFrame {
                                 }
                             }
                         } else {
-                            connection.rollback(); // Rollback the changes if insertion fails
+                            connection.rollback();
                             JOptionPane.showMessageDialog(this, "Failed to insert reservation", "Error",
                                     JOptionPane.ERROR_MESSAGE);
                         }
@@ -214,7 +211,7 @@ public class ChooseCourtScreen extends javax.swing.JFrame {
             }
 
         } else {
-            // No item selected, display an error message
+            // No item selected error message
             JOptionPane.showMessageDialog(this, "No item selected!", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
@@ -227,10 +224,10 @@ public class ChooseCourtScreen extends javax.swing.JFrame {
         }
     }
 
-    // Variables declaration - do not modify
+
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JList<String> jList1;
     private javax.swing.JScrollPane jScrollPane1;
-    // End of variables declaration
+
 }

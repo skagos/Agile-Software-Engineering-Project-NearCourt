@@ -13,9 +13,9 @@ import java.util.List;
 public class AddFriendsPage extends javax.swing.JFrame {
     private DefaultListModel<String> friendsListModel;
     private Object[] userData;
-    /**
-     * Creates new form AddFriends
-     */
+
+
+
     public AddFriendsPage(Object[] userData) {
         initComponents();
         this.userData = userData;
@@ -55,7 +55,7 @@ public class AddFriendsPage extends javax.swing.JFrame {
         try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/nearcourt", "root", "")) {
             friendsListModel.clear();
 
-            // Retrieve all group_ids associated with the user_id
+
             String groupQuery = "SELECT group_id FROM belongs_to WHERE user_id = ?";
             List<Integer> groupIds = new ArrayList<>();
 
@@ -70,7 +70,7 @@ public class AddFriendsPage extends javax.swing.JFrame {
                 }
             }
 
-            // Retrieve teammates from the groups
+
             String query = "SELECT name FROM users WHERE users.user_id IN (SELECT b.user_id FROM belongs_to b WHERE b.group_id = ?) AND name <> ?";
 
             try (PreparedStatement statement = connection.prepareStatement(query)) {
@@ -124,7 +124,7 @@ public class AddFriendsPage extends javax.swing.JFrame {
     }
 
     @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">
+
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
@@ -276,7 +276,7 @@ public class AddFriendsPage extends javax.swing.JFrame {
         );
 
         pack();
-    }// </editor-fold>
+    }
     private javax.swing.JButton jButtonSelect;
     private javax.swing.JButton jButtonViewfriends;
     private javax.swing.JLabel jLabel1;
@@ -285,5 +285,5 @@ public class AddFriendsPage extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextArea jTextArea1;
-    // End of variables declaration
+    
 }
