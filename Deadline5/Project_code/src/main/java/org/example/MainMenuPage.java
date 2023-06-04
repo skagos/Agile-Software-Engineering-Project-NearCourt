@@ -25,7 +25,7 @@ public class MainMenuPage extends javax.swing.JFrame {
         String username = (String) userData[2];
         this.jLabel2.setText("Welcome, " + username + "!");
         loadNotificationText(userData);
-        ImageIcon icon = new ImageIcon("C:\\Users\\user\\Documents\\GitHub\\NearCourt-The-Easy-way-to-play\\Deadline5\\Project_code\\src\\main\\java\\org\\example\\Nearcourt.png");
+        ImageIcon icon = new ImageIcon("D:\\Users\\Koukounaras\\Documents\\GitHub\\NearCourt-The-Easy-way-to-play\\Deadline5\\Project_code\\src\\main\\java\\org\\example\\Nearcourt.png");
         setIconImage(icon.getImage());
 
 
@@ -136,8 +136,9 @@ public class MainMenuPage extends javax.swing.JFrame {
         JLabel label = new JLabel(icon);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/example/thumbnail.jpg")));
 
-      //  jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("D:/Users/Koukounaras/Documents/GitHub/NearCourt-The-Easy-way-to-play/Deadline5/Project_code/src/main/java/org/example/thumbnail.jpg")));
+       //jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("D:\\Users\\Koukounaras\\Documents\\GitHub\\NearCourt-The-Easy-way-to-play\\Deadline5\\Project_code\\src\\main\\java\\org\\example\\thumbnail.jpg")));
 
         jButtonProfile.setBackground(new java.awt.Color(0, 153, 0));
         jButtonProfile.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
