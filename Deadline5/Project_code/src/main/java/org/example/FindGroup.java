@@ -4,10 +4,10 @@ import javax.swing.*;
 import java.sql.*;
 
 
-public class FindGroupGUI extends javax.swing.JFrame implements WindowCloseListener{
+public class FindGroup extends javax.swing.JFrame implements WindowCloseListener{
     private Object[] userData;
 
-    public FindGroupGUI(Object[] userData) {
+    public FindGroup(Object[] userData) {
         initComponents();
         this.userData = userData;
     }

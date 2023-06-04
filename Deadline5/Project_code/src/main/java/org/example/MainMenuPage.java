@@ -83,7 +83,7 @@ public class MainMenuPage extends javax.swing.JFrame {
     }
 
     private void showFindGroup() {
-        FindGroupGUI findGroupGUI = new FindGroupGUI(this.userData);
+        FindGroup findGroupGUI = new FindGroup(this.userData);
         findGroupGUI.setVisible(true);
         //this.dispose();
     }
