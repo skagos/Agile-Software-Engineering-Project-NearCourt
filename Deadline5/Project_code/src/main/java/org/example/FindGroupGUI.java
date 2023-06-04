@@ -186,35 +186,7 @@ public class FindGroupGUI extends javax.swing.JFrame implements WindowCloseListe
         );
 
         pack();
-        for(int i=0; i<7; i++){
-            for (int j=0; j<10; j++){
-                groupsTable.setValueAt("", j, i);
-            }
-        }
-        String sport = (String) sportComboBox.getSelectedItem();
-        System.out.println(sport);
-        int players = (int) playersComboBox.getSelectedItem();
-        String url = "jdbc:mysql://localhost:3306/nearcourt";
-        String username = "root";
-        String password = "";
-
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection con = DriverManager.getConnection(url, username, password);
-            Statement stm = con.createStatement();
-            ResultSet rslt = stm.executeQuery("SELECT group_id,name,date,groups.sport,joined_players, group_capacity FROM `groups` INNER JOIN court ON court.court_id = groups.court_id;");
-            ResultSetMetaData metaData = rslt.getMetaData();
-            int numOfColumns = metaData.getColumnCount();
-            int row = 0;
-            while(rslt.next()){
-                for(int i=1; i<=numOfColumns; i++){
-                    groupsTable.setValueAt(rslt.getObject(i),row,i-2 );
-                }
-                row++;
-            }
-        }catch (Exception e){
-            System.out.println(e);
-        }
+        getAllUsersData();
     }// </editor-fold>
 
     private void findGroupsButActionPerformed(java.awt.event.ActionEvent evt) {
@@ -343,6 +315,38 @@ public class FindGroupGUI extends javax.swing.JFrame implements WindowCloseListe
 
         this.dispose();
         this.setVisible(false);
+    }
+    
+    private void getAllUsersData(){
+        for(int i=0; i<7; i++){
+            for (int j=0; j<10; j++){
+                groupsTable.setValueAt("", j, i);
+            }
+        }
+        String sport = (String) sportComboBox.getSelectedItem();
+        System.out.println(sport);
+        int players = (int) playersComboBox.getSelectedItem();
+        String url = "jdbc:mysql://localhost:3306/nearcourt";
+        String username = "root";
+        String password = "";
+
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection con = DriverManager.getConnection(url, username, password);
+            Statement stm = con.createStatement();
+            ResultSet rslt = stm.executeQuery("SELECT group_id,name,date,groups.sport,joined_players, group_capacity FROM `groups` INNER JOIN court ON court.court_id = groups.court_id;");
+            ResultSetMetaData metaData = rslt.getMetaData();
+            int numOfColumns = metaData.getColumnCount();
+            int row = 0;
+            while(rslt.next()){
+                for(int i=1; i<=numOfColumns; i++){
+                    groupsTable.setValueAt(rslt.getObject(i),row,i-2 );
+                }
+                row++;
+            }
+        }catch (Exception e){
+            System.out.println(e);
+        }
     }
 
 
