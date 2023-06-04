@@ -8,7 +8,6 @@ import java.lang.String;
 import java.text.SimpleDateFormat;
 import javax.swing.table.DefaultTableModel;
 
-
 public class CreateGroupPage extends javax.swing.JFrame {
 
     private Object[] userData;
@@ -57,7 +56,7 @@ public class CreateGroupPage extends javax.swing.JFrame {
         }else{ JOptionPane.showMessageDialog(CreateGroupPage.this, "You choose PUBLIC court");}
     }
 
-    private void UpdateGroupsData(String s,int i){
+    private void UpdatePublicGroupsData(String s,int i){
 
         try{
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/nearcourt", "root", "");
@@ -83,7 +82,7 @@ public class CreateGroupPage extends javax.swing.JFrame {
         }
     }
 
-    private void CreateReservation(String s,int i,Object[] userData){
+    private void UpdatePrivateGroupsData(String s,int i,Object[] userData){
         try{
             String combo = combo_sport.getSelectedItem().toString();
             String combo2 = private_players.getSelectedItem().toString();
@@ -100,10 +99,8 @@ public class CreateGroupPage extends javax.swing.JFrame {
             insertPs.setInt(6, (int) userData[0]);
             insertPs.setString(1, "private");
             insertPs.setInt(7,i);
-            //int group_id = (int) userData[5];
 
             insertPs.executeUpdate();
-            //AddNotification(con, date1, (int) userData[0],group_id);
 
         }catch (Exception e){
             e.printStackTrace();
@@ -170,7 +167,7 @@ public class CreateGroupPage extends javax.swing.JFrame {
                     int selectedCourtId = Integer.parseInt(selectedRowData[1].toString());
                     userData[4]=selectedCourtId;
 
-                    CreateReservation(selectedTime,selectedCourtId,userData);
+                    UpdatePrivateGroupsData(selectedTime,selectedCourtId,userData);
 
                     PreparedStatement ferma = con.prepareStatement("SELECT group_id FROM `groups` WHERE type = ? AND sport = ? AND  date = ? AND group_capacity = ? AND time = ? AND owner_id = ?");
 
@@ -263,11 +260,10 @@ public class CreateGroupPage extends javax.swing.JFrame {
                             selectedRowData[i] = tableModel.getValueAt(selectedRow, i);
                         }
 
-                        // Use the selected values as needed
                         String selectedTime = selectedRowData[0].toString();
                         int selectedCourtId = Integer.parseInt(selectedRowData[1].toString());
 
-                        UpdateGroupsData(selectedTime,selectedCourtId);
+                        UpdatePublicGroupsData(selectedTime,selectedCourtId);
 
                         PreparedStatement lol = con.prepareStatement("UPDATE `timetable` SET availability = 1 WHERE time = ?");
 
@@ -547,29 +543,22 @@ public class CreateGroupPage extends javax.swing.JFrame {
     }// </editor-fold>
 
     private void combo_sportActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
     }
 
     private void combo_sportMousePressed(java.awt.event.MouseEvent evt) {
-        // TODO add your handling code here:
     }
 
     private void show_availableActionPerformed(java.awt.event.ActionEvent evt) {
-
         ValidateGroup(1,"Sport","Number of players");
     }
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
-
     }
 
     private void jComboBox4MousePressed(java.awt.event.MouseEvent evt) {
-        // TODO add your handling code here:
     }
 
     private void jComboBox4ActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
     }
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {
@@ -577,11 +566,9 @@ public class CreateGroupPage extends javax.swing.JFrame {
     }
 
     private void jTextField5ActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
     }
 
     private void jTextField6ActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
     }
 
     private javax.swing.JComboBox<String> combo_sport;

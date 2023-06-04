@@ -1,19 +1,16 @@
 package org.example;
 
-
 import javax.swing.*;
 
 public class AdminMainMenuPage extends javax.swing.JFrame {
 
     private Object[] userData;
-    private int groupId = 0;
     public AdminMainMenuPage(Object[] userData) {
         this.initComponents();
         this.userData = userData;
         String username = (String) userData[2];
         this.welcome_label.setText("Welcome, " + username + "!");
     }
-
     private void ModifyApp() {
         ModifyOptionsPage modifyOptionsPage = new ModifyOptionsPage(this.userData);
         modifyOptionsPage.setVisible(true);
@@ -22,7 +19,7 @@ public class AdminMainMenuPage extends javax.swing.JFrame {
 
 
     @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">
+
     private void initComponents() {
         ImageIcon icon = new ImageIcon("C:\\Users\\user\\Documents\\GitHub\\NearCourt-The-Easy-way-to-play\\Deadline5\\Project_code\\src\\main\\java\\org\\example\\Nearcourt.png");
         setIconImage(icon.getImage());
@@ -38,7 +35,7 @@ public class AdminMainMenuPage extends javax.swing.JFrame {
 
         welcome_panel.setBackground(new java.awt.Color(204, 204, 255));
 
-        welcome_label.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
+        welcome_label.setFont(new java.awt.Font("Arial Black", 0, 12));
         welcome_label.setText("Welcome Admin");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(welcome_panel);
@@ -128,23 +125,16 @@ public class AdminMainMenuPage extends javax.swing.JFrame {
     }// </editor-fold>
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
     }
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
     }
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {
         AdminMainMenuPage.this.ModifyApp();
     }
 
-    /**
-     * @param args the command line arguments
-     */
 
-
-    // Variables declaration - do not modify
     private javax.swing.JButton gifts;
     private javax.swing.JButton Modify_button;
     private javax.swing.JButton incomes;

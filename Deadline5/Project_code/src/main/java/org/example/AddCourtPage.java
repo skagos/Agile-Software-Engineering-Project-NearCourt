@@ -1,6 +1,5 @@
 package org.example;
 
-
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -12,7 +11,6 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.io.IOException;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 
@@ -42,7 +40,7 @@ public class AddCourtPage extends javax.swing.JFrame {
                // statement.setInt(1, Integer.parseInt(values[0].trim()));
                 statement.setString(1, values[0].trim());
 
-                // Execute the SQL statement
+
                 ResultSet resultSet = statement.executeQuery();
                 resultSet.next();
                 int count = resultSet.getInt(1);
@@ -55,7 +53,6 @@ public class AddCourtPage extends javax.swing.JFrame {
                     return false;
                 }
             }
-
             return true; // File is valid
         } catch (IOException | SQLException ex) {
             ex.printStackTrace();
@@ -68,15 +65,12 @@ public class AddCourtPage extends javax.swing.JFrame {
         String sql = "INSERT INTO court ( name,sport_center_id,sport,capacity,price) VALUES (?,?,?,?,?)";
         PreparedStatement statement = connection.prepareStatement(sql);
 
-        // Set the court_id and name parameters
-       // statement.setInt(1, Integer.parseInt(ropt[0].trim()));
         statement.setString(1, ropt[0].trim());
         statement.setInt(2, Integer.parseInt(ropt[1].trim()));
         statement.setString(3, ropt[2].trim());
         statement.setInt(4, Integer.parseInt(ropt[3].trim()));
         statement.setInt(5, Integer.parseInt(ropt[4].trim()));
 
-        // Execute the SQL statement
         statement.executeUpdate();
         statement.close();
     }catch (Exception e){
@@ -84,7 +78,6 @@ public class AddCourtPage extends javax.swing.JFrame {
     }
 
     }
-
 
 
     @SuppressWarnings("unchecked")
@@ -185,7 +178,6 @@ public class AddCourtPage extends javax.swing.JFrame {
         pack();
     }// </editor-fold>
 
-    // private javax.swing.JButton jButton1;
     private javax.swing.JLabel add_label;
     private javax.swing.JPanel add_panel;
     // End of variables declaration

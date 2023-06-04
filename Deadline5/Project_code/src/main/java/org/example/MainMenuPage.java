@@ -36,7 +36,7 @@ public class MainMenuPage extends javax.swing.JFrame {
         });
         this.jButtonCreate.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                MainMenuPage.this.showCreateGroup();
+                MainMenuPage.this.showCreateGroupPage();
             }
         });
 
@@ -70,7 +70,7 @@ public class MainMenuPage extends javax.swing.JFrame {
         profile.displayUserRate(this.userData);
         //this.dispose();
     }
-    private void showCreateGroup() {
+    private void showCreateGroupPage() {
         CreateGroupPage createGroupPage = new CreateGroupPage(this.userData);
         createGroupPage.setVisible(true);
         // this.dispose();
@@ -125,7 +125,7 @@ public class MainMenuPage extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("D:/Users/Koukounaras/Documents/GitHub/NearCourt-The-Easy-way-to-play/Deadline5/Project_code/src/main/java/org/example/thumbnail.jpg")));
+      //  jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("D:/Users/Koukounaras/Documents/GitHub/NearCourt-The-Easy-way-to-play/Deadline5/Project_code/src/main/java/org/example/thumbnail.jpg")));
 
         jButtonProfile.setBackground(new java.awt.Color(0, 153, 0));
         jButtonProfile.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N

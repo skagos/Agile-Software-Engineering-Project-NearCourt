@@ -148,20 +148,16 @@ public class DeletePlayerPage extends javax.swing.JFrame {
     }// </editor-fold>
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
     }
 
     private void jTextField5ActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
     }
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {
         DeletePlayer();
     }
 
-    /**
-     * @param args the command line arguments
-     */
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -200,5 +196,5 @@ public class DeletePlayerPage extends javax.swing.JFrame {
     private javax.swing.JLabel delete_label;
     private javax.swing.JPanel delete_panel;
     private javax.swing.JTextField select_text;
-    // End of variables declaration
+
 }
