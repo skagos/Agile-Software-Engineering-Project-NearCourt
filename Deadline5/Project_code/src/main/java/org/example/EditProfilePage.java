@@ -20,32 +20,32 @@ public class EditProfilePage extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jTextField1 = new javax.swing.JTextField();
+        CurPs = new javax.swing.JTextField();
         currentPassword = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
-        jLabel6 = new javax.swing.JLabel();
-        jTextField5 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        NewPass = new javax.swing.JTextField();
+        jLabelnewpas = new javax.swing.JLabel();
+        jLabelconfnewpass = new javax.swing.JLabel();
+        ConfNewPass = new javax.swing.JTextField();
+        jLabelnewUname = new javax.swing.JLabel();
+        NewUname = new javax.swing.JTextField();
+        jButtonChange = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jButton1.setBackground(new java.awt.Color(102, 102, 255));
-        jButton1.setText("Change");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jButtonChange.setBackground(new java.awt.Color(102, 102, 255));
+        jButtonChange.setText("Change");
+        jButtonChange.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 updateUserData();
             }
         });
-        jTextField1.setText("");
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        CurPs.setText("");
+        CurPs.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                CurPsActionPerformed(evt);
             }
         });
 
@@ -76,35 +76,35 @@ public class EditProfilePage extends javax.swing.JFrame {
                                 .addContainerGap())
         );
 
-        jTextField3.setText("");
-        jTextField3.addActionListener(new java.awt.event.ActionListener() {
+        NewPass.setText("");
+        NewPass.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField3ActionPerformed(evt);
+                NewPassActionPerformed(evt);
             }
         });
 
-        jLabel4.setText("New Password:");
+        jLabelnewpas.setText("New Password:");
 
-        jLabel5.setText("Confirm New Password:");
+        jLabelconfnewpass.setText("Confirm New Password:");
 
-        jTextField4.setText("");
-        jTextField4.addActionListener(new java.awt.event.ActionListener() {
+        ConfNewPass.setText("");
+        ConfNewPass.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField4ActionPerformed(evt);
+                ConfNewPassActionPerformed(evt);
             }
         });
 
-        jLabel6.setText("New Username:");
+        jLabelnewUname.setText("New Username:");
 
-        jTextField5.setText("");
-        jTextField5.addActionListener(new java.awt.event.ActionListener() {
+        NewUname.setText("");
+        NewUname.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField5ActionPerformed(evt);
+                NewUnameActionPerformed(evt);
             }
         });
 
-        jButton1.setBackground(new java.awt.Color(102, 102, 255));
-        jButton1.setText("Change");
+        jButtonChange.setBackground(new java.awt.Color(102, 102, 255));
+        jButtonChange.setText("Change");
 
 
 
@@ -121,25 +121,25 @@ public class EditProfilePage extends javax.swing.JFrame {
                                 .addContainerGap()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addGroup(jPanel1Layout.createSequentialGroup()
-                                                .addComponent(jLabel6)
+                                                .addComponent(jLabelnewUname)
                                                 .addGap(9, 9, 9)
-                                                .addComponent(jTextField5))
+                                                .addComponent(NewUname))
                                         .addGroup(jPanel1Layout.createSequentialGroup()
-                                                .addComponent(jLabel5)
+                                                .addComponent(jLabelconfnewpass)
                                                 .addGap(12, 12, 12)
                                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                                        .addComponent(jTextField3, javax.swing.GroupLayout.Alignment.LEADING)
-                                                        .addComponent(jTextField1)
-                                                        .addComponent(jTextField4)))
+                                                        .addComponent(NewPass, javax.swing.GroupLayout.Alignment.LEADING)
+                                                        .addComponent(CurPs)
+                                                        .addComponent(ConfNewPass)))
                                         .addGroup(jPanel1Layout.createSequentialGroup()
                                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        .addComponent(jLabelnewpas, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                         .addComponent(currentPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
                                                 .addGap(0, 0, Short.MAX_VALUE)))
                                 .addContainerGap())
                         .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(86, 86, 86)
-                                .addComponent(jButton1)
+                                .addComponent(jButtonChange)
                                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -151,21 +151,21 @@ public class EditProfilePage extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                         .addComponent(currentPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(CurPs, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(18, 18, 18)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(NewPass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jLabelnewpas, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(18, 18, 18)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(ConfNewPass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jLabelconfnewpass, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(18, 18, 18)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(jLabelnewUname, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(NewUname, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(26, 26, 26)
-                                .addComponent(jButton1)
+                                .addComponent(jButtonChange)
                                 .addContainerGap(25, Short.MAX_VALUE))
         );
 
@@ -189,10 +189,10 @@ public class EditProfilePage extends javax.swing.JFrame {
         pack();
     }
     private void updateUserData() {
-        String currentPassword = jTextField1.getText();
-        String newUsername = jTextField5.getText();
-        String newPassword = jTextField3.getText();
-        String confirmNewPassword = jTextField4.getText();
+        String currentPassword = CurPs.getText();
+        String newUsername = NewUname.getText();
+        String newPassword = NewPass.getText();
+        String confirmNewPassword = ConfNewPass.getText();
         String oldUsername = (String) userData[2];
         String oldPassword = (String) userData[3];
 
@@ -220,8 +220,8 @@ public class EditProfilePage extends javax.swing.JFrame {
 
             newUsername = (String) userData[2];
         }else{
-            newUsername = jTextField5.getText();
-            userData[2] = jTextField5.getText();
+            newUsername = NewUname.getText();
+            userData[2] = NewUname.getText();
         }
 
         if (newPassword.isEmpty()) {
@@ -230,8 +230,8 @@ public class EditProfilePage extends javax.swing.JFrame {
 
         }
         else{
-            newPassword = jTextField3.getText();
-            userData[3] = jTextField3.getText();
+            newPassword = NewPass.getText();
+            userData[3] = NewPass.getText();
         }
 
         if (!newPassword.equals(confirmNewPassword)) {
@@ -333,19 +333,19 @@ public class EditProfilePage extends javax.swing.JFrame {
 
 
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {
+    private void CurPsActionPerformed(java.awt.event.ActionEvent evt) {
 
     }
 
-    private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {
+    private void NewPassActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
     }
 
-    private void jTextField4ActionPerformed(java.awt.event.ActionEvent evt) {
+    private void ConfNewPassActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
     }
 
-    private void jTextField5ActionPerformed(java.awt.event.ActionEvent evt) {
+    private void NewUnameActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
     }
 
@@ -355,18 +355,18 @@ public class EditProfilePage extends javax.swing.JFrame {
 
 
 
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButtonChange;
     private javax.swing.JLabel currentPassword;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabelnewpas;
+    private javax.swing.JLabel jLabelconfnewpass;
+    private javax.swing.JLabel jLabelnewUname;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
+    private javax.swing.JTextField CurPs;
+    private javax.swing.JTextField NewPass;
+    private javax.swing.JTextField ConfNewPass;
+    private javax.swing.JTextField NewUname;
     // End of variables declaration
 }
