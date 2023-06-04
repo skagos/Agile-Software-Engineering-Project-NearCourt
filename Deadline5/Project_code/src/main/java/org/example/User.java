@@ -6,11 +6,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.*;
 
-public class loginForm extends JFrame {
+public class User extends JFrame {
     private JTextField usernameField;
     private JPasswordField passwordField;
 
-    public loginForm() {
+    public User() {
         setTitle("Login Form");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setSize(300, 200);
@@ -47,7 +47,7 @@ public class loginForm extends JFrame {
                 // Perform login authentication against the database
                 Object[] userData = authenticateUser(name, password);
                 if (userData != null) {
-                    JOptionPane.showMessageDialog(loginForm.this, "Login Successful!");
+                    JOptionPane.showMessageDialog(User.this, "Login Successful!");
 
                     // Pass user data to the NewPage and open it
                     // MainMenuPage mainMenuPage = new MainMenuPage(userData);
@@ -99,7 +99,7 @@ public class loginForm extends JFrame {
 
                     dispose(); // Close the login form
                 } else {
-                    JOptionPane.showMessageDialog(loginForm.this, "Invalid username or password.", "Login Failed", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(User.this, "Invalid username or password.", "Login Failed", JOptionPane.ERROR_MESSAGE);
                 }
             }
 
@@ -161,7 +161,7 @@ public class loginForm extends JFrame {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
-                new loginForm().setVisible(true);
+                new User().setVisible(true);
             }
         });
     }

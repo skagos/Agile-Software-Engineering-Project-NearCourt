@@ -295,7 +295,7 @@ public class FindGroupGUI extends javax.swing.JFrame implements WindowCloseListe
 
     private void logoutButActionPerformed(java.awt.event.ActionEvent evt){
         userData = null;
-        loginForm login = new loginForm();
+        User login = new User();
         login.setVisible(true);
         this.dispose();
     }
