@@ -223,6 +223,8 @@ public class RatePlayersCourts extends javax.swing.JFrame {
                                         .addComponent(submitCourtRate1))
                                 .addGap(40, 40, 40))
         );
+
+        pack();
         submitPlayerRate.setVisible(false);
         ratePLabel.setVisible(false);
         playerSlider.setVisible(false);
@@ -233,7 +235,6 @@ public class RatePlayersCourts extends javax.swing.JFrame {
         courtSlider.setVisible(false);
         rateCourtLabel.setVisible(false);
         courtsTextField.setVisible(false);
-        pack();
     }
 
     private void getCourtHistory(){
