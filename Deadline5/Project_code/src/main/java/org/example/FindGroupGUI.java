@@ -37,6 +37,7 @@ public class FindGroupGUI extends javax.swing.JFrame implements WindowCloseListe
         findGroupLabel.setText("Find Group");
         findGroupLabel.setOpaque(true);
 
+
         groupsTable.setModel(new javax.swing.table.DefaultTableModel(
                 new Object [][] {
                         {null, "", "", "", "","",""},
@@ -103,6 +104,11 @@ public class FindGroupGUI extends javax.swing.JFrame implements WindowCloseListe
         logoutBut.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         logoutBut.setText("LogOut");
         logoutBut.setBorderPainted(false);
+        logoutBut.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                logoutButActionPerformed(evt);
+            }
+        });
 
         findGroupsBut.setBackground(new java.awt.Color(0, 51, 255));
         findGroupsBut.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -274,6 +280,13 @@ public class FindGroupGUI extends javax.swing.JFrame implements WindowCloseListe
         }catch(Exception e){
             System.out.println(e);}
 
+    }
+
+    private void logoutButActionPerformed(java.awt.event.ActionEvent evt){
+        userData = null;
+        loginForm login = new loginForm();
+        login.setVisible(true);
+        this.dispose();
     }
     public void onWindowClose(boolean isPaid) {
         // Use the returned value from the first window
