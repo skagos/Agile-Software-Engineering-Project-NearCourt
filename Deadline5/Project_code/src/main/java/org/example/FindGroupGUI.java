@@ -243,15 +243,54 @@ public class FindGroupGUI extends javax.swing.JFrame implements WindowCloseListe
             rslt.next();
             userData[4] = (int) rslt.getObject(1);
             userData[5] = (int) groupsTable.getValueAt(row, 0);
-
-            Payment payment = new Payment(userData);
-            payment.setCloseListener(this);
-
-
-            payment.setVisible(true);
+            privateGroupCheck();
         }catch(Exception e){
             System.out.println(e);}
 
+    }
+
+    private void privateGroupCheck(){
+        int row = groupsTable.getSelectedRow();
+        int user_id = (int) userData[0];
+        String url = "jdbc:mysql://localhost:3306/nearcourt";
+        String username = "root";
+        String password = "";
+
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection con = DriverManager.getConnection(url, username, password);
+            int groupId = (int) groupsTable.getValueAt(row, 0);
+            PreparedStatement stm = con.prepareStatement("SELECT type FROM groups WHERE group_id = ?");
+            stm.setInt(1,groupId);
+            ResultSet rslt = stm.executeQuery();
+            rslt.next();
+            String type = (String) rslt.getObject(1);
+            if(type.equals("private")){
+                stm = con.prepareStatement("INSERT INTO `belongs_to` (`user_id`, `court_id`, `group_id`) VALUES (?, ?, ?);");
+                stm.setInt(1, (int) userData[0]);
+                stm.setInt(2, (int) userData[4]);
+                stm.setInt(3, (int) userData[5]);
+
+
+                stm.executeUpdate();
+
+                AddNotification(con, (int) userData[5], (int) userData[0]);
+
+                int group_id = (int) groupsTable.getValueAt(row, 0);
+                int players = (int) groupsTable.getValueAt(row, 4);
+                players = players + 1;
+                stm = con.prepareStatement("UPDATE `groups` SET joined_players = ? WHERE group_id = ?;");
+                stm.setInt(2, group_id);
+                stm.setInt(1, players);
+                stm.executeUpdate();
+            }else{
+                Payment payment = new Payment(userData);
+                payment.setCloseListener(this);
+                payment.setVisible(true);
+            }
+        }catch(Exception e){
+            System.out.println(e);
+        }
     }
 
     private void logoutButActionPerformed(java.awt.event.ActionEvent evt){
