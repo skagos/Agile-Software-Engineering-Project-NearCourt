@@ -131,7 +131,7 @@ public class Profile extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>
-    private List<String> getUserData(Object[] userData) {
+    List<String> getUserData(Object[] userData) {
         nameLabel = new javax.swing.JLabel();
         nameLabel.setText("Username:" + userData[2] + "   ");
         emailLabel = new javax.swing.JLabel();

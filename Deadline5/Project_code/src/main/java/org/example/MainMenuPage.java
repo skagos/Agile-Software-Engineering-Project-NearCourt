@@ -67,7 +67,7 @@ public class MainMenuPage extends javax.swing.JFrame {
     private void showProfile() {
         Profile profile = new Profile(this.userData);
         profile.setVisible(true);
-        profile.displayUserRate(this.userData);
+        profile.getUserData(this.userData);
         //this.dispose();
     }
     private void showCreateGroupPage() {
