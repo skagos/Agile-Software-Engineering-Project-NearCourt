@@ -8,10 +8,10 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RatePlayersCourts extends javax.swing.JFrame {
+public class RatePage extends javax.swing.JFrame {
 
     private Object[] userData;
-    public RatePlayersCourts(Object[] userData) {
+    public RatePage(Object[] userData) {
         this.userData = userData;
         initComponents();
     }

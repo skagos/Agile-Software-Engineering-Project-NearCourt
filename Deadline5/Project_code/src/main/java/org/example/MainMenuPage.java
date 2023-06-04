@@ -108,7 +108,7 @@ public class MainMenuPage extends javax.swing.JFrame {
     }
 
     private void showRatePage() {
-        RatePlayersCourts ratePlayersCourts = new RatePlayersCourts(userData);
+        RatePage ratePlayersCourts = new RatePage(userData);
         ratePlayersCourts.setVisible(true);
         //this.dispose();
     }
