@@ -49,7 +49,7 @@ public class RatePlayersCourts extends javax.swing.JFrame {
                         .addGap(0, 100, Short.MAX_VALUE)
         );
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         mainRateLabel.setBackground(new java.awt.Color(0, 204, 0));
         mainRateLabel.setFont(new java.awt.Font("Tw Cen MT", 1, 36)); // NOI18N
