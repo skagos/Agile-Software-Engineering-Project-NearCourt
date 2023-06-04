@@ -259,12 +259,17 @@ public class FindGroupGUI extends javax.swing.JFrame implements WindowCloseListe
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection con = DriverManager.getConnection(url, username, password);
             int groupId = (int) groupsTable.getValueAt(row, 0);
-            PreparedStatement stm = con.prepareStatement("SELECT type FROM groups WHERE group_id = ?");
+            PreparedStatement stm = con.prepareStatement("SELECT type FROM `groups` WHERE group_id = ?");
             stm.setInt(1,groupId);
             ResultSet rslt = stm.executeQuery();
             rslt.next();
             String type = (String) rslt.getObject(1);
             if(type.equals("private")){
+                Payment payment = new Payment(userData);
+                payment.setCloseListener(this);
+                payment.setVisible(true);
+
+            }else{
                 stm = con.prepareStatement("INSERT INTO `belongs_to` (`user_id`, `court_id`, `group_id`) VALUES (?, ?, ?);");
                 stm.setInt(1, (int) userData[0]);
                 stm.setInt(2, (int) userData[4]);
@@ -282,10 +287,6 @@ public class FindGroupGUI extends javax.swing.JFrame implements WindowCloseListe
                 stm.setInt(2, group_id);
                 stm.setInt(1, players);
                 stm.executeUpdate();
-            }else{
-                Payment payment = new Payment(userData);
-                payment.setCloseListener(this);
-                payment.setVisible(true);
             }
         }catch(Exception e){
             System.out.println(e);
